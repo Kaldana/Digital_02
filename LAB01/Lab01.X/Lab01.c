@@ -18,7 +18,7 @@
 #pragma config FOSC = XT        // Oscillator Selection bits (XT oscillator: Crystal/resonator on RA6/OSC2/CLKOUT and RA7/OSC1/CLKIN)
 #pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled and can be enabled by SWDTEN bit of the WDTCON register)
 #pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
-#pragma config MCLRE = ON       // RE3/MCLR pin function select bit (RE3/MCLR pin function is MCLR)
+#pragma config MCLRE = OFF       // RE3/MCLR pin function select bit (RE3/MCLR pin function is MCLR)
 #pragma config CP = OFF         // Code Protection bit (Program memory code protection is disabled)
 #pragma config CPD = OFF        // Data Code Protection bit (Data memory code protection is disabled)
 #pragma config BOREN = OFF      // Brown Out Reset Selection bits (BOR disabled)
@@ -37,6 +37,7 @@
 
 //**********************************************************************************************
 // Variables
+// Aqui asigno variables a mi semaforo para que sea mas facil de trabajar con los pines
 // *********************************************************************************************
 
 #define ROJO PORTEbits.RE0
@@ -49,9 +50,9 @@
 //**********************************************************************************************
 void Setup(void);
 void Semaforo (void);
-int cont = 1;
+char cont = 1;
 int juego = 0;
-
+char cont2 = 1;
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
@@ -82,38 +83,57 @@ void Setup(void){
 //**************************************************************************************
 
 void Semaforo (void){
+    //Vuelvo a limpiar los puertos si se quiere jugar otra partida
+    PORTB = 0;
+    PORTC = 0;
+    PORTD = 0;
     
+    // Empieza secuencia del semaforo
     ROJO = 1;
-    __delay_ms(1000);
+    __delay_ms(500);
     ROJO = 0;
     
     AMARILLO = 1;
-    __delay_ms(1000);
+    __delay_ms(500);
     AMARILLO = 0;
     
     VERDE = 1;
-    __delay_ms(1000);
+    __delay_ms(500);
     VERDE = 0;
     
+    //Reasigno los valores a las variables por si se empieza otro juego
     juego = 1;
+    cont = 1;
+    cont2 = 1;
+    
 }
+
+//*********************************************************************************
+//Principal
+//*********************************************************************************
 void main(void) {
     Setup();
     while(1){
         if (PORTAbits.RA2 == 0) {
             __delay_ms(50);
+            
         }
         if (PORTAbits.RA2 == 1) {
             Semaforo();
             while (juego == 1){
                 __delay_ms(50);
                 if (PORTAbits.RA0 == 1){
+                    //delay para evitar que se producta mas de una lactura por vez que se presiona el swich
                     __delay_ms(150);
+                    //muestro el valor de cont en el puerto C
                     PORTC = cont;
+                    //proceso para aumentar el contador por bits segun la condicion que tenga
                     if (cont == 1){
                         cont = cont*2;
                     }
                     else if (cont == 0){
+                        //Enciende el led del jugador 1 que indica que gano y reinicia el juego
+                        PORTBbits.RB0 = 1;
                         cont = 1;
                         juego = 0;
                     }
@@ -121,7 +141,25 @@ void main(void) {
                         cont = cont*2;
                     }
                 }
+                if (PORTAbits.RA1 == 1){
+                    __delay_ms(150);
+                    PORTD = cont2;
+                    if (cont2 == 1){
+                        cont2 = cont2*2;
+                    }
+                    else if (cont2 == 0){
+                        PORTBbits.RB1 = 1;
+                        cont2 = 1;
+                        juego = 0;
+                    }
+                    else{
+                        cont2 = cont2*2;
+                    }
+                }
             }
         }
     }
 }
+//*********************************************************************************
+//                              FIN DEL PROGRAMA
+//*********************************************************************************

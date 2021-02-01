@@ -2499,7 +2499,7 @@ extern __bank0 __bit __timeout;
 #pragma config FOSC = XT
 #pragma config WDTE = OFF
 #pragma config PWRTE = OFF
-#pragma config MCLRE = ON
+#pragma config MCLRE = OFF
 #pragma config CP = OFF
 #pragma config CPD = OFF
 #pragma config BOREN = OFF
@@ -2510,12 +2510,12 @@ extern __bank0 __bit __timeout;
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 50 "Lab01.c"
+# 51 "Lab01.c"
 void Setup(void);
 void Semaforo (void);
-int cont = 1;
+char cont = 1;
 int juego = 0;
-
+char cont2 = 1;
 
 
 
@@ -2547,42 +2547,76 @@ void Setup(void){
 
 void Semaforo (void){
 
+    PORTB = 0;
+    PORTC = 0;
+    PORTD = 0;
+
+
     PORTEbits.RE0 = 1;
-    _delay((unsigned long)((1000)*(8000000/4000.0)));
+    _delay((unsigned long)((500)*(8000000/4000.0)));
     PORTEbits.RE0 = 0;
 
     PORTEbits.RE1 = 1;
-    _delay((unsigned long)((1000)*(8000000/4000.0)));
+    _delay((unsigned long)((500)*(8000000/4000.0)));
     PORTEbits.RE1 = 0;
 
     PORTEbits.RE2 = 1;
-    _delay((unsigned long)((1000)*(8000000/4000.0)));
+    _delay((unsigned long)((500)*(8000000/4000.0)));
     PORTEbits.RE2 = 0;
 
+
     juego = 1;
+    cont = 1;
+    cont2 = 1;
+
 }
+
+
+
+
 void main(void) {
     Setup();
     while(1){
         if (PORTAbits.RA2 == 0) {
             _delay((unsigned long)((50)*(8000000/4000.0)));
+
         }
         if (PORTAbits.RA2 == 1) {
             Semaforo();
             while (juego == 1){
                 _delay((unsigned long)((50)*(8000000/4000.0)));
                 if (PORTAbits.RA0 == 1){
+
                     _delay((unsigned long)((150)*(8000000/4000.0)));
+
                     PORTC = cont;
+
                     if (cont == 1){
                         cont = cont*2;
                     }
                     else if (cont == 0){
+
+                        PORTBbits.RB0 = 1;
                         cont = 1;
                         juego = 0;
                     }
                     else{
                         cont = cont*2;
+                    }
+                }
+                if (PORTAbits.RA1 == 1){
+                    _delay((unsigned long)((150)*(8000000/4000.0)));
+                    PORTD = cont2;
+                    if (cont2 == 1){
+                        cont2 = cont2*2;
+                    }
+                    else if (cont2 == 0){
+                        PORTBbits.RB1 = 1;
+                        cont2 = 1;
+                        juego = 0;
+                    }
+                    else{
+                        cont2 = cont2*2;
                     }
                 }
             }
