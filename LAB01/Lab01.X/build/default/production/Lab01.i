@@ -2512,6 +2512,9 @@ extern __bank0 __bit __timeout;
 #pragma config WRT = OFF
 # 50 "Lab01.c"
 void Setup(void);
+void Semaforo (void);
+int cont = 1;
+int juego = 0;
 
 
 
@@ -2556,6 +2559,7 @@ void Semaforo (void){
     _delay((unsigned long)((1000)*(8000000/4000.0)));
     PORTEbits.RE2 = 0;
 
+    juego = 1;
 }
 void main(void) {
     Setup();
@@ -2565,6 +2569,23 @@ void main(void) {
         }
         if (PORTAbits.RA2 == 1) {
             Semaforo();
+            while (juego == 1){
+                _delay((unsigned long)((50)*(8000000/4000.0)));
+                if (PORTAbits.RA0 == 1){
+                    _delay((unsigned long)((150)*(8000000/4000.0)));
+                    PORTC = cont;
+                    if (cont == 1){
+                        cont = cont*2;
+                    }
+                    else if (cont == 0){
+                        cont = 1;
+                        juego = 0;
+                    }
+                    else{
+                        cont = cont*2;
+                    }
+                }
+            }
         }
     }
 }

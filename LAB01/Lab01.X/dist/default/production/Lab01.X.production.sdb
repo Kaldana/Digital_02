@@ -11,11 +11,11 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"55 C:\Users\kenne\Documents\Universidad\Digital_02\LAB01\Lab01.X\Lab01.c
+"58 C:\Users\kenne\Documents\Universidad\Digital_02\LAB01\Lab01.X\Lab01.c
 [v _Setup Setup `(v  1 e 1 0 ]
-"81
+"84
 [v _Semaforo Semaforo `(v  1 e 1 0 ]
-"96
+"100
 [v _main main `(v  1 e 1 0 ]
 "166 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
@@ -61,18 +61,22 @@
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
 "3449
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
-"96 C:\Users\kenne\Documents\Universidad\Digital_02\LAB01\Lab01.X\Lab01.c
+"52 C:\Users\kenne\Documents\Universidad\Digital_02\LAB01\Lab01.X\Lab01.c
+[v _cont cont `i  1 e 2 0 ]
+"53
+[v _juego juego `i  1 e 2 0 ]
+"100
 [v _main main `(v  1 e 1 0 ]
 {
-"106
+"127
 } 0
-"55
+"58
 [v _Setup Setup `(v  1 e 1 0 ]
 {
-"75
+"78
 } 0
-"81
+"84
 [v _Semaforo Semaforo `(v  1 e 1 0 ]
 {
-"95
+"99
 } 0

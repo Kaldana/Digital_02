@@ -48,6 +48,9 @@
 //Definir funciones
 //**********************************************************************************************
 void Setup(void);
+void Semaforo (void);
+int cont = 1;
+int juego = 0;
 
 //**********************************************************************************************
 //Configuracion de puertos
@@ -92,6 +95,7 @@ void Semaforo (void){
     __delay_ms(1000);
     VERDE = 0;
     
+    juego = 1;
 }
 void main(void) {
     Setup();
@@ -101,6 +105,23 @@ void main(void) {
         }
         if (PORTAbits.RA2 == 1) {
             Semaforo();
+            while (juego == 1){
+                __delay_ms(50);
+                if (PORTAbits.RA0 == 1){
+                    __delay_ms(150);
+                    PORTC = cont;
+                    if (cont == 1){
+                        cont = cont*2;
+                    }
+                    else if (cont == 0){
+                        cont = 1;
+                        juego = 0;
+                    }
+                    else{
+                        cont = cont*2;
+                    }
+                }
+            }
         }
     }
 }
