@@ -39,11 +39,68 @@
 // Variables
 // *********************************************************************************************
 
-#define ROJO PORTAbits.RE0
-#define AMARILLO PORTAbits.RE1
-#define VERDE PORTAbits.RE2
-#define FREQ 8000000
+#define ROJO PORTEbits.RE0
+#define AMARILLO PORTEbits.RE1
+#define VERDE PORTEbits.RE2
+#define _XTAL_FREQ 8000000
 
+//**********************************************************************************************
+//Definir funciones
+//**********************************************************************************************
+void Setup(void);
+
+//**********************************************************************************************
+//Configuracion de puertos
+//**********************************************************************************************
+void Setup(void){
+    
+    ANSEL = 0;
+    ANSELH = 0;
+    
+    TRISA = 0b00000111;
+    PORTA = 0;
+    
+    TRISB = 0;
+    PORTB = 0;
+    
+    TRISC = 0;
+    PORTC = 0;
+    
+    TRISD = 0;
+    PORTD = 0;
+    
+    TRISE = 0;
+    PORTE = 0;
+    
+}
+
+//**************************************************************************************
+// Semaforo
+//**************************************************************************************
+
+void Semaforo (void){
+    
+    ROJO = 1;
+    __delay_ms(1000);
+    ROJO = 0;
+    
+    AMARILLO = 1;
+    __delay_ms(1000);
+    AMARILLO = 0;
+    
+    VERDE = 1;
+    __delay_ms(1000);
+    VERDE = 0;
+    
+}
 void main(void) {
-    return;
+    Setup();
+    while(1){
+        if (PORTAbits.RA2 == 0) {
+            __delay_ms(50);
+        }
+        if (PORTAbits.RA2 == 1) {
+            Semaforo();
+        }
+    }
 }

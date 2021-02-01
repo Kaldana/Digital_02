@@ -2510,7 +2510,61 @@ extern __bank0 __bit __timeout;
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 47 "Lab01.c"
+# 50 "Lab01.c"
+void Setup(void);
+
+
+
+
+void Setup(void){
+
+    ANSEL = 0;
+    ANSELH = 0;
+
+    TRISA = 0b00000111;
+    PORTA = 0;
+
+    TRISB = 0;
+    PORTB = 0;
+
+    TRISC = 0;
+    PORTC = 0;
+
+    TRISD = 0;
+    PORTD = 0;
+
+    TRISE = 0;
+    PORTE = 0;
+
+}
+
+
+
+
+
+void Semaforo (void){
+
+    PORTEbits.RE0 = 1;
+    _delay((unsigned long)((1000)*(8000000/4000.0)));
+    PORTEbits.RE0 = 0;
+
+    PORTEbits.RE1 = 1;
+    _delay((unsigned long)((1000)*(8000000/4000.0)));
+    PORTEbits.RE1 = 0;
+
+    PORTEbits.RE2 = 1;
+    _delay((unsigned long)((1000)*(8000000/4000.0)));
+    PORTEbits.RE2 = 0;
+
+}
 void main(void) {
-    return;
+    Setup();
+    while(1){
+        if (PORTAbits.RA2 == 0) {
+            _delay((unsigned long)((50)*(8000000/4000.0)));
+        }
+        if (PORTAbits.RA2 == 1) {
+            Semaforo();
+        }
+    }
 }
