@@ -2496,7 +2496,7 @@ extern __bank0 __bit __timeout;
 
 
 
-#pragma config FOSC = EXTRC_CLKOUT
+#pragma config FOSC = XT
 #pragma config WDTE = OFF
 #pragma config PWRTE = OFF
 #pragma config MCLRE = OFF
@@ -2511,9 +2511,8 @@ extern __bank0 __bit __timeout;
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
 # 47 "LAB01.c"
-char cont = 0;
-float adcvar = 0;
-
+unsigned char cont = 0;
+unsigned char advar = 0;
 
 
 
@@ -2542,8 +2541,8 @@ void Setup(void){
 
     PIR1 = 0b01000000;
     PIE1 = 0b01000000;
-    ADCON1 = 0b00000000;
-    ADCON0 = 0b11000001;
+    ADCON1 = 0;
+    ADCON0 = 0b10000001;
 }
 
 
@@ -2551,27 +2550,24 @@ void Setup(void){
 
 void __attribute__((picinterrupt(("")))) my_inte(void){
 
-    if (INTCONbits.RBIF){
-        if (PORTBbits.RB0 == 1){
-            cont = cont+1;
-            RBIF = 0;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-        }
-        else {
-            RBIF = 0;
-        }
-        if (PORTBbits.RB1 == 1){
-            cont = cont - 1;
-            RBIF =0;
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-        }
-    }
-
-    if (ADCON0bits.GO_DONE == 0){
+    if (PIR1bits.ADIF == 1 && ADCON0bits.GO == 0){
+        advar = ADRESH;
+        _delay((unsigned long)((20)*(8000000/4000000.0)));
+        ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;
-        PORTB = 15;
     }
 
+    if (INTCONbits.RBIF == 1 && INTCONbits.RBIE == 1){
+        if (PORTBbits.RB0 == 1){
+            cont++;
+            INTCONbits.RBIF = 0;
+        }
+
+        if (PORTBbits.RB1 == 1){
+            cont--;
+            INTCONbits.RBIF = 0;
+        }
+    }
 }
 
 
@@ -2580,8 +2576,9 @@ void __attribute__((picinterrupt(("")))) my_inte(void){
 
 void main(void) {
     Setup ();
+    PORTEbits.RE0 = 1;
     while(1){
-
-
+        PORTD = advar;
+        PORTC = cont;
     }
 }

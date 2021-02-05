@@ -11,17 +11,17 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"53 C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+"52 C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
 [v _Setup Setup `(v  1 e 1 0 ]
-"85
+"84
 [v _my_inte my_inte `II(v  1 e 1 0 ]
-"114
+"110
 [v _main main `(v  1 e 1 0 ]
 "166 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
 "228
 [v _PORTB PORTB `VEuc  1 e 1 @6 ]
-[s S72 . 1 `uc 1 RB0 1 0 :1:0 
+[s S144 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -31,17 +31,25 @@
 `uc 1 RB7 1 0 :1:7 
 ]
 "245
-[u S81 . 1 `S72 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES81  1 e 1 @6 ]
+[u S153 . 1 `S144 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES153  1 e 1 @6 ]
 "290
 [v _PORTC PORTC `VEuc  1 e 1 @7 ]
 "352
 [v _PORTD PORTD `VEuc  1 e 1 @8 ]
 "414
 [v _PORTE PORTE `VEuc  1 e 1 @9 ]
+[s S165 . 1 `uc 1 RE0 1 0 :1:0 
+`uc 1 RE1 1 0 :1:1 
+`uc 1 RE2 1 0 :1:2 
+`uc 1 RE3 1 0 :1:3 
+]
+"427
+[u S170 . 1 `S165 1 . 1 0 ]
+[v _PORTEbits PORTEbits `VES170  1 e 1 @9 ]
 "459
 [v _INTCON INTCON `VEuc  1 e 1 @11 ]
-[s S40 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S112 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INTF 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -51,16 +59,16 @@
 `uc 1 GIE 1 0 :1:7 
 ]
 "482
-[s S49 . 1 `uc 1 . 1 0 :2:0 
+[s S121 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
 `uc 1 TMR0IE 1 0 :1:5 
 ]
-[u S54 . 1 `S40 1 . 1 0 `S49 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES54  1 e 1 @11 ]
+[u S126 . 1 `S112 1 . 1 0 `S121 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES126  1 e 1 @11 ]
 "537
 [v _PIR1 PIR1 `VEuc  1 e 1 @12 ]
-[s S146 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[s S40 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSPIF 1 0 :1:3 
@@ -69,17 +77,19 @@
 `uc 1 ADIF 1 0 :1:6 
 ]
 "553
-[u S154 . 1 `S146 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES154  1 e 1 @12 ]
+[u S48 . 1 `S40 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES48  1 e 1 @12 ]
+"1238
+[v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
 "1245
 [v _ADCON0 ADCON0 `VEuc  1 e 1 @31 ]
-[s S100 . 1 `uc 1 ADON 1 0 :1:0 
+[s S59 . 1 `uc 1 ADON 1 0 :1:0 
 `uc 1 GO_nDONE 1 0 :1:1 
 `uc 1 CHS 1 0 :4:2 
 `uc 1 ADCS 1 0 :2:6 
 ]
 "1276
-[s S105 . 1 `uc 1 . 1 0 :1:0 
+[s S64 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO 1 0 :1:1 
 `uc 1 CHS0 1 0 :1:2 
 `uc 1 CHS1 1 0 :1:3 
@@ -88,14 +98,14 @@
 `uc 1 ADCS0 1 0 :1:6 
 `uc 1 ADCS1 1 0 :1:7 
 ]
-[s S114 . 1 `uc 1 . 1 0 :1:0 
+[s S73 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 nDONE 1 0 :1:1 
 ]
-[s S117 . 1 `uc 1 . 1 0 :1:0 
+[s S76 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_DONE 1 0 :1:1 
 ]
-[u S120 . 1 `S100 1 . 1 0 `S105 1 . 1 0 `S114 1 . 1 0 `S117 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES120  1 e 1 @31 ]
+[u S79 . 1 `S59 1 . 1 0 `S64 1 . 1 0 `S73 1 . 1 0 `S76 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES79  1 e 1 @31 ]
 "1416
 [v _TRISA TRISA `VEuc  1 e 1 @133 ]
 "1478
@@ -116,22 +126,22 @@
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
 "3449
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
-"4130
-[v _RBIF RBIF `VEb  1 e 0 @88 ]
 "47 C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
 [v _cont cont `uc  1 e 1 0 ]
-"114
+"48
+[v _advar advar `uc  1 e 1 0 ]
+"110
 [v _main main `(v  1 e 1 0 ]
 {
-"120
+"117
 } 0
-"53
+"52
 [v _Setup Setup `(v  1 e 1 0 ]
 {
-"80
+"79
 } 0
-"85
+"84
 [v _my_inte my_inte `II(v  1 e 1 0 ]
 {
-"108
+"104
 } 0

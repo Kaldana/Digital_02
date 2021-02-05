@@ -1,5 +1,5 @@
 /*
- * File:   Lab01.c
+ * File:   Lab02.c
  * Author: Kenneth Aldana
  * Carnet: 18435
  * Laboratorio 02
@@ -15,7 +15,7 @@
 // 'C' source line config statements
 
 // CONFIG1
-#pragma config FOSC = EXTRC_CLKOUT// Oscillator Selection bits (RC oscillator: CLKOUT function on RA6/OSC2/CLKOUT pin, RC on RA7/OSC1/CLKIN)
+#pragma config FOSC = XT        // Oscillator Selection bits (XT oscillator: Crystal/resonator on RA6/OSC2/CLKOUT and RA7/OSC1/CLKIN)
 #pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled and can be enabled by SWDTEN bit of the WDTCON register)
 #pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
 #pragma config MCLRE = OFF       // RE3/MCLR pin function select bit (RE3/MCLR pin function is MCLR)
@@ -44,9 +44,8 @@
 //**********************************************************************************************
 //Definir funciones
 //**********************************************************************************************
-char cont = 0;
-float adcvar = 0;
-
+unsigned char cont = 0;
+unsigned char advar = 0;
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
@@ -75,36 +74,33 @@ void Setup(void){
     
     PIR1 = 0b01000000;
     PIE1 = 0b01000000;
-    ADCON1 = 0b00000000;
-    ADCON0 = 0b11000001;
+    ADCON1  = 0;
+    ADCON0  = 0b10000001;
 }
 
 //*********************************************************************************
 //Interrupciones
 //*********************************************************************************
 void __interrupt() my_inte(void){
+        
+    if (PIR1bits.ADIF == 1 && ADCON0bits.GO == 0){
+        advar = ADRESH;
+        __delay_us(20);
+        ADCON0bits.GO_DONE = 1;
+        PIR1bits.ADIF = 0;      
+    }
     
-    if (INTCONbits.RBIF){
+    if (INTCONbits.RBIF == 1 && INTCONbits.RBIE == 1){
         if (PORTBbits.RB0 == 1){
-            cont = cont+1;
-            RBIF = 0;
-            __delay_ms(100);
-        }    
-        else {
-            RBIF = 0;
+            cont++;
+            INTCONbits.RBIF = 0;
         }
+        
         if (PORTBbits.RB1 == 1){
-            cont = cont - 1;
-            RBIF =0;
-            __delay_ms(100);
+            cont--;
+            INTCONbits.RBIF = 0;
         }
     }
-    
-    if (ADCON0bits.GO_DONE == 0){
-        PIR1bits.ADIF = 0;
-        PORTB = 15;
-    }
-    
 }
 
 
@@ -113,9 +109,10 @@ void __interrupt() my_inte(void){
 //*********************************************************************************
 void main(void) {
     Setup ();
-    while(1){ 
-//        PORTD = cont;
-        
+    PORTEbits.RE0 = 1;
+    while(1){
+        PORTD = advar;
+        PORTC = cont;
     }
 }
 //*********************************************************************************
