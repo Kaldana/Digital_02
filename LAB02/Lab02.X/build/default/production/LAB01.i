@@ -2536,10 +2536,10 @@ void Setup(void){
     TRISE = 0;
     PORTE = 0;
 
-    INTCON = 0b11001001;
+    INTCON = 0b11001000;
     IOCB = 0b00000011;
 
-    PIR1 = 0b01000000;
+    PIR1 = 0b00000000;
     PIE1 = 0b01000000;
     ADCON1 = 0;
     ADCON0 = 0b10000001;
@@ -2550,14 +2550,16 @@ void Setup(void){
 
 void __attribute__((picinterrupt(("")))) my_inte(void){
 
-    if (PIR1bits.ADIF == 1 && ADCON0bits.GO == 0){
-        advar = ADRESH;
-        _delay((unsigned long)((20)*(8000000/4000000.0)));
+advar = ADRESH;
+PORTD = advar;
+
+    if (ADCON0bits.GO == 0){
+        _delay((unsigned long)((25)*(8000000/4000000.0)));
         ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;
     }
 
-    if (INTCONbits.RBIF == 1 && INTCONbits.RBIE == 1){
+    if (INTCONbits.RBIF){
         if (PORTBbits.RB0 == 1){
             cont++;
             INTCONbits.RBIF = 0;
@@ -2576,9 +2578,10 @@ void __attribute__((picinterrupt(("")))) my_inte(void){
 
 void main(void) {
     Setup ();
-    PORTEbits.RE0 = 1;
+    _delay((unsigned long)((40)*(8000000/4000000.0)));
+    ADCON0bits.GO_nDONE = 1;
     while(1){
-        PORTD = advar;
         PORTC = cont;
+        _delay((unsigned long)((100)*(8000000/4000.0)));
     }
 }
