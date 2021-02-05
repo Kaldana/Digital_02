@@ -15,7 +15,7 @@
 // 'C' source line config statements
 
 // CONFIG1
-#pragma config FOSC = XT        // Oscillator Selection bits (XT oscillator: Crystal/resonator on RA6/OSC2/CLKOUT and RA7/OSC1/CLKIN)
+#pragma config FOSC = EXTRC_CLKOUT// Oscillator Selection bits (RC oscillator: CLKOUT function on RA6/OSC2/CLKOUT pin, RC on RA7/OSC1/CLKIN)
 #pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled and can be enabled by SWDTEN bit of the WDTCON register)
 #pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
 #pragma config MCLRE = OFF       // RE3/MCLR pin function select bit (RE3/MCLR pin function is MCLR)
@@ -45,6 +45,7 @@
 //Definir funciones
 //**********************************************************************************************
 char cont = 0;
+float adcvar = 0;
 
 //**********************************************************************************************
 //Configuracion de puertos
@@ -69,16 +70,19 @@ void Setup(void){
     TRISE = 0;
     PORTE = 0;
     
-    INTCON = 0b10001001;
+    INTCON = 0b11001001;
     IOCB = 0b00000011;
     
+    PIR1 = 0b01000000;
+    PIE1 = 0b01000000;
+    ADCON1 = 0b00000000;
+    ADCON0 = 0b11000001;
 }
 
 //*********************************************************************************
 //Interrupciones
 //*********************************************************************************
 void __interrupt() my_inte(void){
-    PORTD = cont;
     
     if (INTCONbits.RBIF){
         if (PORTBbits.RB0 == 1){
@@ -94,10 +98,13 @@ void __interrupt() my_inte(void){
             RBIF =0;
             __delay_ms(100);
         }
-        else {
-            RBIF = 0;
-        }
     }
+    
+    if (ADCON0bits.GO_DONE == 0){
+        PIR1bits.ADIF = 0;
+        PORTB = 15;
+    }
+    
 }
 
 
@@ -106,7 +113,9 @@ void __interrupt() my_inte(void){
 //*********************************************************************************
 void main(void) {
     Setup ();
-    while(1){    
+    while(1){ 
+//        PORTD = cont;
+        
     }
 }
 //*********************************************************************************

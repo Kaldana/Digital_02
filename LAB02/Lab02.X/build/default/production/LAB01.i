@@ -2496,7 +2496,7 @@ extern __bank0 __bit __timeout;
 
 
 
-#pragma config FOSC = XT
+#pragma config FOSC = EXTRC_CLKOUT
 #pragma config WDTE = OFF
 #pragma config PWRTE = OFF
 #pragma config MCLRE = OFF
@@ -2512,6 +2512,7 @@ extern __bank0 __bit __timeout;
 #pragma config WRT = OFF
 # 47 "LAB01.c"
 char cont = 0;
+float adcvar = 0;
 
 
 
@@ -2536,16 +2537,19 @@ void Setup(void){
     TRISE = 0;
     PORTE = 0;
 
-    INTCON = 0b10001001;
+    INTCON = 0b11001001;
     IOCB = 0b00000011;
 
+    PIR1 = 0b01000000;
+    PIE1 = 0b01000000;
+    ADCON1 = 0b00000000;
+    ADCON0 = 0b11000001;
 }
 
 
 
 
 void __attribute__((picinterrupt(("")))) my_inte(void){
-    PORTD = cont;
 
     if (INTCONbits.RBIF){
         if (PORTBbits.RB0 == 1){
@@ -2561,10 +2565,13 @@ void __attribute__((picinterrupt(("")))) my_inte(void){
             RBIF =0;
             _delay((unsigned long)((100)*(8000000/4000.0)));
         }
-        else {
-            RBIF = 0;
-        }
     }
+
+    if (ADCON0bits.GO_DONE == 0){
+        PIR1bits.ADIF = 0;
+        PORTB = 15;
+    }
+
 }
 
 
@@ -2574,5 +2581,7 @@ void __attribute__((picinterrupt(("")))) my_inte(void){
 void main(void) {
     Setup ();
     while(1){
+
+
     }
 }
