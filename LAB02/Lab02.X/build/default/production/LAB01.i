@@ -2515,7 +2515,7 @@ unsigned char cont = 0;
 unsigned char advar = 0;
 unsigned char display[16]= {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x67,0x77,0x7C,0x39,0x7E,0xF9,0x71};
 unsigned char tmr0_var = 0;
-unsigned char pre_var = 200;
+unsigned char pre_var = 0;
 
 
 
@@ -2546,7 +2546,7 @@ void Setup(void){
     PIE1 = 0b01000000;
     ADCON1 = 0;
     ADCON0 = 0b10000001;
-    OPTION_REG = 0b0000100;
+    OPTION_REG = 0b0000000;
 
 }
 
@@ -2558,6 +2558,7 @@ void __attribute__((picinterrupt(("")))) my_inte(void){
     if (ADCON0bits.GO == 0){
         advar = ADRESH;
         advar = advar/16;
+        PORTC = display[advar];
         _delay((unsigned long)((25)*(8000000/4000000.0)));
         ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;
@@ -2576,17 +2577,21 @@ void __attribute__((picinterrupt(("")))) my_inte(void){
     }
 
     if (INTCONbits.T0IF){
+        if (pre_var > 255){
+            pre_var++;
+           if (PORTEbits.RE0 == 0){
+                PORTEbits.RE0 = 1;
+                PORTEbits.RE1 = 0;
+            }
+           if (PORTEbits.RE1 == 0){
+                PORTEbits.RE1 = 1;
+                PORTEbits.RE0 = 0;
+            }
+        }
+        else {
+            pre_var++;
+        }
         INTCONbits.T0IF = 0;
-        pre_var++;
-        PORTC = display[advar];
-        PORTEbits.RE0 = 1;
-        _delay((unsigned long)((10)*(8000000/4000.0)));
-        PORTEbits.RE0 = 0;
-        PORTEbits.RE1 = 1;
-        PORTC = display[advar];
-        _delay((unsigned long)((10)*(8000000/4000.0)));
-        PORTEbits.RE1 = 0;
-
     }
 }
 
@@ -2596,9 +2601,10 @@ void __attribute__((picinterrupt(("")))) my_inte(void){
 
 void main(void) {
     Setup ();
+    PORTEbits.RE0 = 1;
     _delay((unsigned long)((40)*(8000000/4000000.0)));
     ADCON0bits.GO_nDONE = 1;
-    TMR0 = 156;
+    TMR0 = 0;
     while(1){
         PORTD = cont;
     }
