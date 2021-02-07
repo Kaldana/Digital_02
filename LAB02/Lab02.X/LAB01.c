@@ -46,6 +46,9 @@
 //**********************************************************************************************
 unsigned char cont = 0;
 unsigned char advar = 0;
+unsigned char display[16]= {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x67,0x77,0x7C,0x39,0x7E,0xF9,0x71};
+unsigned char tmr0_var = 0;
+unsigned char pre_var = 200;
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
@@ -69,13 +72,15 @@ void Setup(void){
     TRISE = 0;
     PORTE = 0;
     
-    INTCON = 0b11001000;
+    INTCON = 0b11101000;
     IOCB = 0b00000011;
     
     PIR1 = 0b00000000;
     PIE1 = 0b01000000;
     ADCON1  = 0;
     ADCON0  = 0b10000001;
+    OPTION_REG = 0b0000100;
+    
 }
 
 //*********************************************************************************
@@ -83,10 +88,9 @@ void Setup(void){
 //*********************************************************************************
 void __interrupt() my_inte(void){
 
-advar = ADRESH;
-PORTD = advar;
-
     if (ADCON0bits.GO == 0){
+        advar = ADRESH;
+        advar = advar/16;
         __delay_us(25);
         ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;      
@@ -103,6 +107,20 @@ PORTD = advar;
             INTCONbits.RBIF = 0;
         }
     }
+    
+    if (INTCONbits.T0IF){
+        INTCONbits.T0IF = 0;
+        pre_var++;
+        PORTC = display[advar];        
+        PORTEbits.RE0 = 1;
+        __delay_ms(10);
+        PORTEbits.RE0 = 0;
+        PORTEbits.RE1 = 1;
+        PORTC = display[advar];
+        __delay_ms(10);  
+        PORTEbits.RE1 = 0;
+        
+    }        
 }
 
 
@@ -113,9 +131,9 @@ void main(void) {
     Setup ();
     __delay_us(40);
     ADCON0bits.GO_nDONE = 1;
+    TMR0 = 156;
     while(1){
-        PORTC = cont;
-        __delay_ms(100);
+        PORTD = cont;
     }
 }
 //*********************************************************************************
