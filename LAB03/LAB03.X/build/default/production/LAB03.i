@@ -1,4 +1,4 @@
-# 1 "LAB01.c"
+# 1 "LAB03.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "LAB01.c" 2
-# 11 "LAB01.c"
+# 1 "LAB03.c" 2
+# 11 "LAB03.c"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2488,7 +2488,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 11 "LAB01.c" 2
+# 11 "LAB03.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
@@ -2623,14 +2623,8 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 12 "LAB01.c" 2
-
-
-
-
-
-
-
+# 12 "LAB03.c" 2
+# 21 "LAB03.c"
 #pragma config FOSC = XT
 #pragma config WDTE = OFF
 #pragma config PWRTE = OFF
@@ -2645,120 +2639,32 @@ typedef uint16_t uintptr_t;
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 48 "LAB01.c"
-unsigned char cont = 0;
-unsigned char advar = 0;
-unsigned char display[16]= {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x67,0x77,0x7C,0x39,0x7E,0xF9,0x71};
-unsigned char dispvar = 0;
-unsigned char pre_var = 0;
-unsigned char displayder = 0;
-unsigned char displayizq = 0;
-
-
-
+# 56 "LAB03.c"
 void Setup(void){
 
-    ANSEL = 0b00000001;
+    ANSEL = 0b00000011;
     ANSELH = 0;
 
-
-    TRISA = 0b00000001;
+    TRISA = 0b00000011;
     PORTA = 0;
 
 
-    TRISB = 0b00000011;
-    PORTB = 0;
-
-
-    TRISC = 0;
+    TRISC = 0b0100000;
     PORTC = 0;
 
     TRISD = 0;
     PORTD = 0;
 
-    TRISE = 0;
-    PORTE = 0;
-
 
     INTCON = 0b11101000;
-
     IOCB = 0b00000011;
 
-
-
     PIR1 = 0b00000000;
+
     PIE1 = 0b01000000;
-    ADCON1 = 0;
-    ADCON0 = 0b10000001;
-
-    OPTION_REG = 0b0000101;
 
 }
-
-
-
-
-void __attribute__((picinterrupt(("")))) my_inte(void){
-
-    if (INTCONbits.RBIF){
-        if (PORTBbits.RB0 == 1){
-            cont++;
-        }
-
-        if (PORTBbits.RB1 == 1){
-            cont--;
-        }
-        INTCONbits.RBIF = 0;
-    }
-
-
-    if (ADCON0bits.GO == 0){
-        advar = ADRESH;
-        displayizq = (ADRESH & 0xF0)>> 4;
-        displayder = (ADRESH & 0x0F);
-        _delay((unsigned long)((25)*(8000000/4000000.0)));
-        ADCON0bits.GO_DONE = 1;
-        PIR1bits.ADIF = 0;
-    }
-
-    if (INTCONbits.T0IF){
-
-        if (PORTEbits.RE0){
-            PORTEbits.RE0 = 0;
-            PORTC = display[displayder];
-            PORTEbits.RE1 = 1;
-            _delay((unsigned long)((8)*(8000000/4000.0)));
-        }
-        if (PORTEbits.RE1){
-            PORTEbits.RE1 = 0;
-            PORTC = display[displayizq];
-            PORTEbits.RE0 = 1;
-            _delay((unsigned long)((8)*(8000000/4000.0)));
-        }
-        INTCONbits.T0IF = 0;
-    }
-}
-
-
-
-
-
+# 91 "LAB03.c"
 void main(void) {
-    Setup ();
-    PORTEbits.RE1 = 1;
-    _delay((unsigned long)((25)*(8000000/4000000.0)));
 
-    ADCON0bits.GO_nDONE = 1;
-    TMR0 = 150;
-    while(1){
-
-        PORTD = cont;
-
-        if (advar <= cont){
-            PORTEbits.RE2 = 0;
-        }
-        else{
-            PORTEbits.RE2 = 1;
-        }
-    }
 }
