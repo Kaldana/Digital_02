@@ -2526,11 +2526,14 @@ void Setup(void){
     ANSEL = 0b00000001;
     ANSELH = 0;
 
+
     TRISA = 0b00000001;
     PORTA = 0;
 
+
     TRISB = 0b00000011;
     PORTB = 0;
+
 
     TRISC = 0;
     PORTC = 0;
@@ -2541,13 +2544,18 @@ void Setup(void){
     TRISE = 0;
     PORTE = 0;
 
+
     INTCON = 0b11101000;
+
     IOCB = 0b00000011;
+
+
 
     PIR1 = 0b00000000;
     PIE1 = 0b01000000;
     ADCON1 = 0;
     ADCON0 = 0b10000001;
+
     OPTION_REG = 0b0000101;
 
 }
@@ -2568,6 +2576,7 @@ void __attribute__((picinterrupt(("")))) my_inte(void){
         INTCONbits.RBIF = 0;
     }
 
+
     if (ADCON0bits.GO == 0){
         advar = ADRESH;
         displayizq = (ADRESH & 0xF0)>> 4;
@@ -2578,7 +2587,7 @@ void __attribute__((picinterrupt(("")))) my_inte(void){
     }
 
     if (INTCONbits.T0IF){
-# 125 "LAB01.c"
+
         if (PORTEbits.RE0){
             PORTEbits.RE0 = 0;
             PORTC = display[displayder];
@@ -2603,10 +2612,13 @@ void main(void) {
     Setup ();
     PORTEbits.RE1 = 1;
     _delay((unsigned long)((25)*(8000000/4000000.0)));
+
     ADCON0bits.GO_nDONE = 1;
     TMR0 = 150;
     while(1){
+
         PORTD = cont;
+
         if (advar <= cont){
             PORTEbits.RE2 = 0;
         }

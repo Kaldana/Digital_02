@@ -11,6 +11,10 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
+$C:\Users\kenne\AppData\Local\Temp\s18u8.o
+reset_vec CODE 0 0 0 3 2
+end_init CODE 0 E E 3 2
+config CONFIG 4 2007 2007 2 2
 $dist/default/production\Lab02.X.production.o
 cinit CODE 0 11 11 18 2
 text1 CODE 0 9D 9D 3C 2
@@ -22,10 +26,6 @@ intentry CODE 0 4 4 A 2
 idataBANK0 CODE 0 10D 10D 10 2
 dataBANK0 BANK0 1 20 20 10 1
 bssCOMMON COMMON 1 70 70 6 1
-config CONFIG 4 2007 2007 2 2
-$C:\Users\kenne\AppData\Local\Temp\sfjo.o
-reset_vec CODE 0 0 0 3 2
-end_init CODE 0 E E 3 2
 config CONFIG 4 2007 2007 2 2
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
@@ -73,105 +73,105 @@ STRING 11D-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\Lab02.X.production.o
-11 cinit CODE >507:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-11 cinit CODE >510:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-11 cinit CODE >572:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-12 cinit CODE >573:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-13 cinit CODE >574:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-14 cinit CODE >575:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-15 cinit CODE >576:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-16 cinit CODE >577:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-17 cinit CODE >578:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-18 cinit CODE >579:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-19 cinit CODE >580:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-1A cinit CODE >581:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-1F cinit CODE >585:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-20 cinit CODE >586:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-21 cinit CODE >587:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-22 cinit CODE >588:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-23 cinit CODE >589:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-24 cinit CODE >590:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-25 cinit CODE >596:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-25 cinit CODE >598:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-26 cinit CODE >599:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-4 intentry CODE >91:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-29 text2 CODE >91:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-29 text2 CODE >93:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-2D text2 CODE >94:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-33 text2 CODE >95:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-37 text2 CODE >98:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-3B text2 CODE >99:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-3D text2 CODE >101:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-3E text2 CODE >104:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-44 text2 CODE >105:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-48 text2 CODE >106:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-55 text2 CODE >107:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-5A text2 CODE >108:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-5F text2 CODE >109:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-62 text2 CODE >110:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-63 text2 CODE >113:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-67 text2 CODE >125:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-6B text2 CODE >126:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-6C text2 CODE >127:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-72 text2 CODE >128:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-73 text2 CODE >129:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-7C text2 CODE >131:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-82 text2 CODE >132:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-83 text2 CODE >133:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-89 text2 CODE >134:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-8A text2 CODE >135:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-93 text2 CODE >137:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-94 text2 CODE >139:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+11 cinit CODE >507:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+11 cinit CODE >510:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+11 cinit CODE >572:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+12 cinit CODE >573:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+13 cinit CODE >574:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+14 cinit CODE >575:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+15 cinit CODE >576:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+16 cinit CODE >577:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+17 cinit CODE >578:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+18 cinit CODE >579:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+19 cinit CODE >580:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+1A cinit CODE >581:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+1F cinit CODE >585:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+20 cinit CODE >586:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+21 cinit CODE >587:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+22 cinit CODE >588:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+23 cinit CODE >589:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+24 cinit CODE >590:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+25 cinit CODE >596:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+25 cinit CODE >598:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+26 cinit CODE >599:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+4 intentry CODE >99:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+29 text2 CODE >99:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+29 text2 CODE >101:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+2D text2 CODE >102:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+33 text2 CODE >103:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+37 text2 CODE >106:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+3B text2 CODE >107:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+3D text2 CODE >109:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+3E text2 CODE >113:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+44 text2 CODE >114:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+48 text2 CODE >115:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+55 text2 CODE >116:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+5A text2 CODE >117:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+5F text2 CODE >118:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+62 text2 CODE >119:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+63 text2 CODE >122:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+67 text2 CODE >124:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+6B text2 CODE >125:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+6C text2 CODE >126:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+72 text2 CODE >127:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+73 text2 CODE >128:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+7C text2 CODE >130:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+82 text2 CODE >131:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+83 text2 CODE >132:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+89 text2 CODE >133:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+8A text2 CODE >134:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+93 text2 CODE >136:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+94 text2 CODE >138:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
 9D text1 CODE >57:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
 9D text1 CODE >59:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
 A1 text1 CODE >60:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-A2 text1 CODE >62:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-A6 text1 CODE >63:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-A9 text1 CODE >65:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-AD text1 CODE >66:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-B0 text1 CODE >68:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-B3 text1 CODE >69:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-B6 text1 CODE >71:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-B9 text1 CODE >72:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-BC text1 CODE >74:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-BF text1 CODE >75:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-C2 text1 CODE >77:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-C4 text1 CODE >78:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-C8 text1 CODE >80:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-CB text1 CODE >81:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-CF text1 CODE >82:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-D0 text1 CODE >83:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-D4 text1 CODE >84:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-D8 text1 CODE >86:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+A2 text1 CODE >63:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+A6 text1 CODE >64:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+A9 text1 CODE >67:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+AD text1 CODE >68:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+B0 text1 CODE >71:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+B3 text1 CODE >72:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+B6 text1 CODE >74:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+B9 text1 CODE >75:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+BC text1 CODE >77:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+BF text1 CODE >78:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+C2 text1 CODE >81:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+C4 text1 CODE >83:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+C8 text1 CODE >87:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+CB text1 CODE >88:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+CF text1 CODE >89:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+D0 text1 CODE >90:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+D4 text1 CODE >92:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+D8 text1 CODE >94:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+D9 maintext CODE >144:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
 D9 maintext CODE >145:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-D9 maintext CODE >146:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-DE maintext CODE >147:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-E1 maintext CODE >148:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+DE maintext CODE >146:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+E1 maintext CODE >147:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
 E6 maintext CODE >149:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
 E9 maintext CODE >150:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-EB maintext CODE >152:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-ED maintext CODE >153:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-F3 maintext CODE >154:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-F4 maintext CODE >155:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-F5 maintext CODE >156:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-F5 maintext CODE >157:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
-FA inittext CODE >546:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-FA inittext CODE >547:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-FB inittext CODE >548:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-FC inittext CODE >549:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-FD inittext CODE >550:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-FE inittext CODE >557:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-FE inittext CODE >558:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-103 inittext CODE >559:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-104 inittext CODE >560:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-105 inittext CODE >561:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-106 inittext CODE >562:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-107 inittext CODE >563:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-108 inittext CODE >564:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-109 inittext CODE >565:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-10A inittext CODE >566:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-10B inittext CODE >567:C:\Users\kenne\AppData\Local\Temp\sfjo.s
-10C inittext CODE >568:C:\Users\kenne\AppData\Local\Temp\sfjo.s
+EB maintext CODE >153:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+ED maintext CODE >155:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+F3 maintext CODE >156:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+F4 maintext CODE >157:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+F5 maintext CODE >158:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+F5 maintext CODE >159:C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
+FA inittext CODE >546:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+FA inittext CODE >547:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+FB inittext CODE >548:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+FC inittext CODE >549:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+FD inittext CODE >550:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+FE inittext CODE >557:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+FE inittext CODE >558:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+103 inittext CODE >559:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+104 inittext CODE >560:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+105 inittext CODE >561:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+106 inittext CODE >562:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+107 inittext CODE >563:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+108 inittext CODE >564:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+109 inittext CODE >565:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+10A inittext CODE >566:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+10B inittext CODE >567:C:\Users\kenne\AppData\Local\Temp\s18u8.s
+10C inittext CODE >568:C:\Users\kenne\AppData\Local\Temp\s18u8.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -198,22 +198,22 @@ _IOCB 96 0 ABS 0 - dist/default/production\Lab02.X.production.o
 _PIE1 8C 0 ABS 0 - dist/default/production\Lab02.X.production.o
 _PIR1 C 0 ABS 0 - dist/default/production\Lab02.X.production.o
 _TMR0 1 0 ABS 0 - dist/default/production\Lab02.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\sfjo.o
+___sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\s18u8.o
 _cont 75 0 COMMON 1 bssCOMMON dist/default/production\Lab02.X.production.o
 _main 1B2 0 CODE 0 maintext dist/default/production\Lab02.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\Lab02.X.production.o
 _my_inte 52 0 CODE 0 text2 dist/default/production\Lab02.X.production.o
-start 1C 0 CODE 0 init C:\Users\kenne\AppData\Local\Temp\sfjo.o
+start 1C 0 CODE 0 init C:\Users\kenne\AppData\Local\Temp\s18u8.o
 __size_of_main 0 0 ABS 0 - dist/default/production\Lab02.X.production.o
 __HbssCOMMON 0 0 ABS 0 bssCOMMON -
 __LidataBANK0 0 0 ABS 0 idataBANK0 -
 __Hpowerup 0 0 CODE 0 powerup -
-intlevel0 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sfjo.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sfjo.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sfjo.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sfjo.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sfjo.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sfjo.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\s18u8.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\s18u8.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\s18u8.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\s18u8.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\s18u8.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\s18u8.o
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 wtemp0 7E 0 ABS 0 - dist/default/production\Lab02.X.production.o
 __Hfunctab 0 0 ENTRY 0 functab -
@@ -226,11 +226,11 @@ _display 20 0 BANK0 1 dataBANK0 dist/default/production\Lab02.X.production.o
 __Lmaintext 0 0 ABS 0 maintext -
 _INTCON B 0 ABS 0 - dist/default/production\Lab02.X.production.o
 _OPTION_REG 81 0 ABS 0 - dist/default/production\Lab02.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\sfjo.o
-___stacklo 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\sfjo.o
+___stackhi 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\s18u8.o
+___stacklo 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\s18u8.o
 __size_of_Setup 0 0 ABS 0 - dist/default/production\Lab02.X.production.o
 start_initialization 22 0 CODE 0 cinit dist/default/production\Lab02.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\sfjo.o
+___int_sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\s18u8.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -274,7 +274,7 @@ __S3 0 0 ABS 0 - -
 saved_w 7E 0 ABS 0 - dist/default/production\Lab02.X.production.o
 __size_of_my_inte 0 0 ABS 0 - dist/default/production\Lab02.X.production.o
 __Lintentry 8 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\kenne\AppData\Local\Temp\sfjo.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\kenne\AppData\Local\Temp\s18u8.o
 __pdataBANK0 20 0 BANK0 1 dataBANK0 dist/default/production\Lab02.X.production.o
 _displayder 71 0 COMMON 1 bssCOMMON dist/default/production\Lab02.X.production.o
 _displayizq 70 0 COMMON 1 bssCOMMON dist/default/production\Lab02.X.production.o

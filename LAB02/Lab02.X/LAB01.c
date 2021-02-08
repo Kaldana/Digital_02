@@ -42,7 +42,7 @@
 #define _XTAL_FREQ 8000000
 
 //**********************************************************************************************
-//Definir funciones
+//Definir variables
 //**********************************************************************************************
 unsigned char cont = 0;
 unsigned char advar = 0;
@@ -55,16 +55,19 @@ unsigned char displayizq = 0;
 //Configuracion de puertos
 //**********************************************************************************************
 void Setup(void){
-    
+    //DECLARAR PUERTO A0 COMO ANALOGICO
     ANSEL = 0b00000001;
     ANSELH = 0;
     
+    //DECLARAR PUERTO A0 COMO ENTRADA
     TRISA = 0b00000001;
     PORTA = 0;
     
+    //DECLARAR PUERTO B0 Y B1 COMO ENTRADAS
     TRISB = 0b00000011;
     PORTB = 0;
     
+    //DECLARAR COMO SALIDAS Y LIMPIAR EL PUERTO C, D Y E
     TRISC = 0;
     PORTC = 0;
     
@@ -74,13 +77,18 @@ void Setup(void){
     TRISE = 0;
     PORTE = 0;
     
+    //ENCENDER BITS PARA INTERUPCIONES DEL PUERTO B Y TMR0
     INTCON = 0b11101000;
+    //DECLARAR QUE EN B0 Y B1 SE ACTIVARA LA INTERRUPCION
     IOCB = 0b00000011;
     
+    //DECLARAR BITS DE LOS REGISTROS PIR1, PIE1, ADCON0 Y ADCON1 PARA LA CONVERSION ADC Y
+    //EL BIT NECESARIO PARA EL TMR0
     PIR1 = 0b00000000;
     PIE1 = 0b01000000;
     ADCON1  = 0;
     ADCON0  = 0b10000001;
+    //CONFIGURAR EL PRESCALER PARA LA INTERRUPCION DEL TMR0
     OPTION_REG = 0b0000101;
     
 }
@@ -89,7 +97,7 @@ void Setup(void){
 //Interrupciones
 //*********************************************************************************
 void __interrupt() my_inte(void){
-    
+    //INTERRUPCION DEL PUERTO B, PARA AUMENTAR O DECREMENTAR EL CONTADOR
     if (INTCONbits.RBIF){
         if (PORTBbits.RB0 == 1){
             cont++;
@@ -100,7 +108,8 @@ void __interrupt() my_inte(void){
         }
         INTCONbits.RBIF = 0;
     }
-    
+    //INTERRUPCION DEL ADC Y HACIENDO EL LAS OPERACIONES PARA PODER MOSTRAR LOS 
+    //VALORES EN EL DISPLAY
     if (ADCON0bits.GO == 0){
         advar = ADRESH;
         displayizq = (ADRESH & 0xF0)>> 4;
@@ -109,19 +118,9 @@ void __interrupt() my_inte(void){
         ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;      
     }
-    
+    //INTERRUPCION DEL TMR0 PARA MULTIPLEXAR
     if (INTCONbits.T0IF){
-//        PORTEbits.RE0 = PORTEbits.RE1;
-//        PORTEbits.RE1 = !PORTEbits.RE0;
-//        if (PORTEbits.RE0){
-//            dispvar = displayder;
-//         }   
-//        if (PORTEbits.RE1){
-//             dispvar = displayizq;
-//         }  
-//        INTCONbits.T0IF = 0;
-//        PORTC = display[dispvar]; 
-        
+
         if (PORTEbits.RE0){
             PORTEbits.RE0 = 0;
             PORTC = display[displayder];
@@ -146,10 +145,13 @@ void main(void) {
     Setup ();
     PORTEbits.RE1 = 1; 
     __delay_us(25);
+    //ENCENDER EL BIT DEL GO_DONE PARA EL ADC
     ADCON0bits.GO_nDONE = 1;
     TMR0 = 150;
     while(1){
+        //MOSTRAR EL VALOR DEL CONTADOR EN EL PUERTO D
         PORTD = cont;
+        //CONFIGURACION DE LA ALARMA VISUAL
         if (advar <= cont){
             PORTEbits.RE2 = 0;
         }
