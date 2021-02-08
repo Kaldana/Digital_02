@@ -47,8 +47,10 @@
 unsigned char cont = 0;
 unsigned char advar = 0;
 unsigned char display[16]= {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x67,0x77,0x7C,0x39,0x7E,0xF9,0x71};
-unsigned char tmr0_var = 0;
+unsigned char dispvar = 0;
 unsigned char pre_var = 0;
+unsigned char displayder = 0;
+unsigned char displayizq = 0;
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
@@ -79,7 +81,7 @@ void Setup(void){
     PIE1 = 0b01000000;
     ADCON1  = 0;
     ADCON0  = 0b10000001;
-    OPTION_REG = 0b0000000;
+    OPTION_REG = 0b0000101;
     
 }
 
@@ -87,42 +89,50 @@ void Setup(void){
 //Interrupciones
 //*********************************************************************************
 void __interrupt() my_inte(void){
-
+    
+    if (INTCONbits.RBIF){
+        if (PORTBbits.RB0 == 1){
+            cont++;
+        }
+        
+        if (PORTBbits.RB1 == 1){
+            cont--;
+        }
+        INTCONbits.RBIF = 0;
+    }
+    
     if (ADCON0bits.GO == 0){
         advar = ADRESH;
-        advar = advar/16;
-        PORTC = display[advar];
+        displayizq = (ADRESH & 0xF0)>> 4;
+        displayder = (ADRESH & 0x0F);
         __delay_us(25);
         ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;      
     }
     
-    if (INTCONbits.RBIF){
-        if (PORTBbits.RB0 == 1){
-            cont++;
-            INTCONbits.RBIF = 0;
-        }
-        
-        if (PORTBbits.RB1 == 1){
-            cont--;
-            INTCONbits.RBIF = 0;
-        }
-    }
-    
     if (INTCONbits.T0IF){
-        if (pre_var > 255){
-            pre_var++;
-           if (PORTEbits.RE0 == 0){
-                PORTEbits.RE0 = 1;
-                PORTEbits.RE1 = 0;
-            }   
-           if (PORTEbits.RE1 == 0){
-                PORTEbits.RE1 = 1;
-                PORTEbits.RE0 = 0;
-            }
+//        PORTEbits.RE0 = PORTEbits.RE1;
+//        PORTEbits.RE1 = !PORTEbits.RE0;
+//        if (PORTEbits.RE0){
+//            dispvar = displayder;
+//         }   
+//        if (PORTEbits.RE1){
+//             dispvar = displayizq;
+//         }  
+//        INTCONbits.T0IF = 0;
+//        PORTC = display[dispvar]; 
+        
+        if (PORTEbits.RE0){
+            PORTEbits.RE0 = 0;
+            PORTC = display[displayder];
+            PORTEbits.RE1 = 1;
+            __delay_ms(8);
         }
-        else {
-            pre_var++;
+        if (PORTEbits.RE1){
+            PORTEbits.RE1 = 0;
+            PORTC = display[displayizq];
+            PORTEbits.RE0 = 1;
+            __delay_ms(8);
         }
         INTCONbits.T0IF = 0;
     }
@@ -134,12 +144,18 @@ void __interrupt() my_inte(void){
 //*********************************************************************************
 void main(void) {
     Setup ();
-    PORTEbits.RE0 = 1; 
-    __delay_us(40);
+    PORTEbits.RE1 = 1; 
+    __delay_us(25);
     ADCON0bits.GO_nDONE = 1;
-    TMR0 = 0;
+    TMR0 = 150;
     while(1){
         PORTD = cont;
+        if (advar <= cont){
+            PORTEbits.RE2 = 0;
+        }
+        else{
+            PORTEbits.RE2 = 1;
+        }
     }
 }
 //*********************************************************************************
