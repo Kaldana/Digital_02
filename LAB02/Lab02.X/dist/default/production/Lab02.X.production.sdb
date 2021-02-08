@@ -13,9 +13,9 @@
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "58 C:\Users\kenne\Documents\Universidad\Digital_02\LAB02\Lab02.X\LAB01.c
 [v _Setup Setup `(v  1 e 1 0 ]
-"100
+"101
 [v _my_inte my_inte `II(v  1 e 1 0 ]
-"145
+"146
 [v _main main `(v  1 e 1 0 ]
 "59 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
@@ -140,18 +140,18 @@
 [v _displayder displayder `uc  1 e 1 0 ]
 "54
 [v _displayizq displayizq `uc  1 e 1 0 ]
-"145
+"146
 [v _main main `(v  1 e 1 0 ]
 {
-"163
+"164
 } 0
 "58
 [v _Setup Setup `(v  1 e 1 0 ]
 {
-"95
+"96
 } 0
-"100
+"101
 [v _my_inte my_inte `II(v  1 e 1 0 ]
 {
-"139
+"140
 } 0
