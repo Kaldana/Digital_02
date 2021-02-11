@@ -37,6 +37,7 @@
 // Use project enums instead of #define for ON and OFF.
 
 #include <xc.h>
+// incluir la librerias necesarias, en este caso seran las del ADC
 
 //**********************************************************************************************
 // Variables
@@ -84,6 +85,14 @@ void Setup(void){
 
 //Aqui debo trabajar la interrupcion de la comunicacion serial, tomando en cuenta
 //si la hare sincrona o asincrona
+//Configurar interrupcion de transmision
+//Configurar interrupcion de recepcion
+//Configurar USART mode
+//Configurar Transmission width
+//Configurar Maestro esclavo
+//Configurar la recepcion
+//Configurar el baud rate
+//Configurar el address detect
 
 //*********************************************************************************
 //Principal

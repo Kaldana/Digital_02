@@ -35,7 +35,9 @@
 // Use project enums instead of #define for ON and OFF.
 
 #include <xc.h>
-
+#include "INT_PORTB.h"
+#include "LIB_ADC.h"
+#include "LIB_MP.h"
 //**********************************************************************************************
 // Variables
 // *********************************************************************************************
@@ -47,7 +49,6 @@
 //**********************************************************************************************
 unsigned char cont = 0;
 unsigned char advar = 0;
-unsigned char display[16]= {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x67,0x77,0x7C,0x39,0x7E,0xF9,0x71};
 unsigned char dispvar = 0;
 unsigned char pre_var = 0;
 unsigned char displayder = 0;
@@ -100,43 +101,12 @@ void Setup(void){
 //*********************************************************************************
 void __interrupt() my_inte(void){
     //INTERRUPCION DEL PUERTO B, PARA AUMENTAR O DECREMENTAR EL CONTADOR
-    if (INTCONbits.RBIF){
-        if (PORTBbits.RB0 == 1){
-            cont++;
-        }
-        
-        if (PORTBbits.RB1 == 1){
-            cont--;
-        }
-        INTCONbits.RBIF = 0;
-    }
+    PuertoB();
     //INTERRUPCION DEL ADC Y HACIENDO EL LAS OPERACIONES PARA PODER MOSTRAR LOS 
     //VALORES EN EL DISPLAY
-    if (ADCON0bits.GO == 0){
-        advar = ADRESH;
-        displayizq = (ADRESH & 0xF0)>> 4;
-        displayder = (ADRESH & 0x0F);
-        __delay_us(25);
-        ADCON0bits.GO_DONE = 1;
-        PIR1bits.ADIF = 0;      
-    }
+    ADConvert();
     //INTERRUPCION DEL TMR0 PARA MULTIPLEXAR
-    if (INTCONbits.T0IF){
-
-        if (PORTEbits.RE0){
-            PORTEbits.RE0 = 0;
-            PORTC = display[displayder];
-            PORTEbits.RE1 = 1;
-            __delay_ms(8);
-        }
-        if (PORTEbits.RE1){
-            PORTEbits.RE1 = 0;
-            PORTC = display[displayizq];
-            PORTEbits.RE0 = 1;
-            __delay_ms(8);
-        }
-        INTCONbits.T0IF = 0;
-    }
+    MP7SEG();
 }
 
 
@@ -149,7 +119,7 @@ void main(void) {
     __delay_us(25);
     //ENCENDER EL BIT DEL GO_DONE PARA EL ADC
     ADCON0bits.GO_nDONE = 1;
-    TMR0 = 150;
+    TMR0 = 0;
     while(1){
         //MOSTRAR EL VALOR DEL CONTADOR EN EL PUERTO D
         PORTD = cont;

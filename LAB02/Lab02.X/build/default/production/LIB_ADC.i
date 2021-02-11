@@ -1,4 +1,4 @@
-# 1 "LAB01.c"
+# 1 "LIB_ADC.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,9 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "LAB01.c" 2
-# 11 "LAB01.c"
+# 1 "LIB_ADC.c" 2
+# 1 "./LIB_ADC.h" 1
+# 12 "./LIB_ADC.h"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2488,278 +2489,24 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 11 "LAB01.c" 2
+# 12 "./LIB_ADC.h" 2
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
-# 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef signed char int8_t;
 
 
+void ADConvert();
+unsigned char adcvar;
+unsigned char displayizq;
+unsigned char displayder;
+# 1 "LIB_ADC.c" 2
 
 
-
-
-typedef signed int int16_t;
-
-
-
-
-
-
-
-typedef __int24 int24_t;
-
-
-
-
-
-
-
-typedef signed long int int32_t;
-# 52 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef unsigned char uint8_t;
-
-
-
-
-
-typedef unsigned int uint16_t;
-
-
-
-
-
-
-typedef __uint24 uint24_t;
-
-
-
-
-
-
-typedef unsigned long int uint32_t;
-# 88 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef signed char int_least8_t;
-
-
-
-
-
-
-
-typedef signed int int_least16_t;
-# 109 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef __int24 int_least24_t;
-# 118 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef signed long int int_least32_t;
-# 136 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef unsigned char uint_least8_t;
-
-
-
-
-
-
-typedef unsigned int uint_least16_t;
-# 154 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef __uint24 uint_least24_t;
-
-
-
-
-
-
-
-typedef unsigned long int uint_least32_t;
-# 181 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef signed char int_fast8_t;
-
-
-
-
-
-
-typedef signed int int_fast16_t;
-# 200 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef __int24 int_fast24_t;
-
-
-
-
-
-
-
-typedef signed long int int_fast32_t;
-# 224 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef unsigned char uint_fast8_t;
-
-
-
-
-
-typedef unsigned int uint_fast16_t;
-# 240 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef __uint24 uint_fast24_t;
-
-
-
-
-
-
-typedef unsigned long int uint_fast32_t;
-# 268 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef int32_t intmax_t;
-# 282 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
-typedef uint32_t uintmax_t;
-
-
-
-
-
-
-typedef int16_t intptr_t;
-
-
-
-
-typedef uint16_t uintptr_t;
-# 12 "LAB01.c" 2
-
-
-
-
-
-
-
-#pragma config FOSC = XT
-#pragma config WDTE = OFF
-#pragma config PWRTE = OFF
-#pragma config MCLRE = OFF
-#pragma config CP = OFF
-#pragma config CPD = OFF
-#pragma config BOREN = OFF
-#pragma config IESO = OFF
-#pragma config FCMEN = OFF
-#pragma config LVP = OFF
-
-
-#pragma config BOR4V = BOR40V
-#pragma config WRT = OFF
-# 48 "LAB01.c"
-unsigned char cont = 0;
-unsigned char advar = 0;
-unsigned char display[16]= {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x67,0x77,0x7C,0x39,0x7E,0xF9,0x71};
-unsigned char dispvar = 0;
-unsigned char pre_var = 0;
-unsigned char displayder = 0;
-unsigned char displayizq = 0;
-
-
-
-void Setup(void){
-
-    ANSEL = 0b00000001;
-    ANSELH = 0;
-
-
-    TRISA = 0b00000001;
-    PORTA = 0;
-
-
-    TRISB = 0b00000011;
-    PORTB = 0;
-
-
-    TRISC = 0;
-    PORTC = 0;
-
-    TRISD = 0;
-    PORTD = 0;
-
-    TRISE = 0;
-    PORTE = 0;
-
-
-    INTCON = 0b11101000;
-
-    IOCB = 0b00000011;
-
-
-
-    PIR1 = 0b00000000;
-    PIE1 = 0b01000000;
-    ADCON1 = 0;
-
-    ADCON0 = 0b10000001;
-
-    OPTION_REG = 0b0000101;
-
-}
-
-
-
-
-void __attribute__((picinterrupt(("")))) my_inte(void){
-
-    if (INTCONbits.RBIF){
-        if (PORTBbits.RB0 == 1){
-            cont++;
-        }
-
-        if (PORTBbits.RB1 == 1){
-            cont--;
-        }
-        INTCONbits.RBIF = 0;
-    }
-
-
+void ADConvert(){
     if (ADCON0bits.GO == 0){
-        advar = ADRESH;
+        adcvar = ADRESH;
         displayizq = (ADRESH & 0xF0)>> 4;
         displayder = (ADRESH & 0x0F);
         _delay((unsigned long)((25)*(8000000/4000000.0)));
         ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;
-    }
-
-    if (INTCONbits.T0IF){
-
-        if (PORTEbits.RE0){
-            PORTEbits.RE0 = 0;
-            PORTC = display[displayder];
-            PORTEbits.RE1 = 1;
-            _delay((unsigned long)((8)*(8000000/4000.0)));
-        }
-        if (PORTEbits.RE1){
-            PORTEbits.RE1 = 0;
-            PORTC = display[displayizq];
-            PORTEbits.RE0 = 1;
-            _delay((unsigned long)((8)*(8000000/4000.0)));
-        }
-        INTCONbits.T0IF = 0;
-    }
-}
-
-
-
-
-
-void main(void) {
-    Setup ();
-    PORTEbits.RE1 = 1;
-    _delay((unsigned long)((25)*(8000000/4000000.0)));
-
-    ADCON0bits.GO_nDONE = 1;
-    TMR0 = 150;
-    while(1){
-
-        PORTD = cont;
-
-        if (advar <= cont){
-            PORTEbits.RE2 = 0;
-        }
-        else{
-            PORTEbits.RE2 = 1;
-        }
     }
 }

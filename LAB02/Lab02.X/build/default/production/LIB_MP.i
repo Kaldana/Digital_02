@@ -1,4 +1,4 @@
-# 1 "INT_ADC.c"
+# 1 "LIB_MP.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,9 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "INT_ADC.c" 2
+# 1 "LIB_MP.c" 2
+# 1 "./LIB_MP.h" 1
+# 12 "./LIB_MP.h"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2487,21 +2489,32 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 1 "INT_ADC.c" 2
-
-# 1 "./LIB_7SEG.h" 1
-# 2 "INT_ADC.c" 2
+# 12 "./LIB_MP.h" 2
 
 
-void intADC(void) {
 
-    INTCON = 0b10101000;
+void MP7SEG();
+unsigned char display[16]= {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x67,0x77,0x7c,0x39,0b1011110,0xf9,0x71};
+unsigned char displayizq;
+unsigned char displayder;
+# 1 "LIB_MP.c" 2
 
 
-    PIR1 = 0b00000000;
-    PIE1 = 0b01000000;
-    ADCON1 = 0;
+void MP7SEG(){
+    if (INTCONbits.T0IF){
 
-    ADCON0 = 0b10000001;
-    return;
+        if (PORTEbits.RE0){
+            PORTEbits.RE0 = 0;
+            PORTC = display[displayder];
+            PORTEbits.RE1 = 1;
+            _delay((unsigned long)((8)*(8000000/4000.0)));
+        }
+        if (PORTEbits.RE1){
+            PORTEbits.RE1 = 0;
+            PORTC = display[displayizq];
+            PORTEbits.RE0 = 1;
+            _delay((unsigned long)((8)*(8000000/4000.0)));
+        }
+        INTCONbits.T0IF = 0;
+    }
 }

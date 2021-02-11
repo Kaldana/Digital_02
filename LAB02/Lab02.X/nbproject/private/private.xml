@@ -3,7 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/kenne/Documents/Universidad/Digital_02/LAB02/Lab02.X/LAB01.c</file>
+            <file>file:/C:/Users/kenne/Documents/Universidad/Digital_02/LAB02/Lab02.X/LAB02.c</file>
+            <file>file:/C:/Users/kenne/Documents/Universidad/Digital_02/LAB02/Lab02.X/INT_7SEG.c</file>
+            <file>file:/C:/Users/kenne/Documents/Universidad/Digital_02/LAB02/Lab02.X/INT_ADC.c</file>
+            <file>file:/C:/Users/kenne/Documents/Universidad/Digital_02/LAB02/Lab02.X/INT_PORTB.c</file>
+            <file>file:/C:/Users/kenne/Documents/Universidad/Digital_02/LAB02/Lab02.X/INT_PORTB.h</file>
+            <file>file:/C:/Users/kenne/Documents/Universidad/Digital_02/LAB02/Lab02.X/INT_ADC.h</file>
+            <file>file:/C:/Users/kenne/Documents/Universidad/Digital_02/LAB02/Lab02.X/LIB_7SEG.h</file>
         </group>
     </open-files>
 </project-private>

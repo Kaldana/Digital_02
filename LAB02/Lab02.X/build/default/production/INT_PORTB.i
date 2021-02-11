@@ -7,6 +7,8 @@
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "INT_PORTB.c" 2
+# 1 "./INT_PORTB.h" 1
+# 12 "./INT_PORTB.h"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2487,15 +2489,23 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
+# 12 "./INT_PORTB.h" 2
+
+
+void PuertoB();
+unsigned char cont;
 # 1 "INT_PORTB.c" 2
 
-# 1 "./INT_PORTB.h" 1
-# 2 "INT_PORTB.c" 2
 
+void PuertoB() {
+    if (INTCONbits.RBIF){
+        if (PORTBbits.RB0 == 1){
+            cont++;
+        }
 
-void intPORTB(void) {
-
-    INTCON = 0b10000000;
-
-    return;
+        if (PORTBbits.RB1 == 1){
+            cont--;
+        }
+        INTCONbits.RBIF = 0;
+    }
 }
