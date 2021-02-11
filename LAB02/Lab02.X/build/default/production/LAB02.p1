@@ -415,9 +415,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 "51
-[; ;LAB02.c: 51: unsigned char advar = 0;
-[v _advar `uc ~T0 @X0 1 e ]
-[i _advar
+[; ;LAB02.c: 51: unsigned char adcvar = 0;
+[v _adcvar `uc ~T0 @X0 1 e ]
+[i _adcvar
 -> -> 0 `i `uc
 ]
 "52
@@ -561,8 +561,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;LAB02.c: 125:         PORTD = cont;
 [e = _PORTD _cont ]
 "127
-[; ;LAB02.c: 127:         if (advar <= cont){
-[e $ ! <= -> _advar `i -> _cont `i 144  ]
+[; ;LAB02.c: 127:         if (adcvar <= cont){
+[e $ ! <= -> _adcvar `i -> _cont `i 144  ]
 {
 "128
 [; ;LAB02.c: 128:             PORTEbits.RE2 = 0;

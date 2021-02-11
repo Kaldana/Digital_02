@@ -48,7 +48,7 @@
 //Definir variables
 //**********************************************************************************************
 unsigned char cont = 0;
-unsigned char advar = 0;
+unsigned char adcvar = 0;
 unsigned char dispvar = 0;
 unsigned char pre_var = 0;
 unsigned char displayder = 0;
@@ -124,7 +124,7 @@ void main(void) {
         //MOSTRAR EL VALOR DEL CONTADOR EN EL PUERTO D
         PORTD = cont;
         //CONFIGURACION DE LA ALARMA VISUAL
-        if (advar <= cont){
+        if (adcvar <= cont){
             PORTEbits.RE2 = 0;
         }
         else{
