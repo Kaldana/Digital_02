@@ -2,9 +2,9 @@
  * File:   Lab03.c
  * Author: Kenneth Aldana
  * Carnet: 18435
- * Pseudocódigo
+ * LAB03
  *
- * Created on January 31, 2021, 9:56 PM
+ * Created on Feb. 11
  */
 
 
@@ -37,6 +37,9 @@
 // Use project enums instead of #define for ON and OFF.
 
 #include <xc.h>
+#include "LIB_ADC.h"
+#include <stdint.h>
+
 // incluir la librerias necesarias, en este caso seran las del ADC
 
 //**********************************************************************************************
@@ -48,8 +51,16 @@
 //**********************************************************************************************
 //Definir funciones
 //**********************************************************************************************
+void Setup(void);
+void main(void);
 
-//Aqui voy a declarer las variables que vaya a utilizar
+//**********************************************************************************************
+//Definir variables
+//**********************************************************************************************
+
+uint8_t adcvar = 0;
+uint8_t adcvar1 = 0;
+uint8_t adcselect = 0;
 
 //**********************************************************************************************
 //Configuracion de puertos
@@ -63,42 +74,50 @@ void Setup(void){
     PORTA = 0;
     
     //Declaro como entrada el RX
-    TRISC = 0b0100000;
+    TRISC = 0b0000000;
     PORTC = 0;
         
     TRISD = 0;
     PORTD = 0;
     
+    TRISE = 0;
+    PORTE = 0;
     
-    INTCON = 0b11101000;
-    IOCB = 0b00000011;
-    //Aqui debo apagar el bit 4 que es la bandera de la comunicacion serial
-    PIR1 = 0b00000000;
-    //Aqui debo encender el bit 4 para encender el bit enable de la comunicacion serial
-    PIE1 = 0b01000000;
-    //Debo trabajar con el registro TXSTA para ver los bits que debo encender
+    ADC_CONFIG();
+    ADCON0bits.CHS=0;
 }
 
 //*********************************************************************************
 //Interrupciones
 //*********************************************************************************
+void __interrupt() ISR(void){
+    if (ADCON0bits.GO == 0 & ADCON0bits.CHS == 0){
+        adcvar = ADRESH;
+        ADCON0bits.CHS = 1;
+        __delay_us(25);
+        ADCON0bits.GO_DONE = 1;
+        PIR1bits.ADIF = 0;
+    }
 
-//Aqui debo trabajar la interrupcion de la comunicacion serial, tomando en cuenta
-//si la hare sincrona o asincrona
-//Configurar interrupcion de transmision
-//Configurar interrupcion de recepcion
-//Configurar USART mode
-//Configurar Transmission width
-//Configurar Maestro esclavo
-//Configurar la recepcion
-//Configurar el baud rate
-//Configurar el address detect
+    if (ADCON0bits.GO == 0 & ADCON0bits.CHS == 1){
+        adcvar1 = ADRESH;
+        ADCON0bits.CHS = 0;
+        __delay_us(25);
+        ADCON0bits.GO_DONE = 1;
+        PIR1bits.ADIF = 0;
+    }
+}
 
 //*********************************************************************************
 //Principal
 //*********************************************************************************
 void main(void) {
-    //En este bloque debo trabajar con el tema de la comunicacion serial
+    Setup();
+    __delay_us(25);
+    ADCON0bits.GO_DONE = 1;
+    while (1){
+        
+    }
 }
 //*********************************************************************************
 //                              FIN DEL PROGRAMA
