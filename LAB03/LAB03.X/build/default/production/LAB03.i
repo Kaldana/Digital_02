@@ -2656,7 +2656,21 @@ void ADC_CONFIG();
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 41 "LAB03.c" 2
-# 54 "LAB03.c"
+
+# 1 "./LCD.h" 1
+# 20 "./LCD.h"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
+# 20 "./LCD.h" 2
+# 66 "./LCD.h"
+void Lcd_Init(void);
+void Clear(void);
+void Lcd_Cmd(uint8_t cmd);
+void Lcd_Set_Cursor(uint8_t a, uint8_t b);
+void Lcd_Data(uint8_t data);
+void Lcd_Data_String(uint8_t *a);
+void Lcd_Dato(uint8_t dato);
+# 42 "LAB03.c" 2
+# 55 "LAB03.c"
 void Setup(void);
 void main(void);
 
@@ -2691,6 +2705,7 @@ void Setup(void){
 
     ADC_CONFIG();
     ADCON0bits.CHS=0;
+
 }
 
 

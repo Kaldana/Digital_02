@@ -7,8 +7,15 @@
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "LCD.c" 2
+
+
+
+
+
+
+
 # 1 "./LCD.h" 1
-# 13 "./LCD.h"
+# 19 "./LCD.h"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2489,7 +2496,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 13 "./LCD.h" 2
+# 19 "./LCD.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
@@ -2624,128 +2631,75 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 14 "./LCD.h" 2
+# 20 "./LCD.h" 2
+# 66 "./LCD.h"
+void Lcd_Init(void);
+void Clear(void);
+void Lcd_Cmd(uint8_t cmd);
+void Lcd_Set_Cursor(uint8_t a, uint8_t b);
+void Lcd_Data(uint8_t data);
+void Lcd_Data_String(uint8_t *a);
+void Lcd_Dato(uint8_t dato);
+# 8 "LCD.c" 2
 
 
-void Lcd_Port(char a);
-void Lcd_Cmd(char a);
-void Lcd_Set_Cursor(char a, char b);
-void Lcd_Init();
-void Lcd_Write_Char(char a);
-void Lcd_Write_String(char *a);
-void Lcd_Shift_Right();
-void Lcd_Shift_Left();
-# 1 "LCD.c" 2
+void Lcd_Init(void){
+    TRISE = 0;
+    TRISD = 0;
+    _delay((unsigned long)((5)*(8000000/4000.0)));
 
-
-void Lcd_Port(char a)
-{
- if(a & 1)
-  D4 = 1;
- else
-  D4 = 0;
-
- if(a & 2)
-  D5 = 1;
- else
-  D5 = 0;
-
- if(a & 4)
-  D6 = 1;
- else
-  D6 = 0;
-
- if(a & 8)
-  D7 = 1;
- else
-  D7 = 0;
-}
-void Lcd_Cmd(char a)
-{
- RS = 0;
- Lcd_Port(a);
- EN = 1;
-        _delay((unsigned long)((4)*(_XTAL_FREQ/4000.0)));
-        EN = 0;
 }
 
-Lcd_Clear()
-{
- Lcd_Cmd(0);
- Lcd_Cmd(1);
+void Lcd_Cmd(uint8_t cmd){
+ RE0 = 0;
+    RE1 = 0;
+    Lcd_Dato(cmd);
+    RE2 = 1;
+    _delay((unsigned long)((10)*(8000000/4000.0)));
+    RE2 = 0;
+    _delay((unsigned long)((1)*(8000000/4000.0)));
 }
 
-void Lcd_Set_Cursor(char a, char b)
-{
- char temp,z,y;
- if(a == 1)
- {
-   temp = 0x80 + b - 1;
-  z = temp>>4;
-  y = temp & 0x0F;
-  Lcd_Cmd(z);
-  Lcd_Cmd(y);
+void Lcd_Set_Cursor(uint8_t a, uint8_t b) {
+ uint8_t c;
+ if(a == 1) {
+        c = 0x80;
+  Lcd_Cmd(c);
  }
- else if(a == 2)
- {
-  temp = 0xC0 + b - 1;
-  z = temp>>4;
-  y = temp & 0x0F;
-  Lcd_Cmd(z);
-  Lcd_Cmd(y);
+ else if(a == 2) {
+  c = 0xC0 ;
+  Lcd_Cmd(c);
  }
 }
 
-void Lcd_Init()
-{
-  Lcd_Port(0x00);
-   _delay((unsigned long)((20)*(_XTAL_FREQ/4000.0)));
-  Lcd_Cmd(0x03);
- _delay((unsigned long)((5)*(_XTAL_FREQ/4000.0)));
-  Lcd_Cmd(0x03);
- _delay((unsigned long)((11)*(_XTAL_FREQ/4000.0)));
-  Lcd_Cmd(0x03);
-
-  Lcd_Cmd(0x02);
-  Lcd_Cmd(0x02);
-  Lcd_Cmd(0x08);
-  Lcd_Cmd(0x00);
-  Lcd_Cmd(0x0C);
-  Lcd_Cmd(0x00);
-  Lcd_Cmd(0x06);
+void Lcd_data(uint8_t data){
+   RE0 = 1;
+   RE1 = 0;
+   Lcd_Dato(data);
+   RE2 = 1;
+   _delay((unsigned long)((12)*(8000000/4000.0)));
+   RE2 = 0;
+   _delay((unsigned long)((2)*(8000000/4000.0)));
 }
 
-void Lcd_Write_Char(char a)
-{
-   char temp,y;
-   temp = a&0x0F;
-   y = a&0xF0;
-   RS = 1;
-   Lcd_Port(y>>4);
-   EN = 1;
-   _delay((unsigned long)((40)*(_XTAL_FREQ/4000000.0)));
-   EN = 0;
-   Lcd_Port(temp);
-   EN = 1;
-   _delay((unsigned long)((40)*(_XTAL_FREQ/4000000.0)));
-   EN = 0;
-}
+void Lcd_Dato (uint8_t dato){
+    if (dato & 1){RD0 = 1;} else {RD0 = 0;}
+    if (dato & 2){RD1 = 1;} else {RD1 = 0;}
+    if (dato & 4){RD2 = 1;} else {RD2 = 0;}
+    if (dato & 8){RD3 = 1;} else {RD3 = 0;}
+    if (dato & 16){RD4 = 1;} else {RD4 = 0;}
+    if (dato & 32){RD5 = 1;} else {RD5 = 0;}
+    if (dato & 64){RD6 = 1;} else {RD6 = 0;}
+    if (dato & 128){RD7 = 1;} else {RD7 = 0;}
+    }
 
-void Lcd_Write_String(char *a)
-{
+void Lcd_Data_String(uint8_t *a){
  int i;
  for(i=0;a[i]!='\0';i++)
-    Lcd_Write_Char(a[i]);
+    Lcd_Data(a[i]);
 }
 
-void Lcd_Shift_Right()
-{
- Lcd_Cmd(0x01);
- Lcd_Cmd(0x0C);
-}
-
-void Lcd_Shift_Left()
-{
- Lcd_Cmd(0x01);
- Lcd_Cmd(0x08);
+void Clear(void){
+ Lcd_Cmd(0);
+ Lcd_Cmd(1);
 }

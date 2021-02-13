@@ -11,12 +11,16 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"68 C:\Users\kenne\Documents\Universidad\Digital_02\LAB03\LAB03.X\LAB03.c
+"69 C:\Users\kenne\Documents\Universidad\Digital_02\LAB03\LAB03.X\LAB03.c
 [v _Setup Setup `(v  1 e 1 0 ]
-"93
+"95
 [v _ISR ISR `II(v  1 e 1 0 ]
-"114
+"116
 [v _main main `(v  1 e 1 0 ]
+"17 C:\Users\kenne\Documents\Universidad\Digital_02\LAB03\LAB03.X\LCD.c
+[v _Lcd_Cmd Lcd_Cmd `(v  1 e 1 0 ]
+"49
+[v _Lcd_Dato Lcd_Dato `(v  1 e 1 0 ]
 "10 C:\Users\kenne\Documents\Universidad\Digital_02\LAB03\LAB03.X\LIB_ADC.c
 [v _ADC_CONFIG ADC_CONFIG `(v  1 e 1 0 ]
 "166 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
@@ -105,27 +109,49 @@
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
 "3449
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
-"61 C:\Users\kenne\Documents\Universidad\Digital_02\LAB03\LAB03.X\LAB03.c
+"4181
+[v _RD0 RD0 `VEb  1 e 0 @64 ]
+"4184
+[v _RD1 RD1 `VEb  1 e 0 @65 ]
+"4187
+[v _RD2 RD2 `VEb  1 e 0 @66 ]
+"4190
+[v _RD3 RD3 `VEb  1 e 0 @67 ]
+"4193
+[v _RD4 RD4 `VEb  1 e 0 @68 ]
+"4196
+[v _RD5 RD5 `VEb  1 e 0 @69 ]
+"4199
+[v _RD6 RD6 `VEb  1 e 0 @70 ]
+"4202
+[v _RD7 RD7 `VEb  1 e 0 @71 ]
+"4205
+[v _RE0 RE0 `VEb  1 e 0 @72 ]
+"4208
+[v _RE1 RE1 `VEb  1 e 0 @73 ]
+"4211
+[v _RE2 RE2 `VEb  1 e 0 @74 ]
+"62 C:\Users\kenne\Documents\Universidad\Digital_02\LAB03\LAB03.X\LAB03.c
 [v _adcvar adcvar `uc  1 e 1 0 ]
-"62
+"63
 [v _adcvar1 adcvar1 `uc  1 e 1 0 ]
-"114
+"116
 [v _main main `(v  1 e 1 0 ]
 {
-"121
+"123
 } 0
-"68
+"69
 [v _Setup Setup `(v  1 e 1 0 ]
 {
-"88
+"90
 } 0
 "10 C:\Users\kenne\Documents\Universidad\Digital_02\LAB03\LAB03.X\LIB_ADC.c
 [v _ADC_CONFIG ADC_CONFIG `(v  1 e 1 0 ]
 {
 "19
 } 0
-"93 C:\Users\kenne\Documents\Universidad\Digital_02\LAB03\LAB03.X\LAB03.c
+"95 C:\Users\kenne\Documents\Universidad\Digital_02\LAB03\LAB03.X\LAB03.c
 [v _ISR ISR `II(v  1 e 1 0 ]
 {
-"109
+"111
 } 0

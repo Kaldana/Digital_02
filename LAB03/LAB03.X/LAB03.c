@@ -39,6 +39,7 @@
 #include <xc.h>
 #include "LIB_ADC.h"
 #include <stdint.h>
+#include "LCD.h"
 
 // incluir la librerias necesarias, en este caso seran las del ADC
 
@@ -85,6 +86,7 @@ void Setup(void){
     
     ADC_CONFIG();
     ADCON0bits.CHS=0;
+    
 }
 
 //*********************************************************************************
