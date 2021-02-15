@@ -15,7 +15,7 @@
 
 
 # 1 "./LCD.h" 1
-# 19 "./LCD.h"
+# 51 "./LCD.h"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2496,7 +2496,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 19 "./LCD.h" 2
+# 51 "./LCD.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
@@ -2631,75 +2631,78 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 20 "./LCD.h" 2
-# 66 "./LCD.h"
-void Lcd_Init(void);
-void Clear(void);
-void Lcd_Cmd(uint8_t cmd);
-void Lcd_Set_Cursor(uint8_t a, uint8_t b);
-void Lcd_Data(uint8_t data);
-void Lcd_Data_String(uint8_t *a);
-void Lcd_Dato(uint8_t dato);
+# 52 "./LCD.h" 2
+
+
+void LCD_Init(void);
+void LCD_Write_Char(unsigned char a);
+void LCD_Cmd(uint8_t a);
+void LCD_Port(uint8_t a);
+void LCD_Clear(void);
+void LCD_Set_Cursor(uint8_t x,uint8_t y);
+void LCD_Write_String(uint8_t *a);
 # 8 "LCD.c" 2
 
 
-void Lcd_Init(void){
-    TRISE = 0;
-    TRISD = 0;
+void LCD_Init(void){
+    RE0=0;
+    RE1=0;
+    LCD_Port(0x00);
+    _delay((unsigned long)((20)*(8000000/4000.0)));
+    LCD_Cmd(0x30);
     _delay((unsigned long)((5)*(8000000/4000.0)));
-
+    LCD_Cmd(0x30);
+    _delay((unsigned long)((11)*(8000000/4000.0)));
+    LCD_Cmd(0x30);
+    LCD_Cmd(0x38);
+    LCD_Cmd(0x0C);
+    LCD_Cmd(0x01);
+    LCD_Cmd(0x06);
 }
 
-void Lcd_Cmd(uint8_t cmd){
- RE0 = 0;
+void LCD_Port(uint8_t a){
+    PORTD = a;
+}
+
+void LCD_Write_Char(uint8_t a){
+    RE0 = 1;
+    LCD_Port(a);
+    RE1 = 1;
+    _delay((unsigned long)((40)*(8000000/4000000.0)));
     RE1 = 0;
-    Lcd_Dato(cmd);
-    RE2 = 1;
-    _delay((unsigned long)((10)*(8000000/4000.0)));
-    RE2 = 0;
-    _delay((unsigned long)((1)*(8000000/4000.0)));
+    _delay((unsigned long)((10)*(8000000/4000000.0)));
 }
 
-void Lcd_Set_Cursor(uint8_t a, uint8_t b) {
- uint8_t c;
- if(a == 1) {
-        c = 0x80;
-  Lcd_Cmd(c);
+void LCD_Cmd(uint8_t a){
+    RE0=0;
+    LCD_Port(a);
+    RE1=1;
+    _delay((unsigned long)((4)*(8000000/4000.0)));
+    RE1=0;
+    _delay((unsigned long)((2)*(8000000/4000.0)));
+}
+
+void LCD_Clear(void){
+    LCD_Cmd(0);
+    LCD_Cmd(1);
+}
+
+void LCD_Set_Cursor(uint8_t x,uint8_t y){
+ uint8_t a;
+ if(x == 1)
+ {
+        a = 0x80 + y;
+  LCD_Cmd(a);
  }
- else if(a == 2) {
-  c = 0xC0 ;
-  Lcd_Cmd(c);
+ else if(x == 2)
+ {
+  a = 0xC0 + y;
+  LCD_Cmd(a);
  }
 }
 
-void Lcd_data(uint8_t data){
-   RE0 = 1;
-   RE1 = 0;
-   Lcd_Dato(data);
-   RE2 = 1;
-   _delay((unsigned long)((12)*(8000000/4000.0)));
-   RE2 = 0;
-   _delay((unsigned long)((2)*(8000000/4000.0)));
-}
-
-void Lcd_Dato (uint8_t dato){
-    if (dato & 1){RD0 = 1;} else {RD0 = 0;}
-    if (dato & 2){RD1 = 1;} else {RD1 = 0;}
-    if (dato & 4){RD2 = 1;} else {RD2 = 0;}
-    if (dato & 8){RD3 = 1;} else {RD3 = 0;}
-    if (dato & 16){RD4 = 1;} else {RD4 = 0;}
-    if (dato & 32){RD5 = 1;} else {RD5 = 0;}
-    if (dato & 64){RD6 = 1;} else {RD6 = 0;}
-    if (dato & 128){RD7 = 1;} else {RD7 = 0;}
-    }
-
-void Lcd_Data_String(uint8_t *a){
+void LCD_Write_String(uint8_t *a){
  int i;
  for(i=0;a[i]!='\0';i++)
-    Lcd_Data(a[i]);
-}
-
-void Clear(void){
- Lcd_Cmd(0);
- Lcd_Cmd(1);
+    LCD_Write_Char(a[i]);
 }

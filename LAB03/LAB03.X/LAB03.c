@@ -7,11 +7,12 @@
  * Created on Feb. 11
  */
 
-
 #include <xc.h>
+#include "LIB_ADC.h"
 #include <stdint.h>
-
-//Aquí también incluyo mis librearías que utilizaré en el código
+#include "LCD.h"
+#include "stdio.h"
+#include "USART.h"
 
 // PIC16F887 Configuration Bit Settings
 
@@ -36,13 +37,6 @@
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
-#include <xc.h>
-#include "LIB_ADC.h"
-#include <stdint.h>
-#include "LCD.h"
-
-// incluir la librerias necesarias, en este caso seran las del ADC
-
 //**********************************************************************************************
 // Variables
 // *********************************************************************************************
@@ -61,7 +55,11 @@ void main(void);
 
 uint8_t adcvar = 0;
 uint8_t adcvar1 = 0;
-uint8_t adcselect = 0;
+uint8_t receive = 0;
+uint8_t Lcdvar [20];
+uint8_t contador = 0;
+float Vol1 = 0.0;
+float Vol2 = 0.0;
 
 //**********************************************************************************************
 //Configuracion de puertos
@@ -115,10 +113,49 @@ void __interrupt() ISR(void){
 //*********************************************************************************
 void main(void) {
     Setup();
+    LCD_Init();
+    LCD_Clear();
+    Set_BaudRate();
+    Init_Trans();
+    Init_Receive();
+    
     __delay_us(25);
     ADCON0bits.GO_DONE = 1;
-    while (1){
+    
+    while (1) {
         
+        Vol1 = adcvar*(0.0196);
+        Vol2 = adcvar1*(0.0196);
+        USART_WriteStr("V1     V2   CONT \n");
+        USART_Write(13);
+        USART_Write(10);
+        sprintf(Lcdvar, "%1.1f  %1.1f %3d", Vol1,Vol2,contador);
+        
+        USART_WriteStr(Lcdvar);
+       
+        USART_Write(13);
+        USART_Write(10);
+        
+        LCD_Clear();
+        LCD_Set_Cursor(1,1);
+        LCD_Write_String("V1   V2    CONT");
+        LCD_Set_Cursor(2,1);
+        LCD_Write_String(Lcdvar);    
+        
+        if(RCIF==1){
+        
+            receive = RCREG;  
+            if(receive == '+'){
+                contador++;
+            } 
+            if(receive == '-'){
+                contador--;
+            }
+            
+        }   
+            
+        __delay_ms(500);
+       
     }
 }
 //*********************************************************************************

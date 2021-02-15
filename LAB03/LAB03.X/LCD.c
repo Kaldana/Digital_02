@@ -7,63 +7,65 @@
  */
 #include "LCD.h"
 
-void Lcd_Init(void){
-    TRISE = 0;
-    TRISD = 0;
+void LCD_Init(void){
+    RS=0;
+    EN=0;
+    LCD_Port(0x00);
+    __delay_ms(20);
+    LCD_Cmd(0x30);
     __delay_ms(5);
-    
+    LCD_Cmd(0x30);
+    __delay_ms(11);
+    LCD_Cmd(0x30);
+    LCD_Cmd(0x38);
+    LCD_Cmd(0x0C);
+    LCD_Cmd(0x01);
+    LCD_Cmd(0x06);  
 }
 
-void Lcd_Cmd(uint8_t cmd){
-	RS = 0;
-    RW = 0;
-    Lcd_Dato(cmd);
+void LCD_Port(uint8_t a){
+    PORTD = a;
+}
+
+void LCD_Write_Char(uint8_t a){
+    RS = 1;             // => RS = 1
+    LCD_Port(a);
     EN = 1;
-    __delay_ms(10);
+    __delay_us(40);
     EN = 0;
-    __delay_ms(1);
+    __delay_us(10);
 }
 
-void Lcd_Set_Cursor(uint8_t a, uint8_t b) {
-	uint8_t c;
-	if(a == 1) 	{
-        c = 0x80;
-		Lcd_Cmd(c);
+void LCD_Cmd(uint8_t a){
+    RS=0;
+    LCD_Port(a);
+    EN=1;
+    __delay_ms(4);
+    EN=0;
+    __delay_ms(2);
+}
+
+void LCD_Clear(void){
+    LCD_Cmd(0);
+    LCD_Cmd(1);
+}
+
+void LCD_Set_Cursor(uint8_t x,uint8_t y){
+	uint8_t a;
+	if(x == 1)
+	{
+        a = 0x80 + y;
+		LCD_Cmd(a);
 	}
-	else if(a == 2)	{
-		c = 0xC0 ;
-		Lcd_Cmd(c);
+	else if(x == 2)
+	{
+		a = 0xC0 + y;
+		LCD_Cmd(a);
 	}
 }
 
-void Lcd_data(uint8_t data){
-   RS = 1;
-   RW = 0;
-   Lcd_Dato(data);             //Data transfer
-   EN = 1;
-   __delay_ms(12);
-   EN = 0;
-   __delay_ms(2);
-}
-
-void Lcd_Dato (uint8_t dato){
-    if (dato & 1){D0 = 1;} else {D0 = 0;}
-    if (dato & 2){D1 = 1;} else {D1 = 0;}
-    if (dato & 4){D2 = 1;} else {D2 = 0;}
-    if (dato & 8){D3 = 1;} else {D3 = 0;}
-    if (dato & 16){D4 = 1;} else {D4 = 0;}
-    if (dato & 32){D5 = 1;} else {D5 = 0;}
-    if (dato & 64){D6 = 1;} else {D6 = 0;}
-    if (dato & 128){D7 = 1;} else {D7 = 0;}
-    }
-
-void Lcd_Data_String(uint8_t *a){
+void LCD_Write_String(uint8_t *a){
 	int i;
 	for(i=0;a[i]!='\0';i++)
-	   Lcd_Data(a[i]);
-}
-
-void Clear(void){
-	Lcd_Cmd(0);
-	Lcd_Cmd(1);
+	   LCD_Write_Char(a[i]);
 }
