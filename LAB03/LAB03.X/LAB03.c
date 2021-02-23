@@ -9,8 +9,8 @@
 
 #include <xc.h>
 #include "LIB_ADC.h"
-#include <stdint.h>
 #include "LCD.h"
+#include <stdint.h>
 #include "stdio.h"
 #include "USART.h"
 
@@ -91,6 +91,18 @@ void Setup(void){
 //Interrupciones
 //*********************************************************************************
 void __interrupt() ISR(void){
+    
+    if(RCIF==1){
+        
+        receive = RCREG;  
+        if(receive == '+'){
+            contador++;
+        } 
+        if(receive == '-'){
+            contador--;
+        } 
+    }  
+    
     if (ADCON0bits.GO == 0 & ADCON0bits.CHS == 0){
         adcvar = ADRESH;
         ADCON0bits.CHS = 1;
@@ -129,7 +141,7 @@ void main(void) {
         USART_WriteStr("V1     V2   CONT \n");
         USART_Write(13);
         USART_Write(10);
-        sprintf(Lcdvar, "%1.1f  %1.1f %3d", Vol1,Vol2,contador);
+        sprintf(Lcdvar, "%1.2f  %1.2f %3d", Vol1,Vol2,contador);
         
         USART_WriteStr(Lcdvar);
        
@@ -138,24 +150,11 @@ void main(void) {
         
         LCD_Clear();
         LCD_Set_Cursor(1,1);
-        LCD_Write_String("V1   V2    CONT");
+        LCD_Write_String("V1   V2       CONT");
         LCD_Set_Cursor(2,1);
         LCD_Write_String(Lcdvar);    
         
-        if(RCIF==1){
-        
-            receive = RCREG;  
-            if(receive == '+'){
-                contador++;
-            } 
-            if(receive == '-'){
-                contador--;
-            }
-            
-        }   
-            
         __delay_ms(500);
-       
     }
 }
 //*********************************************************************************

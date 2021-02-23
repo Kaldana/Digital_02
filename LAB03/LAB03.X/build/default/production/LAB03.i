@@ -2631,9 +2631,6 @@ typedef uint16_t uintptr_t;
 void ADC_CONFIG();
 # 11 "LAB03.c" 2
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
-# 12 "LAB03.c" 2
-
 # 1 "./LCD.h" 1
 # 52 "./LCD.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
@@ -2647,6 +2644,9 @@ void LCD_Port(uint8_t a);
 void LCD_Clear(void);
 void LCD_Set_Cursor(uint8_t x,uint8_t y);
 void LCD_Write_String(uint8_t *a);
+# 12 "LAB03.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "LAB03.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 1 3
@@ -2792,7 +2792,6 @@ void main(void);
 
 uint8_t adcvar = 0;
 uint8_t adcvar1 = 0;
-
 uint8_t receive = 0;
 uint8_t Lcdvar [20];
 uint8_t contador = 0;
@@ -2829,6 +2828,18 @@ void Setup(void){
 
 
 void __attribute__((picinterrupt(("")))) ISR(void){
+
+    if(RCIF==1){
+
+        receive = RCREG;
+        if(receive == '+'){
+            contador++;
+        }
+        if(receive == '-'){
+            contador--;
+        }
+    }
+
     if (ADCON0bits.GO == 0 & ADCON0bits.CHS == 0){
         adcvar = ADRESH;
         ADCON0bits.CHS = 1;
@@ -2864,11 +2875,10 @@ void main(void) {
 
         Vol1 = adcvar*(0.0196);
         Vol2 = adcvar1*(0.0196);
-
         USART_WriteStr("V1     V2   CONT \n");
         USART_Write(13);
         USART_Write(10);
-        sprintf(Lcdvar, "%1.1f  %1.1f %3d", Vol1,Vol2,contador);
+        sprintf(Lcdvar, "%1.2f  %1.2f %3d", Vol1,Vol2,contador);
 
         USART_WriteStr(Lcdvar);
 
@@ -2877,24 +2887,10 @@ void main(void) {
 
         LCD_Clear();
         LCD_Set_Cursor(1,1);
-        LCD_Write_String("V1   V2    CONT");
+        LCD_Write_String("V1   V2       CONT");
         LCD_Set_Cursor(2,1);
         LCD_Write_String(Lcdvar);
 
-        if(RCIF==1){
-
-            receive = RCREG;
-            if(receive == '+'){
-                contador++;
-            }
-            if(receive == '-'){
-                contador--;
-            }
-
-        }
-
         _delay((unsigned long)((500)*(8000000/4000.0)));
-
-
     }
 }
