@@ -22,7 +22,7 @@ cstackCOMMON COMMON 1 70 70 4 1
 intentry CODE 0 4 4 8 2
 bssCOMMON COMMON 1 74 74 2 1
 config CONFIG 4 2007 2007 2 2
-$C:\Users\kenne\AppData\Local\Temp\sbjo.o
+$C:\Users\kenne\AppData\Local\Temp\sdok.o
 reset_vec CODE 0 0 0 3 2
 end_init CODE 0 C C 3 2
 config CONFIG 4 2007 2007 2 2
@@ -72,13 +72,13 @@ STRING C4-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\SLAVE2.X.production.o
-F cinit CODE >787:C:\Users\kenne\AppData\Local\Temp\sbjo.s
-F cinit CODE >790:C:\Users\kenne\AppData\Local\Temp\sbjo.s
-F cinit CODE >804:C:\Users\kenne\AppData\Local\Temp\sbjo.s
-10 cinit CODE >805:C:\Users\kenne\AppData\Local\Temp\sbjo.s
-11 cinit CODE >811:C:\Users\kenne\AppData\Local\Temp\sbjo.s
-11 cinit CODE >813:C:\Users\kenne\AppData\Local\Temp\sbjo.s
-12 cinit CODE >814:C:\Users\kenne\AppData\Local\Temp\sbjo.s
+F cinit CODE >787:C:\Users\kenne\AppData\Local\Temp\sdok.s
+F cinit CODE >790:C:\Users\kenne\AppData\Local\Temp\sdok.s
+F cinit CODE >804:C:\Users\kenne\AppData\Local\Temp\sdok.s
+10 cinit CODE >805:C:\Users\kenne\AppData\Local\Temp\sdok.s
+11 cinit CODE >811:C:\Users\kenne\AppData\Local\Temp\sdok.s
+11 cinit CODE >813:C:\Users\kenne\AppData\Local\Temp\sdok.s
+12 cinit CODE >814:C:\Users\kenne\AppData\Local\Temp\sdok.s
 4 intentry CODE >85:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE2.X\Slave2_main.c
 46 text4 CODE >85:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE2.X\Slave2_main.c
 46 text4 CODE >88:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE2.X\Slave2_main.c
@@ -159,20 +159,20 @@ __Hspace_3 0 0 ABS 0 - -
 __Hspace_4 4010 0 ABS 0 - -
 __Heeprom_data 0 0 EEDATA 3 eeprom_data -
 __Hstrings 0 0 ABS 0 strings -
-___sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\sbjo.o
+___sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\sdok.o
 _main 2A 0 CODE 0 maintext dist/default/production\SLAVE2.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
-start 18 0 CODE 0 init C:\Users\kenne\AppData\Local\Temp\sbjo.o
+start 18 0 CODE 0 init C:\Users\kenne\AppData\Local\Temp\sdok.o
 __size_of_main 0 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 __HbssCOMMON 0 0 ABS 0 bssCOMMON -
 __Hpowerup 0 0 CODE 0 powerup -
 _CONFIG_SPI 162 0 CODE 0 text2 dist/default/production\SLAVE2.X.production.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sbjo.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sbjo.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sbjo.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sbjo.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sbjo.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sbjo.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sdok.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sdok.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sdok.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sdok.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sdok.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\sdok.o
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 wtemp0 7E 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 __Hfunctab 0 0 ENTRY 0 functab -
@@ -182,15 +182,15 @@ _ADRESH 1E 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 _ANSELH 189 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 __Lmaintext 0 0 ABS 0 maintext -
 __end_of_CONFIG_SPI 188 0 CODE 0 text2 dist/default/production\SLAVE2.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\sbjo.o
-___stacklo 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\sbjo.o
+___stackhi 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\sdok.o
+___stacklo 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\sdok.o
 __size_of_Setup 0 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 start_initialization 1E 0 CODE 0 cinit dist/default/production\SLAVE2.X.production.o
 _TRISAbits 85 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 _TRISCbits 87 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 _SSPBUF 13 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 _SSPCON 14 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\sbjo.o
+___int_sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\sdok.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -234,7 +234,7 @@ saved_w 7E 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 __end_of_ADC_CONFIG 162 0 CODE 0 text3 dist/default/production\SLAVE2.X.production.o
 __end_of_ISR E8 0 CODE 0 text4 dist/default/production\SLAVE2.X.production.o
 __Lintentry 8 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\kenne\AppData\Local\Temp\sbjo.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\kenne\AppData\Local\Temp\sdok.o
 __size_of_CONFIG_SPI 0 0 ABS 0 - dist/default/production\SLAVE2.X.production.o
 _lectura 74 0 COMMON 1 bssCOMMON dist/default/production\SLAVE2.X.production.o
 _PIE1bits 8C 0 ABS 0 - dist/default/production\SLAVE2.X.production.o

@@ -1,5 +1,5 @@
 /*
- * File:   Slave0_main.c
+ * File:   Slave1_main.c
  * Author: Kenneth Aldana
  * Carnet: 18435
  * Mini Proyecto
