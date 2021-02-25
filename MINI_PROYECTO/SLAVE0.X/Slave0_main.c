@@ -48,29 +48,28 @@
 //**********************************************************************************************
 //Definir variables
 //**********************************************************************************************
+//variables para obtener el dato del ANSELH en la conversion AC
 uint8_t adcvar = 0;
 uint8_t lectura = 0;
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
 void Setup(void){
-    
+    //Configuracion de puertos
     ANSEL = 0b00000001;
     ANSELH = 0;
     
     TRISA = 0b00000001;
     PORTA = 0;
-    
-//    TRISC = 0b0000000;
-//    PORTC = 0;
-        
+           
     TRISD = 0;
     PORTD = 0;
     
     TRISE = 0;
     PORTE = 0;
-    
+    //Llamo a la libreria de la interrupcion del ADC
     ADC_CONFIG();
+    //Llamo a la liberaria del SPI
     CONFIG_SPI();
 }
 
@@ -78,6 +77,7 @@ void Setup(void){
 //Interrupciones
 //*********************************************************************************
 void __interrupt() ISR(void){
+    //Interrupcion del ADC, en donde obtengo el dato del ANSELH
     if (ADCON0bits.GO == 0){
         adcvar = ADRESH;
         __delay_us(25);
@@ -85,6 +85,7 @@ void __interrupt() ISR(void){
         PIR1bits.ADIF = 0;      
     }
     
+    //Interrupcion para el envio de datos del SPI
     if(PIR1bits.SSPIF){
         if(SSPSTATbits.BF == 0){
             lectura = SSPBUF;
@@ -99,6 +100,7 @@ void __interrupt() ISR(void){
 //*********************************************************************************
 void main(void) {
     Setup();
+    // tiempo de espera y encendido del bit GO para la conversion ADC
     __delay_us(25);
         ADCON0bits.GO_DONE = 1;
     while (1) {

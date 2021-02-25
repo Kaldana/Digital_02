@@ -2790,6 +2790,7 @@ uint8_t cont = 0;
 uint8_t temp_value = 0;
 uint8_t receive = 0;
 uint8_t Lcdvar [20];
+
 float S1 = 0.00;
 float S2 = 0.00;
 float S3 = 0.00;
@@ -2804,10 +2805,6 @@ void Setup(void){
     TRISA = 0b00000011;
     PORTA = 0;
 
-
-
-
-
     TRISD = 0;
     PORTD = 0;
 
@@ -2819,27 +2816,13 @@ void Setup(void){
 
     SPI_MASTER();
 
-    TRISCbits.TRISC0 = 0;
-    PORTCbits.RC0 = 0;
-
-    TRISCbits.TRISC1 = 0;
-    PORTCbits.RC1 = 1;
-
-    TRISCbits.TRISC2 = 0;
-    PORTCbits.RC2 = 1;
-}
-
-
-
-
-void __attribute__((picinterrupt(("")))) ISR(void){
-
 }
 
 
 
 
 void main(void) {
+
     Setup();
     LCD_Init();
     LCD_Clear();
@@ -2849,13 +2832,17 @@ void main(void) {
 
     while (1) {
 
+
         PORTCbits.RC0 = 0;
         SSPBUF = 0;
+
         if(SSPSTATbits.BF == 0){
             adcvar = SSPBUF;
         }
+
         _delay((unsigned long)((1)*(8000000/4000.0)));
         PORTCbits.RC0 = 1;
+
 
         PORTCbits.RC1 = 0;
         SSPBUF = 0;
@@ -2873,19 +2860,29 @@ void main(void) {
         _delay((unsigned long)((1)*(8000000/4000.0)));
         PORTCbits.RC2 = 1;
 
+
+
         PORTB = temp_value;
+
         S1 = adcvar*(0.0196);
+
+
         S2 = cont;
+
+
         S3 = temp_value*(2);
+
         USART_WriteStr("ADC  CONT   TEMP \n");
         USART_Write(13);
         USART_Write(10);
-        sprintf(Lcdvar, "%1.2f %1.2f  %1.2f", S1,S2,S3);
+
+        sprintf(Lcdvar, "%1.2f %1.2f   %1.2f", S1,S2,S3);
+
 
         USART_WriteStr(Lcdvar);
-
         USART_Write(13);
         USART_Write(10);
+
 
         LCD_Clear();
         LCD_Set_Cursor(1,1);

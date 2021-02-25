@@ -1,10 +1,10 @@
 /*
- * File:   Lab03.c
+ * File:   Master_main.c
  * Author: Kenneth Aldana
  * Carnet: 18435
- * LAB03
+ * MINI PROYECTO
  *
- * Created on Feb. 11
+ * Created on Feb. 20
  */
 
 #include <xc.h>
@@ -51,12 +51,13 @@ void main(void);
 //**********************************************************************************************
 //Definir variables
 //**********************************************************************************************
-
+//Los uint8 son para recibir los datos del SPI
 uint8_t adcvar = 0;
 uint8_t cont = 0;
 uint8_t temp_value = 0;
 uint8_t receive = 0;
 uint8_t Lcdvar [20];
+//Los float para enviar a la LCD
 float S1 = 0.00;
 float S2 = 0.00;
 float S3 = 0.00;
@@ -71,10 +72,6 @@ void Setup(void){
     TRISA = 0b00000011;
     PORTA = 0;
     
-//    Declaro como entrada el RX
-//    TRISC = 0b0000000;
-//    PORTC = 0;
-        
     TRISD = 0;
     PORTD = 0;
     
@@ -83,30 +80,16 @@ void Setup(void){
     
     TRISB = 0;
     PORTB = 0;
-    
+    //Llamo a la funcion del SPI master para configurar el SPI y el puerto C
     SPI_MASTER();
-    
-    TRISCbits.TRISC0 = 0;
-    PORTCbits.RC0 = 0;
-    
-    TRISCbits.TRISC1 = 0;
-    PORTCbits.RC1 = 1;
-    
-    TRISCbits.TRISC2 = 0;
-    PORTCbits.RC2 = 1;
-}
-
-//*********************************************************************************
-//Interrupciones
-//*********************************************************************************
-void __interrupt() ISR(void){
-     
+       
 }
 
 //*********************************************************************************
 //Principal
 //*********************************************************************************
 void main(void) {
+    //Llamo a las configuraciones de los puertos, LCD y USART
     Setup();
     LCD_Init();
     LCD_Clear();
@@ -116,14 +99,18 @@ void main(void) {
     
     while (1) {
         
+        //aqui apago el puerto RC0 y elimino datos del bufer
         PORTCbits.RC0 = 0;
         SSPBUF = 0;
+        //Aqui verifico el bit BF de SPI para optener el dato de la transmision
         if(SSPSTATbits.BF == 0){ 
             adcvar = SSPBUF;
         }
+        //espero 1 ms para poder encender de nuevo el puerto C del esclavo 1
         __delay_ms(1);
         PORTCbits.RC0 = 1;
         
+        //Misma operacion para los demas esclavos
         PORTCbits.RC1 = 0;
         SSPBUF = 0;
         if(SSPSTATbits.BF == 0){
@@ -140,26 +127,36 @@ void main(void) {
         __delay_ms(1);
         PORTCbits.RC2 = 1;
         
+        //Esto lo hice para ver que si estuviese recibiendo bien el dato de la
+        //transmision
         PORTB = temp_value;
+        //meto a una variable tipo float el valor del potenciometro y mapeo
         S1 = adcvar*(0.0196);
+        //meto el valor del contador a un float y lo envio a la LCD, este valor
+        //lo pude enviar como decimal, pero decidi trabajar todo como floats.
         S2 = cont;
+        //meto el valor del sensor a una variable y mapeo el dato para que slga
+        //el valor de temperatura
         S3 = temp_value*(2);
+        //escribo en la primer linea del USART
         USART_WriteStr("ADC  CONT   TEMP \n");
         USART_Write(13);
         USART_Write(10);
+        //indico que valores y con cuantos decimales escribir en el USART
         sprintf(Lcdvar, "%1.2f %1.2f   %1.2f", S1,S2,S3);
         
+        //Se empieza a enviar los datos de la comunicacion USART
         USART_WriteStr(Lcdvar);
-       
         USART_Write(13);
         USART_Write(10);
         
+        //Limpio la LCD y envio los datos
         LCD_Clear();
         LCD_Set_Cursor(1,1);
         LCD_Write_String("ADC  CONT  TEMP");
         LCD_Set_Cursor(2,1);
         LCD_Write_String(Lcdvar);    
-        
+    
         __delay_ms(500);
     }
 }

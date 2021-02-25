@@ -22,7 +22,7 @@ cstackCOMMON COMMON 1 70 70 4 1
 intentry CODE 0 4 4 8 2
 bssCOMMON COMMON 1 74 74 2 1
 config CONFIG 4 2007 2007 2 2
-$C:\Users\kenne\AppData\Local\Temp\song.o
+$C:\Users\kenne\AppData\Local\Temp\scfc.o
 reset_vec CODE 0 0 0 3 2
 end_init CODE 0 C C 3 2
 config CONFIG 4 2007 2007 2 2
@@ -72,27 +72,27 @@ STRING 9E-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\SLAVE0.X.production.o
-F cinit CODE >783:C:\Users\kenne\AppData\Local\Temp\song.s
-F cinit CODE >786:C:\Users\kenne\AppData\Local\Temp\song.s
-F cinit CODE >800:C:\Users\kenne\AppData\Local\Temp\song.s
-10 cinit CODE >801:C:\Users\kenne\AppData\Local\Temp\song.s
-11 cinit CODE >807:C:\Users\kenne\AppData\Local\Temp\song.s
-11 cinit CODE >809:C:\Users\kenne\AppData\Local\Temp\song.s
-12 cinit CODE >810:C:\Users\kenne\AppData\Local\Temp\song.s
-4 intentry CODE >80:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-15 text4 CODE >80:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+F cinit CODE >783:C:\Users\kenne\AppData\Local\Temp\scfc.s
+F cinit CODE >786:C:\Users\kenne\AppData\Local\Temp\scfc.s
+F cinit CODE >800:C:\Users\kenne\AppData\Local\Temp\scfc.s
+10 cinit CODE >801:C:\Users\kenne\AppData\Local\Temp\scfc.s
+11 cinit CODE >807:C:\Users\kenne\AppData\Local\Temp\scfc.s
+11 cinit CODE >809:C:\Users\kenne\AppData\Local\Temp\scfc.s
+12 cinit CODE >810:C:\Users\kenne\AppData\Local\Temp\scfc.s
+4 intentry CODE >79:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+15 text4 CODE >79:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
 15 text4 CODE >81:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
 1B text4 CODE >82:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
 1F text4 CODE >83:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
 24 text4 CODE >84:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
 27 text4 CODE >85:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-28 text4 CODE >88:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-2C text4 CODE >89:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-32 text4 CODE >90:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-38 text4 CODE >91:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+28 text4 CODE >89:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+2C text4 CODE >90:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+32 text4 CODE >91:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
 38 text4 CODE >92:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-3B text4 CODE >93:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-3C text4 CODE >95:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+38 text4 CODE >93:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+3B text4 CODE >94:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+3C text4 CODE >96:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
 66 text3 CODE >10:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\LIB_ADC.c
 66 text3 CODE >11:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\LIB_ADC.c
 67 text3 CODE >12:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\LIB_ADC.c
@@ -112,24 +112,24 @@ F cinit CODE >800:C:\Users\kenne\AppData\Local\Temp\song.s
 86 text2 CODE >15:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\LIB_SPI.c
 89 text2 CODE >16:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\LIB_SPI.c
 8C text2 CODE >17:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\LIB_SPI.c
-43 text1 CODE >56:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-43 text1 CODE >58:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-47 text1 CODE >59:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-48 text1 CODE >61:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-4C text1 CODE >62:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-4F text1 CODE >67:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-52 text1 CODE >68:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-55 text1 CODE >70:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-58 text1 CODE >71:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-5B text1 CODE >73:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-60 text1 CODE >74:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-65 text1 CODE >75:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-8D maintext CODE >100:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+43 text1 CODE >57:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+43 text1 CODE >59:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+47 text1 CODE >60:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+48 text1 CODE >62:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+4C text1 CODE >63:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+4F text1 CODE >65:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+52 text1 CODE >66:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+55 text1 CODE >68:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+58 text1 CODE >69:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+5B text1 CODE >71:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+60 text1 CODE >73:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+65 text1 CODE >74:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
 8D maintext CODE >101:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-92 maintext CODE >102:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-97 maintext CODE >103:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-9A maintext CODE >104:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
-9A maintext CODE >105:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+8D maintext CODE >102:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+92 maintext CODE >104:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+97 maintext CODE >105:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+9A maintext CODE >106:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
+9A maintext CODE >107:C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE0.X\Slave0_main.c
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -150,20 +150,20 @@ __Hspace_3 0 0 ABS 0 - -
 __Hspace_4 4010 0 ABS 0 - -
 __Heeprom_data 0 0 EEDATA 3 eeprom_data -
 __Hstrings 0 0 ABS 0 strings -
-___sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\song.o
+___sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\scfc.o
 _main 11A 0 CODE 0 maintext dist/default/production\SLAVE0.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
-start 18 0 CODE 0 init C:\Users\kenne\AppData\Local\Temp\song.o
+start 18 0 CODE 0 init C:\Users\kenne\AppData\Local\Temp\scfc.o
 __size_of_main 0 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 __HbssCOMMON 0 0 ABS 0 bssCOMMON -
 __Hpowerup 0 0 CODE 0 powerup -
 _CONFIG_SPI F4 0 CODE 0 text2 dist/default/production\SLAVE0.X.production.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\song.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\song.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\song.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\song.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\song.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\song.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\scfc.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\scfc.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\scfc.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\scfc.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\scfc.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\kenne\AppData\Local\Temp\scfc.o
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 wtemp0 7E 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 __Hfunctab 0 0 ENTRY 0 functab -
@@ -173,15 +173,15 @@ _ADRESH 1E 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 _ANSELH 189 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 __Lmaintext 0 0 ABS 0 maintext -
 __end_of_CONFIG_SPI 11A 0 CODE 0 text2 dist/default/production\SLAVE0.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\song.o
-___stacklo 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\song.o
+___stackhi 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\scfc.o
+___stacklo 0 0 ABS 0 - C:\Users\kenne\AppData\Local\Temp\scfc.o
 __size_of_Setup 0 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 start_initialization 1E 0 CODE 0 cinit dist/default/production\SLAVE0.X.production.o
 _TRISAbits 85 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 _TRISCbits 87 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 _SSPBUF 13 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 _SSPCON 14 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\song.o
+___int_sp 0 0 STACK 2 stack C:\Users\kenne\AppData\Local\Temp\scfc.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -226,7 +226,7 @@ saved_w 7E 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 __end_of_ADC_CONFIG F4 0 CODE 0 text3 dist/default/production\SLAVE0.X.production.o
 __end_of_ISR 86 0 CODE 0 text4 dist/default/production\SLAVE0.X.production.o
 __Lintentry 8 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\kenne\AppData\Local\Temp\song.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\kenne\AppData\Local\Temp\scfc.o
 __size_of_CONFIG_SPI 0 0 ABS 0 - dist/default/production\SLAVE0.X.production.o
 _lectura 74 0 COMMON 1 bssCOMMON dist/default/production\SLAVE0.X.production.o
 _PIE1bits 8C 0 ABS 0 - dist/default/production\SLAVE0.X.production.o

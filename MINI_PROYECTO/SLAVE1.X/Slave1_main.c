@@ -48,6 +48,7 @@
 //**********************************************************************************************
 //Definir variables
 //**********************************************************************************************
+//variables para manejar el SPI y el contador
 uint8_t cont = 0;
 uint8_t lectura = 0;
 //**********************************************************************************************
@@ -55,22 +56,22 @@ uint8_t lectura = 0;
 //**********************************************************************************************
 void Setup(void){
     
+    // Configuracion de los puertos
     ANSEL = 0b00000001;
     ANSELH = 0;
     
     TRISA = 0b00000001;
     PORTA = 0;
-    
-//    TRISC = 0b0000000;
-//    PORTC = 0;
-        
+
     TRISD = 0;
     PORTD = 0;
     
     TRISE = 0;
     PORTE = 0;
     
+    //Llamo a la libreria de la interrupcion del puerto B
     INT_PORTB_CONFIG ();
+    //Llamo a la libreria del SPI
     CONFIG_SPI();
 }
 
@@ -78,6 +79,8 @@ void Setup(void){
 //Interrupciones
 //*********************************************************************************
 void __interrupt() ISR(void){
+    //interrupcion para manejar el contador ascendente y descendente
+    
     if (INTCONbits.RBIF){
         if (PORTBbits.RB0 == 1){
             cont++;
@@ -88,6 +91,8 @@ void __interrupt() ISR(void){
         }
         INTCONbits.RBIF = 0;
     }
+    
+    //interrupcion para el envio de datos del SPI
     if(PIR1bits.SSPIF){
         if(SSPSTATbits.BF == 0){
             lectura = SSPBUF;
@@ -101,7 +106,9 @@ void __interrupt() ISR(void){
 //Principal
 //*********************************************************************************
 void main(void) {
+    //llamar a la funcion de configuracion de pines
     Setup();
+    //tiempo de espera y encendido del bit GO para la conversion AC
     __delay_us(25);
     ADCON0bits.GO_DONE = 1;
     while (1) {

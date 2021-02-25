@@ -15,11 +15,11 @@
 [v _INT_PORTB_CONFIG INT_PORTB_CONFIG `(v  1 e 1 0 ]
 "9 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE1.X\LIB_SPI.c
 [v _CONFIG_SPI CONFIG_SPI `(v  1 e 1 0 ]
-"56 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE1.X\Slave1_main.c
+"57 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE1.X\Slave1_main.c
 [v _Setup Setup `(v  1 e 1 0 ]
-"80
+"81
 [v _ISR ISR `II(v  1 e 1 0 ]
-"103
+"108
 [v _main main `(v  1 e 1 0 ]
 "166 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
@@ -198,19 +198,19 @@
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
 "3449
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
-"51 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE1.X\Slave1_main.c
+"52 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE1.X\Slave1_main.c
 [v _cont cont `uc  1 e 1 0 ]
-"52
+"53
 [v _lectura lectura `uc  1 e 1 0 ]
-"103
+"108
 [v _main main `(v  1 e 1 0 ]
 {
-"110
+"117
 } 0
-"56
+"57
 [v _Setup Setup `(v  1 e 1 0 ]
 {
-"75
+"76
 } 0
 "10 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE1.X\INT_PORTB.c
 [v _INT_PORTB_CONFIG INT_PORTB_CONFIG `(v  1 e 1 0 ]
@@ -222,8 +222,8 @@
 {
 "17
 } 0
-"80 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE1.X\Slave1_main.c
+"81 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE1.X\Slave1_main.c
 [v _ISR ISR `II(v  1 e 1 0 ]
 {
-"98
+"103
 } 0

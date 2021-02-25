@@ -49,6 +49,7 @@
 //Definir variables
 //**********************************************************************************************
 
+//variables para la optencion del adc del sensor LM35
 uint8_t temp_val = 0;
 uint8_t lectura = 0;
 
@@ -56,16 +57,13 @@ uint8_t lectura = 0;
 //Configuracion de puertos
 //**********************************************************************************************
 void Setup(void){
-    
+    //configuracion de puertos
     ANSEL = 0b00000001;
     ANSELH = 0;
     
     TRISA = 0b00000001;
     PORTA = 0;
     
-//    TRISC = 0b0000000;
-//    PORTC = 0;
-        
     TRISD = 0;
     PORTD = 0;
     
@@ -74,7 +72,10 @@ void Setup(void){
     
     TRISB = 0;
     PORTB = 0;
+    
+    //llamo a la funcion de la libreria del adc para configurarlo
     ADC_CONFIG();
+    //llamo a la libreria del SPI
     CONFIG_SPI();
 }
 
@@ -82,12 +83,16 @@ void Setup(void){
 //Interrupciones
 //*********************************************************************************
 void __interrupt() ISR(void){
+    
+    //Interrupcion del ADC, para obtener el dato del ANSELH
     if (ADCON0bits.GO == 0){
         temp_val = ADRESH;
         __delay_us(25);
         ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;      
     }
+    
+    //Interrupcion del SPI para el envio del dato por el SPI
     if(PIR1bits.SSPIF){
         if(SSPSTATbits.BF == 0){
             lectura = SSPBUF;
@@ -105,7 +110,11 @@ void main(void) {
     __delay_us(25);
     ADCON0bits.GO_DONE = 1;
     while (1) {
+        //Envio el dato al puerto B para comprobar que si este trabajando bien
         PORTB = temp_val;
+        //Condicionales para que funcione correctamente el semaforo, en este apartado
+        //no hice ningun mapeo, solo comprobe que bits se encendian de forma binaria
+        //en el puerto B y asi coloque las condiciones.
         if(temp_val < 13){
             PORTD = 4;
         }

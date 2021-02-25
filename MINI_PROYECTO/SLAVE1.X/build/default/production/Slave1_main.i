@@ -2761,7 +2761,7 @@ void CONFIG_SPI(void);
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 51 "Slave1_main.c"
+# 52 "Slave1_main.c"
 uint8_t cont = 0;
 uint8_t lectura = 0;
 
@@ -2769,14 +2769,12 @@ uint8_t lectura = 0;
 
 void Setup(void){
 
+
     ANSEL = 0b00000001;
     ANSELH = 0;
 
     TRISA = 0b00000001;
     PORTA = 0;
-
-
-
 
     TRISD = 0;
     PORTD = 0;
@@ -2784,7 +2782,9 @@ void Setup(void){
     TRISE = 0;
     PORTE = 0;
 
+
     INT_PORTB_CONFIG ();
+
     CONFIG_SPI();
 }
 
@@ -2792,6 +2792,8 @@ void Setup(void){
 
 
 void __attribute__((picinterrupt(("")))) ISR(void){
+
+
     if (INTCONbits.RBIF){
         if (PORTBbits.RB0 == 1){
             cont++;
@@ -2802,6 +2804,8 @@ void __attribute__((picinterrupt(("")))) ISR(void){
         }
         INTCONbits.RBIF = 0;
     }
+
+
     if(PIR1bits.SSPIF){
         if(SSPSTATbits.BF == 0){
             lectura = SSPBUF;
@@ -2815,7 +2819,9 @@ void __attribute__((picinterrupt(("")))) ISR(void){
 
 
 void main(void) {
+
     Setup();
+
     _delay((unsigned long)((25)*(8000000/4000000.0)));
     ADCON0bits.GO_DONE = 1;
     while (1) {

@@ -2761,7 +2761,7 @@ void CONFIG_SPI(void);
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 51 "Slave0_main.c"
+# 52 "Slave0_main.c"
 uint8_t adcvar = 0;
 uint8_t lectura = 0;
 
@@ -2775,9 +2775,6 @@ void Setup(void){
     TRISA = 0b00000001;
     PORTA = 0;
 
-
-
-
     TRISD = 0;
     PORTD = 0;
 
@@ -2785,6 +2782,7 @@ void Setup(void){
     PORTE = 0;
 
     ADC_CONFIG();
+
     CONFIG_SPI();
 }
 
@@ -2792,12 +2790,14 @@ void Setup(void){
 
 
 void __attribute__((picinterrupt(("")))) ISR(void){
+
     if (ADCON0bits.GO == 0){
         adcvar = ADRESH;
         _delay((unsigned long)((25)*(8000000/4000000.0)));
         ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;
     }
+
 
     if(PIR1bits.SSPIF){
         if(SSPSTATbits.BF == 0){
@@ -2813,6 +2813,7 @@ void __attribute__((picinterrupt(("")))) ISR(void){
 
 void main(void) {
     Setup();
+
     _delay((unsigned long)((25)*(8000000/4000000.0)));
         ADCON0bits.GO_DONE = 1;
     while (1) {
