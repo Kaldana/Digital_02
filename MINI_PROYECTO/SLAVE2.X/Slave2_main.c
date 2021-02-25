@@ -48,8 +48,10 @@
 //**********************************************************************************************
 //Definir variables
 //**********************************************************************************************
-float temp_value = 0.00 ;
+
 uint8_t temp_val = 0;
+uint8_t lectura = 0;
+
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
@@ -61,8 +63,8 @@ void Setup(void){
     TRISA = 0b00000001;
     PORTA = 0;
     
-    TRISC = 0b0000000;
-    PORTC = 0;
+//    TRISC = 0b0000000;
+//    PORTC = 0;
         
     TRISD = 0;
     PORTD = 0;
@@ -70,6 +72,8 @@ void Setup(void){
     TRISE = 0;
     PORTE = 0;
     
+    TRISB = 0;
+    PORTB = 0;
     ADC_CONFIG();
     CONFIG_SPI();
 }
@@ -84,6 +88,13 @@ void __interrupt() ISR(void){
         ADCON0bits.GO_DONE = 1;
         PIR1bits.ADIF = 0;      
     }
+    if(PIR1bits.SSPIF){
+        if(SSPSTATbits.BF == 0){
+            lectura = SSPBUF;
+        }
+        SSPBUF = temp_val;
+        PIR1bits.SSPIF = 0;
+    }
 }
 
 //*********************************************************************************
@@ -92,9 +103,18 @@ void __interrupt() ISR(void){
 void main(void) {
     Setup();
     __delay_us(25);
-        ADCON0bits.GO_DONE = 1;
+    ADCON0bits.GO_DONE = 1;
     while (1) {
-        
+        PORTB = temp_val;
+        if(temp_val < 13){
+            PORTD = 4;
+        }
+        if((temp_val <= 18) && (temp_val >= 13)){
+            PORTD = 2;
+        }
+        if(temp_val > 18){
+            PORTD = 1;
+        }
     }
 }
 //*********************************************************************************

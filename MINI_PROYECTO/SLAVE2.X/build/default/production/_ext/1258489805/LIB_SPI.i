@@ -2633,11 +2633,11 @@ typedef uint16_t uintptr_t;
 # 14 "../SLAVE1.X/LIB_SPI.h" 2
 
 
-void CONFIG_SPI();
+void CONFIG_SPI(void);
 # 7 "../SLAVE1.X/LIB_SPI.c" 2
 
 
-void CONFIG_SPI(){
+void CONFIG_SPI(void){
     TRISCbits.TRISC3 = 1;
     TRISCbits.TRISC5 = 0;
     TRISAbits.TRISA5 = 1;

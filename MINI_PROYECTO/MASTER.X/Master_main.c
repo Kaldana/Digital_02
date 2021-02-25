@@ -11,6 +11,8 @@
 #include <stdint.h>
 #include "stdio.h"
 #include "LCD.h"
+#include "USART.h"
+#include "LIB_MASTERSPI.h"
 // PIC16F887 Configuration Bit Settings
 
 // 'C' source line config statements
@@ -51,13 +53,13 @@ void main(void);
 //**********************************************************************************************
 
 uint8_t adcvar = 0;
-uint8_t adcvar1 = 0;
+uint8_t cont = 0;
+uint8_t temp_value = 0;
 uint8_t receive = 0;
 uint8_t Lcdvar [20];
-uint8_t contador = 0;
-float Vol1 = 0.0;
-float Vol2 = 0.0;
-
+float S1 = 0.00;
+float S2 = 0.00;
+float S3 = 0.00;
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
@@ -69,9 +71,9 @@ void Setup(void){
     TRISA = 0b00000011;
     PORTA = 0;
     
-    //Declaro como entrada el RX
-    TRISC = 0b0000000;
-    PORTC = 0;
+//    Declaro como entrada el RX
+//    TRISC = 0b0000000;
+//    PORTC = 0;
         
     TRISD = 0;
     PORTD = 0;
@@ -79,30 +81,26 @@ void Setup(void){
     TRISE = 0;
     PORTE = 0;
     
-    ADCON0bits.CHS=0;
+    TRISB = 0;
+    PORTB = 0;
     
+    SPI_MASTER();
+    
+    TRISCbits.TRISC0 = 0;
+    PORTCbits.RC0 = 0;
+    
+    TRISCbits.TRISC1 = 0;
+    PORTCbits.RC1 = 1;
+    
+    TRISCbits.TRISC2 = 0;
+    PORTCbits.RC2 = 1;
 }
 
 //*********************************************************************************
 //Interrupciones
 //*********************************************************************************
 void __interrupt() ISR(void){
-    
-    if (ADCON0bits.GO == 0 & ADCON0bits.CHS == 0){
-        adcvar = ADRESH;
-        ADCON0bits.CHS = 1;
-        __delay_us(25);
-        ADCON0bits.GO_DONE = 1;
-        PIR1bits.ADIF = 0;
-    }
-
-    if (ADCON0bits.GO == 0 & ADCON0bits.CHS == 1){
-        adcvar1 = ADRESH;
-        ADCON0bits.CHS = 0;
-        __delay_us(25);
-        ADCON0bits.GO_DONE = 1;
-        PIR1bits.ADIF = 0;
-    }
+     
 }
 
 //*********************************************************************************
@@ -111,18 +109,54 @@ void __interrupt() ISR(void){
 void main(void) {
     Setup();
     LCD_Init();
-    LCD_Clear();  
-    __delay_us(25);
-    ADCON0bits.GO_DONE = 1;
+    LCD_Clear();
+    Set_BaudRate();
+    Init_Trans();
+    Init_Receive();
     
     while (1) {
         
-        Vol1 = adcvar*(0.0196);
-        sprintf(Lcdvar, "%1.2f  %1.2f %3d", Vol1,Vol2,contador);
+        PORTCbits.RC0 = 0;
+        SSPBUF = 0;
+        if(SSPSTATbits.BF == 0){ 
+            adcvar = SSPBUF;
+        }
+        __delay_ms(1);
+        PORTCbits.RC0 = 1;
+        
+        PORTCbits.RC1 = 0;
+        SSPBUF = 0;
+        if(SSPSTATbits.BF == 0){
+            cont = SSPBUF;
+        }
+        __delay_ms(1);
+        PORTCbits.RC1 = 1;
+        
+        PORTCbits.RC2 = 0;
+        SSPBUF = 0;
+        if(SSPSTATbits.BF == 0){
+            temp_value = SSPBUF;
+        }
+        __delay_ms(1);
+        PORTCbits.RC2 = 1;
+        
+        PORTB = temp_value;
+        S1 = adcvar*(0.0196);
+        S2 = cont;
+        S3 = temp_value*(2);
+        USART_WriteStr("ADC  CONT   TEMP \n");
+        USART_Write(13);
+        USART_Write(10);
+        sprintf(Lcdvar, "%1.2f %1.2f   %1.2f", S1,S2,S3);
+        
+        USART_WriteStr(Lcdvar);
+       
+        USART_Write(13);
+        USART_Write(10);
         
         LCD_Clear();
         LCD_Set_Cursor(1,1);
-        LCD_Write_String("V1   V2       CONT");
+        LCD_Write_String("ADC  CONT  TEMP");
         LCD_Set_Cursor(2,1);
         LCD_Write_String(Lcdvar);    
         

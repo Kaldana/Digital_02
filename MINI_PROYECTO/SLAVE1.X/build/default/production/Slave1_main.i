@@ -2739,7 +2739,7 @@ void INT_PORTB_CONFIG();
 # 14 "./LIB_SPI.h" 2
 
 
-void CONFIG_SPI();
+void CONFIG_SPI(void);
 # 14 "Slave1_main.c" 2
 
 
@@ -2763,6 +2763,7 @@ void CONFIG_SPI();
 #pragma config WRT = OFF
 # 51 "Slave1_main.c"
 uint8_t cont = 0;
+uint8_t lectura = 0;
 
 
 
@@ -2774,8 +2775,8 @@ void Setup(void){
     TRISA = 0b00000001;
     PORTA = 0;
 
-    TRISC = 0b0000000;
-    PORTC = 0;
+
+
 
     TRISD = 0;
     PORTD = 0;
@@ -2801,6 +2802,13 @@ void __attribute__((picinterrupt(("")))) ISR(void){
         }
         INTCONbits.RBIF = 0;
     }
+    if(PIR1bits.SSPIF){
+        if(SSPSTATbits.BF == 0){
+            lectura = SSPBUF;
+        }
+        SSPBUF = cont;
+        PIR1bits.SSPIF = 0;
+    }
 }
 
 
@@ -2808,6 +2816,8 @@ void __attribute__((picinterrupt(("")))) ISR(void){
 
 void main(void) {
     Setup();
+    _delay((unsigned long)((25)*(8000000/4000000.0)));
+    ADCON0bits.GO_DONE = 1;
     while (1) {
         PORTD = cont;
     }

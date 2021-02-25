@@ -49,7 +49,7 @@
 //Definir variables
 //**********************************************************************************************
 uint8_t adcvar = 0;
-
+uint8_t lectura = 0;
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
@@ -61,8 +61,8 @@ void Setup(void){
     TRISA = 0b00000001;
     PORTA = 0;
     
-    TRISC = 0b0000000;
-    PORTC = 0;
+//    TRISC = 0b0000000;
+//    PORTC = 0;
         
     TRISD = 0;
     PORTD = 0;
@@ -86,8 +86,8 @@ void __interrupt() ISR(void){
     }
     
     if(PIR1bits.SSPIF){
-        if(!SSPSTATbits.BF){
-            PORTD = SSPBUF;
+        if(SSPSTATbits.BF == 0){
+            lectura = SSPBUF;
         }
         SSPBUF = adcvar;
         PIR1bits.SSPIF = 0;

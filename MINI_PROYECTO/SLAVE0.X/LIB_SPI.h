@@ -7,13 +7,13 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef LIB_SPI_H
-#define LIB_SPI_H
+#ifndef LIB_MASTERSPI_H
+#define LIB_MASTERSPI_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>
 
-void CONFIG_SPI();
+void CONFIG_SPI(void);
 
 #endif	/* LIB_SPI_H */
 

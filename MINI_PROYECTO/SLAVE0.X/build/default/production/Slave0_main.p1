@@ -11,12 +11,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "166
 [; ;C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 166: extern volatile unsigned char PORTA __attribute__((address(0x005)));
 [v _PORTA `Vuc ~T0 @X0 0 e@5 ]
-"1540
-[; ;C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 1540: extern volatile unsigned char TRISC __attribute__((address(0x087)));
-[v _TRISC `Vuc ~T0 @X0 0 e@135 ]
-"290
-[; ;C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 290: extern volatile unsigned char PORTC __attribute__((address(0x007)));
-[v _PORTC `Vuc ~T0 @X0 0 e@7 ]
 "1602
 [; ;C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 1602: extern volatile unsigned char TRISD __attribute__((address(0x088)));
 [v _TRISD `Vuc ~T0 @X0 0 e@136 ]
@@ -33,8 +27,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./LIB_ADC.h: 16: void ADC_CONFIG();
 [v _ADC_CONFIG `(v ~T0 @X0 0 e? ]
 "16 ./LIB_SPI.h
-[; ;./LIB_SPI.h: 16: void CONFIG_SPI();
-[v _CONFIG_SPI `(v ~T0 @X0 0 e? ]
+[; ;./LIB_SPI.h: 16: void CONFIG_SPI(void);
+[v _CONFIG_SPI `(v ~T0 @X0 0 ef ]
 [t ~ __interrupt . k ]
 [t T1 __interrupt ]
 "1251 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
@@ -381,6 +375,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [i _adcvar
 -> -> 0 `i `uc
 ]
+"52
+[; ;Slave0_main.c: 52: uint8_t lectura = 0;
+[v _lectura `uc ~T0 @X0 1 e ]
+[i _lectura
+-> -> 0 `i `uc
+]
 "56
 [; ;Slave0_main.c: 56: void Setup(void){
 [v _Setup `(v ~T0 @X0 1 ef ]
@@ -399,12 +399,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "62
 [; ;Slave0_main.c: 62:     PORTA = 0;
 [e = _PORTA -> -> 0 `i `uc ]
-"64
-[; ;Slave0_main.c: 64:     TRISC = 0b0000000;
-[e = _TRISC -> -> 0 `i `uc ]
-"65
-[; ;Slave0_main.c: 65:     PORTC = 0;
-[e = _PORTC -> -> 0 `i `uc ]
 "67
 [; ;Slave0_main.c: 67:     TRISD = 0;
 [e = _TRISD -> -> 0 `i `uc ]
@@ -459,12 +453,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! != -> . . _PIR1bits 0 3 `i -> 0 `i 142  ]
 {
 "89
-[; ;Slave0_main.c: 89:         if(!SSPSTATbits.BF){
-[e $ ! ! != -> . . _SSPSTATbits 0 0 `i -> 0 `i 143  ]
+[; ;Slave0_main.c: 89:         if(SSPSTATbits.BF == 0){
+[e $ ! == -> . . _SSPSTATbits 0 0 `i -> 0 `i 143  ]
 {
 "90
-[; ;Slave0_main.c: 90:             PORTD = SSPBUF;
-[e = _PORTD _SSPBUF ]
+[; ;Slave0_main.c: 90:             lectura = SSPBUF;
+[e = _lectura _SSPBUF ]
 "91
 [; ;Slave0_main.c: 91:         }
 }

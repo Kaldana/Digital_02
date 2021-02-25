@@ -15,16 +15,16 @@
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "10 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE2.X\LIB_ADC.c
 [v _ADC_CONFIG ADC_CONFIG `(v  1 e 1 0 ]
-"56 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE2.X\Slave2_main.c
+"58 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE2.X\Slave2_main.c
 [v _Setup Setup `(v  1 e 1 0 ]
-"80
+"84
 [v _ISR ISR `II(v  1 e 1 0 ]
-"92
+"103
 [v _main main `(v  1 e 1 0 ]
 "166 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
-"290
-[v _PORTC PORTC `VEuc  1 e 1 @7 ]
+"228
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
 "352
 [v _PORTD PORTD `VEuc  1 e 1 @8 ]
 "414
@@ -57,6 +57,8 @@
 "553
 [u S62 . 1 `S54 1 . 1 0 ]
 [v _PIR1bits PIR1bits `VES62  1 e 1 @12 ]
+"843
+[v _SSPBUF SSPBUF `VEuc  1 e 1 @19 ]
 "850
 [v _SSPCON SSPCON `VEuc  1 e 1 @20 ]
 "1238
@@ -86,7 +88,7 @@
 [v _ADCON0bits ADCON0bits `VES112  1 e 1 @31 ]
 "1416
 [v _TRISA TRISA `VEuc  1 e 1 @133 ]
-[s S271 . 1 `uc 1 TRISA0 1 0 :1:0 
+[s S369 . 1 `uc 1 TRISA0 1 0 :1:0 
 `uc 1 TRISA1 1 0 :1:1 
 `uc 1 TRISA2 1 0 :1:2 
 `uc 1 TRISA3 1 0 :1:3 
@@ -96,11 +98,11 @@
 `uc 1 TRISA7 1 0 :1:7 
 ]
 "1433
-[u S280 . 1 `S271 1 . 1 0 ]
-[v _TRISAbits TRISAbits `VES280  1 e 1 @133 ]
-"1540
-[v _TRISC TRISC `VEuc  1 e 1 @135 ]
-[s S250 . 1 `uc 1 TRISC0 1 0 :1:0 
+[u S378 . 1 `S369 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES378  1 e 1 @133 ]
+"1478
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+[s S348 . 1 `uc 1 TRISC0 1 0 :1:0 
 `uc 1 TRISC1 1 0 :1:1 
 `uc 1 TRISC2 1 0 :1:2 
 `uc 1 TRISC3 1 0 :1:3 
@@ -110,8 +112,8 @@
 `uc 1 TRISC7 1 0 :1:7 
 ]
 "1557
-[u S259 . 1 `S250 1 . 1 0 ]
-[v _TRISCbits TRISCbits `VES259  1 e 1 @135 ]
+[u S357 . 1 `S348 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES357  1 e 1 @135 ]
 "1602
 [v _TRISD TRISD `VEuc  1 e 1 @136 ]
 "1664
@@ -129,6 +131,49 @@
 [v _PIE1bits PIE1bits `VES81  1 e 1 @140 ]
 "2177
 [v _SSPSTAT SSPSTAT `VEuc  1 e 1 @148 ]
+[s S233 . 1 `uc 1 BF 1 0 :1:0 
+`uc 1 UA 1 0 :1:1 
+`uc 1 R_nW 1 0 :1:2 
+`uc 1 S 1 0 :1:3 
+`uc 1 P 1 0 :1:4 
+`uc 1 D_nA 1 0 :1:5 
+`uc 1 CKE 1 0 :1:6 
+`uc 1 SMP 1 0 :1:7 
+]
+"2231
+[s S242 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D 1 0 :1:5 
+]
+[s S247 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 I2C_READ 1 0 :1:2 
+`uc 1 I2C_START 1 0 :1:3 
+`uc 1 I2C_STOP 1 0 :1:4 
+`uc 1 I2C_DATA 1 0 :1:5 
+]
+[s S253 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nW 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nA 1 0 :1:5 
+]
+[s S258 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nWRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nADDRESS 1 0 :1:5 
+]
+[s S263 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R_W 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D_A 1 0 :1:5 
+]
+[s S268 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 READ_WRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 DATA_ADDRESS 1 0 :1:5 
+]
+[u S273 . 1 `S233 1 . 1 0 `S242 1 . 1 0 `S247 1 . 1 0 `S253 1 . 1 0 `S258 1 . 1 0 `S263 1 . 1 0 `S268 1 . 1 0 ]
+[v _SSPSTATbits SSPSTATbits `VES273  1 e 1 @148 ]
 "2977
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @159 ]
 "3387
@@ -137,15 +182,17 @@
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
 "52 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE2.X\Slave2_main.c
 [v _temp_val temp_val `uc  1 e 1 0 ]
-"92
+"53
+[v _lectura lectura `uc  1 e 1 0 ]
+"103
 [v _main main `(v  1 e 1 0 ]
 {
-"99
+"119
 } 0
-"56
+"58
 [v _Setup Setup `(v  1 e 1 0 ]
 {
-"75
+"79
 } 0
 "9 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO/SLAVE1.X/LIB_SPI.c
 [v _CONFIG_SPI CONFIG_SPI `(v  1 e 1 0 ]
@@ -157,8 +204,8 @@
 {
 "19
 } 0
-"80 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE2.X\Slave2_main.c
+"84 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO\SLAVE2.X\Slave2_main.c
 [v _ISR ISR `II(v  1 e 1 0 ]
 {
-"87
+"98
 } 0

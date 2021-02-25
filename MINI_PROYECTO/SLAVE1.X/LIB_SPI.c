@@ -6,7 +6,7 @@
 
 #include "LIB_SPI.h"
 
-void CONFIG_SPI(){
+void CONFIG_SPI(void){
     TRISCbits.TRISC3 = 1;
     TRISCbits.TRISC5 = 0;
     TRISAbits.TRISA5 = 1;

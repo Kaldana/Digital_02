@@ -5,6 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>LCD.h</itemPath>
+      <itemPath>USART.h</itemPath>
+      <itemPath>LIB_MASTERSPI.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -15,6 +17,8 @@
                    projectFiles="true">
       <itemPath>Master_main.c</itemPath>
       <itemPath>LCD.c</itemPath>
+      <itemPath>USART.c</itemPath>
+      <itemPath>LIB_MASTERSPI.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
