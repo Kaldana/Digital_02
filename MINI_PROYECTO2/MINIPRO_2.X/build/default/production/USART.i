@@ -7,15 +7,7 @@
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "USART.c" 2
-
-
-
-
-
-
-
-# 1 "./USART.h" 1
-# 13 "./USART.h"
+# 11 "USART.c"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2496,7 +2488,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 13 "./USART.h" 2
+# 11 "USART.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
@@ -2631,56 +2623,47 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
+# 12 "USART.c" 2
+
+# 1 "./USART.h" 1
+# 14 "./USART.h"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 14 "./USART.h" 2
 
 
-void Set_BaudRate(void);
-void Init_Trans(void);
-void Init_Receive(void);
-void USART_Write(uint8_t a);
-void USART_WriteStr(char *a);
-uint8_t USART_Read(void);
-# 8 "USART.c" 2
-
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
-# 10 "USART.c" 2
+void USART_Initialize(const long int baudrate);
+# 13 "USART.c" 2
 
 
 
-void Set_BaudRate(void){
-    SPBRG = 12;
-}
+void USART_Initialize(const long int baudrate){
+    long int x;
 
-void Init_Trans(void){
+
+    TXSTAbits.TX9 = 0;
+
     TXSTAbits.TXEN = 1;
-    PIR1bits.TXIF = 0;
-    PIE1bits.TXIE = 0;
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-    TRISCbits.TRISC6 = 0;
-    TRISCbits.TRISC7 = 1;
-}
 
-void Init_Receive(void){
     TXSTAbits.SYNC = 0;
+
+    TXSTAbits.BRGH = 0;
+    BAUDCTLbits.BRG16 = 0;
+
+
     RCSTAbits.SPEN = 1;
+
     RCSTAbits.CREN = 1;
-}
 
-void USART_Write(uint8_t a){
-    while(!TRMT);
-    TXREG=a;
-}
+    x = (8000000 - baudrate*64)/(baudrate*64);
+    SPBRG = x;
 
-void USART_WriteStr(char *a){
-    uint8_t i;
-    for(i=0;a[i]!='\0';i++){
-        USART_Write(a[i]);
-    }
-}
 
-uint8_t USART_Read(){
-  while(!RCIF);
-  return RCREG;
+    INTCONbits.GIE = 1;
+
+    INTCONbits.PEIE = 1;
+
+
+    PIE1bits.RCIE = 1;
+
+    PIE1bits.TXIE = 1;
 }

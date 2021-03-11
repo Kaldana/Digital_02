@@ -4,106 +4,56 @@
  * Comments: Librería para comunicacion I2C
  *
  * 
- * SE ADAPTARON LAS LIBRERIAS DE KHALED MAGDY
- * Enlace: https://deepbluembedded.com
+ * SE ADAPTARON LAS LIBRERIAS DE ELECTROSOME
+ *
  */ 
 
 #include <xc.h>
 #include "I2C.h"
 
-//Codigo para la configuracion del I2C del maestro
+#define _XTAL_FREQ 8000000
 
-void CONFIG_I2CMAS()
-{
-  SSPCON  = 0x28;
-  SSPCON2 = 0x00;
-  SSPSTAT = 0x00;
-  SSPADD = ((_XTAL_FREQ/4)/BaudRate) - 1;
-  SCL_D = 1;
-  SDA_D = 1; 
-}
-//Se inicia el proceso del maestro luego que termine la espera
-
-void MAS_INIT()
-{
-    WAIT();
-    SEN = 1;
+void MAS_INIT(const unsigned long c){
+    SSPCON = 0b00101000;            //SSP Module as Master
+    SSPCON2 = 0;
+    SSPADD = (_XTAL_FREQ/(4*c))-1; //Setting Clock Speed
+    SSPSTAT = 0;
+    TRISC3 = 1;                   //Setting as input as given in datasheet
+    TRISC4 = 1;                   //Setting as input as given in datasheet
 }
 
-//Se inicializa la comunicacion 
-void I2C_INIT(char d)
-{
-    WAIT();
-    SEN = 1;
-    MAS_WRITE(d);
+void MAS_WAIT(){
+    while ((SSPSTAT & 0x04) || (SSPCON2 & 0x1F));    
 }
 
-void R_INIT()
-{
-    WAIT();
+void MAS_START(){
+    MAS_WAIT();    
+    SEN = 1;  
+}
+
+void MAS_RST(){
+    MAS_WAIT();
     RSEN = 1;
 }
 
-//Aqui se da una espera hasta que se hayan enviado los datos
-void WAIT()
-{
-    while ((SSPSTAT & 0x04) || (SSPCON2 & 0x1F));
-}
-
-void STOP()
-{
-    WAIT();
+void MAS_STOP(){
+    MAS_WAIT();
     PEN = 1;
 }
 
-//Se envia los datos ACK
-void ACK_I2C(void)
-{
-	ACKDT = 0;			
-    ACKEN = 1;			
-    while(ACKEN);
-}
-//Se envia los datos NACK
-void NACK_I2C(void)
-{
-	ACKDT = 1;			
-	ACKEN = 1;			
-    while(ACKEN);
+void MAS_WRITE(unsigned d){
+    MAS_WAIT();
+    SSPBUF = d; 
 }
 
-//Se envia los datos por medio del buffer
-unsigned char MAS_WRITE(unsigned char data)
-{
-    WAIT();
-    SSPBUF = data;
-    while(!SSPIF);  // Wait Until Completion
-	SSPIF = 0;
-    return ACKSTAT;
-}
-
-//Lecutra al momento de recibir los datos 
-unsigned char MAS_READBYTE(void)
-{
-    WAIT();
-    RCEN = 1;		  // Enable & Start Reception
-	while(!SSPIF);	  // Wait Until Completion
-	SSPIF = 0;		  // Clear The Interrupt Flag Bit
-    WAIT();
-    return SSPBUF;	  // Return The Received Byte
-}
-
-unsigned char MAS_READ(unsigned char an)
-{   WAIT();
-    //---[ Receive & Return A Byte & Send ACK or NACK ]---
-    unsigned char data;
-    RCEN = 1;              
-    while(!BF);      
-    data = SSPBUF;           
-    if(an==0)
-        ACK_I2C();            
-    else
-        NACK_I2C();     
-    while(!SSPIF);                 
-    SSPIF=0;   
-    return data;
+unsigned short MAS_READ(unsigned short a){
+    unsigned short temp;
+    MAS_WAIT();
+    RCEN = 1;
+    MAS_WAIT();
+    temp = SSPBUF;      //Read data from SSPBUF
+    MAS_WAIT();
+    ACKDT = (a)?0:1;    //Acknowledge bit
+    ACKEN = 1;          //Acknowledge sequence
+    return temp;
 }

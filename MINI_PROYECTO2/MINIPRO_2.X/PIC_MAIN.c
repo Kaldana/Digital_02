@@ -12,13 +12,14 @@
 #include "stdio.h"
 #include "I2C.h"
 #include "USART.h"
+#include "ADXL345.h"
 
 // PIC16F887 Configuration Bit Settings
 
 // 'C' source line config statements
 
 // CONFIG1
-#pragma config FOSC = XT        // Oscillator Selection bits (XT oscillator: Crystal/resonator on RA6/OSC2/CLKOUT and RA7/OSC1/CLKIN)
+#pragma config FOSC = INTRC_NOCLKOUT// Oscillator Selection bits (INTOSCIO oscillator: I/O function on RA6/OSC2/CLKOUT pin, I/O function on RA7/OSC1/CLKIN)
 #pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled and can be enabled by SWDTEN bit of the WDTCON register)
 #pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
 #pragma config MCLRE = OFF       // RE3/MCLR pin function select bit (RE3/MCLR pin function is MCLR)
@@ -40,7 +41,7 @@
 // Variables
 // *********************************************************************************************
 
-#define _XTAL_FREQ 8000000
+#define _XTAL_FREQ 4000000
 
 //**********************************************************************************************
 //Definir funciones
@@ -51,46 +52,66 @@ void main(void);
 //**********************************************************************************************
 //Definir variables
 //**********************************************************************************************
-//Los uint8 son para recibir los datos del SPI
-uint8_t adcvar = 0;
-uint8_t cont = 0;
-uint8_t temp_value = 0;
-uint8_t receive = 0;
-uint8_t Lcdvar [20];
-//Los float para enviar a la LCD
-float S1 = 0.00;
-float S2 = 0.00;
-float S3 = 0.00;
+
+char accelerometer_val[6];
+char Read_val;
+
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
 void Setup(void){
     
-    ANSEL = 0b00000011;
-    ANSELH = 0;
-    
-    TRISA = 0b00000011;
+    //Configuración de puertos
+    ANSEL = 0;
+    TRISA = 0;
     PORTA = 0;
-    
-    TRISD = 0;
-    PORTD = 0;
-    
-    TRISE = 0;
-    PORTE = 0;
-    
-    TRISB = 0;
-    PORTB = 0;
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
+    PIE1bits.RCIE = 1;
+    USART_Initialize(9600);
+    MAS_INIT(100000);
+    return;
+}
+
+//*********************************************************************************
+//Interrupciones
+//*********************************************************************************
+void __interrupt() ISR(void){
+    if (PIR1bits.RCIF){
+        Read_val = RCREG;
+    }
+//    if (PIR1bits.RCIF) {
+//        entrada = RCREG;
+//        if (entrada == '0x01') {
+//            PORTAbits.RA0 = 1;
+//        }
+//        if (entrada == '0x02') {
+//            PORTAbits.RA0 = 0;
+//        }
+//        if (entrada == '0x03') {
+//            PORTAbits.RA1 = 1;
+//        }
+//        if (entrada == '0x04') {
+//            PORTAbits.RA1 = 0;
+//        }
 }
 
 //*********************************************************************************
 //Principal
 //*********************************************************************************
 void main(void) {
+    __delay_ms(500);
     //Llamo a las configuraciones de los puertos
     Setup();
-    
+    ADXL345_Init(); 
+    OSCCONbits.IRCF = 0b111;
     while (1) {
-        
+        accelerometer_val[0]=ADXL345_Read(0x32);
+        accelerometer_val[1]=ADXL345_Read(0x33);
+        accelerometer_val[2]=ADXL345_Read(0x34);
+        accelerometer_val[3]=ADXL345_Read(0x35);
+        accelerometer_val[4]=ADXL345_Read(0x36);
+        accelerometer_val[5]=ADXL345_Read(0x37);
     }
 }
 //*********************************************************************************

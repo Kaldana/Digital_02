@@ -1,4 +1,4 @@
-# 1 "PIC_MAIN.c"
+# 1 "ADXL345.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,11 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "PIC_MAIN.c" 2
-# 10 "PIC_MAIN.c"
+# 1 "ADXL345.c" 2
+# 1 "./ADXL345.h" 1
+# 11 "./ADXL345.h"
+# 1 "./I2C.h" 1
+# 14 "./I2C.h"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2488,7 +2491,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 10 "PIC_MAIN.c" 2
+# 14 "./I2C.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
@@ -2623,7 +2626,7 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 11 "PIC_MAIN.c" 2
+# 15 "./I2C.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 1 3
 
@@ -2722,13 +2725,7 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 #pragma printf_check(sprintf) const
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
-# 12 "PIC_MAIN.c" 2
-
-# 1 "./I2C.h" 1
-# 15 "./I2C.h"
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
-# 15 "./I2C.h" 2
-
+# 16 "./I2C.h" 2
 
 
 void MAS_INIT(unsigned long c);
@@ -2738,97 +2735,39 @@ void MAS_RST(void);
 void MAS_STOP(void);
 void MAS_WRITE(unsigned d);
 unsigned short MAS_READ(unsigned short a);
-# 13 "PIC_MAIN.c" 2
-
-# 1 "./USART.h" 1
-# 14 "./USART.h"
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
-# 14 "./USART.h" 2
+# 11 "./ADXL345.h" 2
 
 
-void USART_Initialize(const long int baudrate);
-# 14 "PIC_MAIN.c" 2
-
-# 1 "./ADXL345.h" 1
-# 13 "./ADXL345.h"
 void ADXL345_Write(int add, int data);
 int ADXL345_Read(int add);
 void ADXL345_Init();
-# 15 "PIC_MAIN.c" 2
+# 1 "ADXL345.c" 2
+# 18 "ADXL345.c"
+void ADXL345_Write(int add, int data)
+{
+         MAS_START();
+         MAS_WRITE(0xA6);
+         MAS_WRITE(add);
+         MAS_WRITE(data);
+         MAS_STOP();
 
-
-
-
-
-
-
-#pragma config FOSC = INTRC_NOCLKOUT
-#pragma config WDTE = OFF
-#pragma config PWRTE = OFF
-#pragma config MCLRE = OFF
-#pragma config CP = OFF
-#pragma config CPD = OFF
-#pragma config BOREN = OFF
-#pragma config IESO = OFF
-#pragma config FCMEN = OFF
-#pragma config LVP = OFF
-
-
-#pragma config BOR4V = BOR40V
-#pragma config WRT = OFF
-# 49 "PIC_MAIN.c"
-void Setup(void);
-void main(void);
-
-
-
-
-
-char accelerometer_val[6];
-char Read_val;
-
-
-
-
-void Setup(void){
-
-
-    ANSEL = 0;
-    TRISA = 0;
-    PORTA = 0;
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-    PIE1bits.RCIE = 1;
-    USART_Initialize(9600);
-    MAS_INIT(100000);
-    return;
 }
 
-
-
-
-void __attribute__((picinterrupt(("")))) ISR(void){
-    if (PIR1bits.RCIF){
-        Read_val = RCREG;
-    }
-# 97 "PIC_MAIN.c"
+int ADXL345_Read(int add){
+         int retval;
+         MAS_START();
+         MAS_WRITE(0xA6);
+         MAS_WRITE(add);
+         MAS_START();
+         MAS_WRITE(0xA7);
+         retval=MAS_READ(0);
+         MAS_STOP();
+         return retval;
 }
 
-
-
-
-void main(void) {
-    _delay((unsigned long)((500)*(4000000/4000.0)));
-
-    Setup();
-    ADXL345_Init();
-    OSCCONbits.IRCF = 0b111;
-    while (1) {
-        accelerometer_val[0]=ADXL345_Read(0x32);
-        accelerometer_val[1]=ADXL345_Read(0x33);
-        accelerometer_val[2]=ADXL345_Read(0x34);
-        accelerometer_val[3]=ADXL345_Read(0x35);
-        accelerometer_val[4]=ADXL345_Read(0x36);
-        accelerometer_val[5]=ADXL345_Read(0x37);
-    }
+void ADXL345_Init(){
+         ADXL345_Write(0x31,0x0B);
+         _delay((unsigned long)((2)*(8000000/4000.0)));
+         ADXL345_Write(0x2D,0x08);
+         _delay((unsigned long)((2)*(8000000/4000.0)));
 }

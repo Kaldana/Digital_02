@@ -13,12 +13,7 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>
 
-void Set_BaudRate(void);
-void Init_Trans(void);
-void Init_Receive(void);
-void USART_Write(uint8_t a);
-void USART_WriteStr(char *a);
-uint8_t USART_Read(void);
+void USART_Initialize(const long int baudrate);
 
 #endif	/* USART_H */
 
