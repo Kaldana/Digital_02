@@ -37,7 +37,7 @@ int ADXL345_Read(int add){
          return retval;
 }
  
-void ADXL345_Init(){
+void ADXL345_Init(void){
          ADXL345_Write(D_FRM,0x0B);
          __delay_ms(2);
          ADXL345_Write(P_CTL,0x08);

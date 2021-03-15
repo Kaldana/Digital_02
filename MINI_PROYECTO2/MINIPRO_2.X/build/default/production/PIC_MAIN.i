@@ -2731,13 +2731,13 @@ extern int printf(const char *, ...);
 
 
 
-void MAS_INIT(unsigned long c);
+void MAS_INIT(const unsigned long c);
 void MAS_WAIT(void);
 void MAS_START(void);
 void MAS_RST(void);
 void MAS_STOP(void);
-void MAS_WRITE(unsigned d);
-unsigned short MAS_READ(unsigned short a);
+void MAS_WRITE(int d);
+int MAS_READ(int a);
 # 13 "PIC_MAIN.c" 2
 
 # 1 "./USART.h" 1
@@ -2785,8 +2785,9 @@ void main(void);
 
 
 char accelerometer_val[6];
-char Read_val;
-
+char Read_val = 0;
+int controlvar = 0;
+int dato = 0;
 
 
 
@@ -2796,39 +2797,75 @@ void Setup(void){
     ANSEL = 0;
     TRISA = 0;
     PORTA = 0;
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-    PIE1bits.RCIE = 1;
+    ANSELH = 0;
+    TRISB = 0;
+    PORTB = 0;
+
+    TRISD = 0;
+    PORTD = 0;
+
+    TRISE = 0;
+    PORTE = 0;
+
     USART_Initialize(9600);
+
     MAS_INIT(100000);
-    return;
+
+    ADXL345_Init();
 }
 
 
 
 
+
 void __attribute__((picinterrupt(("")))) ISR(void){
-    if (PIR1bits.RCIF){
+
+    if (PIR1bits.RCIF == 1) {
+
         Read_val = RCREG;
+
+
+        if (Read_val == 2) {
+            PORTAbits.RA0 = 1;
+            PORTB = 1;
+        }
+        if (Read_val == 3) {
+            PORTAbits.RA0 = 0;
+        }
+        if (Read_val == 4) {
+            PORTAbits.RA1 = 1;
+        }
+        if (Read_val == 5) {
+            PORTAbits.RA1 = 0;
+        }
     }
-# 97 "PIC_MAIN.c"
+
+    if(PIR1bits.TXIF == 1){
+        TXREG = accelerometer_val[dato];
+        if (dato == 5){
+            dato = 0;
+        }
+        else {
+            dato++;
+        }
+    }
 }
 
 
 
 
 void main(void) {
-    _delay((unsigned long)((500)*(4000000/4000.0)));
 
     Setup();
-    ADXL345_Init();
     OSCCONbits.IRCF = 0b111;
     while (1) {
+
         accelerometer_val[0]=ADXL345_Read(0x32);
         accelerometer_val[1]=ADXL345_Read(0x33);
         accelerometer_val[2]=ADXL345_Read(0x34);
         accelerometer_val[3]=ADXL345_Read(0x35);
         accelerometer_val[4]=ADXL345_Read(0x36);
         accelerometer_val[5]=ADXL345_Read(0x37);
+        PORTB = accelerometer_val[2];
     }
 }

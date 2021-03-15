@@ -21,28 +21,46 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"16 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\I2C.c
+"15 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\I2C.c
 [v _MAS_INIT MAS_INIT `(v  1 e 1 0 ]
-"25
+"24
 [v _MAS_WAIT MAS_WAIT `(v  1 e 1 0 ]
-"29
+"28
 [v _MAS_START MAS_START `(v  1 e 1 0 ]
-"39
+"38
 [v _MAS_STOP MAS_STOP `(v  1 e 1 0 ]
-"44
+"43
 [v _MAS_WRITE MAS_WRITE `(v  1 e 1 0 ]
-"49
-[v _MAS_READ MAS_READ `(us  1 e 2 0 ]
-"62 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\PIC_MAIN.c
+"48
+[v _MAS_READ MAS_READ `(i  1 e 2 0 ]
+"63 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\PIC_MAIN.c
 [v _Setup Setup `(v  1 e 1 0 ]
-"79
+"90
 [v _ISR ISR `II(v  1 e 1 0 ]
-"102
+"126
 [v _main main `(v  1 e 1 0 ]
 "16 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\USART.c
 [v _USART_Initialize USART_Initialize `(v  1 e 1 0 ]
 "166 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
+[s S279 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+`uc 1 RA6 1 0 :1:6 
+`uc 1 RA7 1 0 :1:7 
+]
+"183
+[u S288 . 1 `S279 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES288  1 e 1 @5 ]
+"228
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+"352
+[v _PORTD PORTD `VEuc  1 e 1 @8 ]
+"414
+[v _PORTE PORTE `VEuc  1 e 1 @9 ]
 [s S150 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INTF 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
@@ -60,7 +78,7 @@
 ]
 [u S164 . 1 `S150 1 . 1 0 `S159 1 . 1 0 ]
 [v _INTCONbits INTCONbits `VES164  1 e 1 @11 ]
-[s S277 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[s S259 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSPIF 1 0 :1:3 
@@ -69,8 +87,8 @@
 `uc 1 ADIF 1 0 :1:6 
 ]
 "553
-[u S285 . 1 `S277 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES285  1 e 1 @12 ]
+[u S267 . 1 `S259 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES267  1 e 1 @12 ]
 "843
 [v _SSPBUF SSPBUF `VEuc  1 e 1 @19 ]
 "850
@@ -97,10 +115,18 @@
 ]
 [u S124 . 1 `S105 1 . 1 0 `S114 1 . 1 0 `S118 1 . 1 0 `S121 1 . 1 0 ]
 [v _RCSTAbits RCSTAbits `VES124  1 e 1 @24 ]
+"1133
+[v _TXREG TXREG `VEuc  1 e 1 @25 ]
 "1140
 [v _RCREG RCREG `VEuc  1 e 1 @26 ]
 "1416
 [v _TRISA TRISA `VEuc  1 e 1 @133 ]
+"1478
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"1602
+[v _TRISD TRISD `VEuc  1 e 1 @136 ]
+"1664
+[v _TRISE TRISE `VEuc  1 e 1 @137 ]
 [s S182 . 1 `uc 1 TMR1IE 1 0 :1:0 
 `uc 1 TMR2IE 1 0 :1:1 
 `uc 1 CCP1IE 1 0 :1:2 
@@ -112,20 +138,20 @@
 "1718
 [u S190 . 1 `S182 1 . 1 0 ]
 [v _PIE1bits PIE1bits `VES190  1 e 1 @140 ]
-[s S307 . 1 `uc 1 SCS 1 0 :1:0 
+[s S301 . 1 `uc 1 SCS 1 0 :1:0 
 `uc 1 LTS 1 0 :1:1 
 `uc 1 HTS 1 0 :1:2 
 `uc 1 OSTS 1 0 :1:3 
 `uc 1 IRCF 1 0 :3:4 
 ]
 "1882
-[s S313 . 1 `uc 1 . 1 0 :4:0 
+[s S307 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 IRCF0 1 0 :1:4 
 `uc 1 IRCF1 1 0 :1:5 
 `uc 1 IRCF2 1 0 :1:6 
 ]
-[u S318 . 1 `S307 1 . 1 0 `S313 1 . 1 0 ]
-[v _OSCCONbits OSCCONbits `VES318  1 e 1 @143 ]
+[u S312 . 1 `S301 1 . 1 0 `S307 1 . 1 0 ]
+[v _OSCCONbits OSCCONbits `VES312  1 e 1 @143 ]
 "1979
 [v _SSPCON2 SSPCON2 `VEuc  1 e 1 @145 ]
 "2048
@@ -167,6 +193,8 @@
 [v _BAUDCTLbits BAUDCTLbits `VES93  1 e 1 @391 ]
 "3387
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
+"3449
+[v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
 "3563
 [v _ACKDT ACKDT `VEb  1 e 0 @1165 ]
 "3566
@@ -187,73 +215,57 @@
 [v _accelerometer_val accelerometer_val `[6]uc  1 e 6 0 ]
 "57
 [v _Read_val Read_val `uc  1 e 1 0 ]
-"102
+"59
+[v _dato dato `i  1 e 2 0 ]
+"126
 [v _main main `(v  1 e 1 0 ]
 {
-"116
+"140
 } 0
-"62
+"63
 [v _Setup Setup `(v  1 e 1 0 ]
 {
-"74
+"84
 } 0
 "16 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\USART.c
 [v _USART_Initialize USART_Initialize `(v  1 e 1 0 ]
 {
 "17
-[v USART_Initialize@x x `l  1 a 4 24 ]
+[v USART_Initialize@x x `l  1 a 4 30 ]
 "16
-[v USART_Initialize@baudrate baudrate `DCl  1 p 4 8 ]
-"46
+[v USART_Initialize@baudrate baudrate `DCl  1 p 4 14 ]
+"45
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
 {
 "10
-[v ___aldiv@quotient quotient `l  1 a 4 6 ]
+[v ___aldiv@quotient quotient `l  1 a 4 10 ]
 "11
-[v ___aldiv@sign sign `uc  1 a 1 5 ]
-[v ___aldiv@counter counter `uc  1 a 1 4 ]
+[v ___aldiv@sign sign `uc  1 a 1 9 ]
+[v ___aldiv@counter counter `uc  1 a 1 8 ]
 "5
 [v ___aldiv@divisor divisor `l  1 p 4 0 ]
 [v ___aldiv@dividend dividend `l  1 p 4 4 ]
 "41
 } 0
-"16 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\I2C.c
+"15 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\I2C.c
 [v _MAS_INIT MAS_INIT `(v  1 e 1 0 ]
 {
-[v MAS_INIT@c c `DCul  1 p 4 8 ]
-"23
+[v MAS_INIT@c c `DCul  1 p 4 13 ]
+"22
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\__lldiv.c
 [v ___lldiv __lldiv `(ul  1 e 4 0 ]
 {
 "10
-[v ___lldiv@quotient quotient `ul  1 a 4 4 ]
+[v ___lldiv@quotient quotient `ul  1 a 4 8 ]
 "11
-[v ___lldiv@counter counter `uc  1 a 1 8 ]
+[v ___lldiv@counter counter `uc  1 a 1 12 ]
 "5
 [v ___lldiv@divisor divisor `ul  1 p 4 0 ]
 [v ___lldiv@dividend dividend `ul  1 p 4 4 ]
 "30
-} 0
-"28 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\ADXL345.c
-[v _ADXL345_Read ADXL345_Read `(i  1 e 2 0 ]
-{
-"29
-[v ADXL345_Read@retval retval `i  1 a 2 2 ]
-"28
-[v ADXL345_Read@add add `i  1 p 2 0 ]
-"38
-} 0
-"49 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\I2C.c
-[v _MAS_READ MAS_READ `(us  1 e 2 0 ]
-{
-"50
-[v MAS_READ@temp temp `us  1 a 2 7 ]
-"49
-[v MAS_READ@a a `us  1 p 2 3 ]
-"59
 } 0
 "40 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\ADXL345.c
 [v _ADXL345_Init ADXL345_Init `(v  1 e 1 0 ]
@@ -263,33 +275,51 @@
 "18
 [v _ADXL345_Write ADXL345_Write `(v  1 e 1 0 ]
 {
-[v ADXL345_Write@add add `i  1 p 2 5 ]
-[v ADXL345_Write@data data `i  1 p 2 7 ]
+[v ADXL345_Write@add add `i  1 p 2 0 ]
+[v ADXL345_Write@data data `i  1 p 2 2 ]
 "26
 } 0
-"44 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\I2C.c
+"28
+[v _ADXL345_Read ADXL345_Read `(i  1 e 2 0 ]
+{
+"29
+[v ADXL345_Read@retval retval `i  1 a 2 6 ]
+"28
+[v ADXL345_Read@add add `i  1 p 2 4 ]
+"38
+} 0
+"43 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\I2C.c
 [v _MAS_WRITE MAS_WRITE `(v  1 e 1 0 ]
 {
-[v MAS_WRITE@d d `ui  1 p 2 3 ]
-"47
+[v MAS_WRITE@d d `i  1 p 2 4 ]
+"46
 } 0
-"39
+"38
 [v _MAS_STOP MAS_STOP `(v  1 e 1 0 ]
 {
-"42
+"41
 } 0
-"29
+"28
 [v _MAS_START MAS_START `(v  1 e 1 0 ]
 {
-"32
+"31
 } 0
-"25
+"48
+[v _MAS_READ MAS_READ `(i  1 e 2 0 ]
+{
+"49
+[v MAS_READ@temp temp `i  1 a 2 2 ]
+"48
+[v MAS_READ@a a `i  1 p 2 4 ]
+"58
+} 0
+"24
 [v _MAS_WAIT MAS_WAIT `(v  1 e 1 0 ]
 {
-"27
+"26
 } 0
-"79 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\PIC_MAIN.c
+"90 C:\Users\kenne\Documents\Universidad\Digital_02\MINI_PROYECTO2\MINIPRO_2.X\PIC_MAIN.c
 [v _ISR ISR `II(v  1 e 1 0 ]
 {
-"97
+"121
 } 0

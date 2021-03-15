@@ -2649,7 +2649,6 @@ void USART_Initialize(const long int baudrate){
     TXSTAbits.BRGH = 0;
     BAUDCTLbits.BRG16 = 0;
 
-
     RCSTAbits.SPEN = 1;
 
     RCSTAbits.CREN = 1;

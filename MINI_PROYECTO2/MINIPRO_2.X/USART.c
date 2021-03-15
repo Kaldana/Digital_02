@@ -25,7 +25,6 @@ void USART_Initialize(const long int baudrate){
     //Operate in Low Speed
     TXSTAbits.BRGH = 0;
     BAUDCTLbits.BRG16 = 0;
-
     //Enable Serial Port
     RCSTAbits.SPEN = 1;
     //Enable continuous receive

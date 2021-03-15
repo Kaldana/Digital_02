@@ -3,14 +3,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./I2C.h: 20: void MAS_START(void);
 [v _MAS_START `(v ~T0 @X0 0 ef ]
 "23
-[; ;./I2C.h: 23: void MAS_WRITE(unsigned d);
-[v _MAS_WRITE `(v ~T0 @X0 0 ef1`ui ]
+[; ;./I2C.h: 23: void MAS_WRITE(int d);
+[v _MAS_WRITE `(v ~T0 @X0 0 ef1`i ]
 "22
 [; ;./I2C.h: 22: void MAS_STOP(void);
 [v _MAS_STOP `(v ~T0 @X0 0 ef ]
 "24
-[; ;./I2C.h: 24: unsigned short MAS_READ(unsigned short a);
-[v _MAS_READ `(us ~T0 @X0 0 ef1`us ]
+[; ;./I2C.h: 24: int MAS_READ(int a);
+[v _MAS_READ `(i ~T0 @X0 0 ef1`i ]
 [v F1256 `(v ~T0 @X0 1 tf1`ul ]
 "92 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\pic.h
 [v __delay `JF1256 ~T0 @X0 0 e ]
@@ -268,13 +268,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _MAS_START ..  ]
 "21
 [; ;ADXL345.c: 21:          MAS_WRITE(0xA6);
-[e ( _MAS_WRITE (1 -> -> 166 `i `ui ]
+[e ( _MAS_WRITE (1 -> 166 `i ]
 "22
 [; ;ADXL345.c: 22:          MAS_WRITE(add);
-[e ( _MAS_WRITE (1 -> _add `ui ]
+[e ( _MAS_WRITE (1 _add ]
 "23
 [; ;ADXL345.c: 23:          MAS_WRITE(data);
-[e ( _MAS_WRITE (1 -> _data `ui ]
+[e ( _MAS_WRITE (1 _data ]
 "24
 [; ;ADXL345.c: 24:          MAS_STOP();
 [e ( _MAS_STOP ..  ]
@@ -297,19 +297,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _MAS_START ..  ]
 "31
 [; ;ADXL345.c: 31:          MAS_WRITE(0xA6);
-[e ( _MAS_WRITE (1 -> -> 166 `i `ui ]
+[e ( _MAS_WRITE (1 -> 166 `i ]
 "32
 [; ;ADXL345.c: 32:          MAS_WRITE(add);
-[e ( _MAS_WRITE (1 -> _add `ui ]
+[e ( _MAS_WRITE (1 _add ]
 "33
 [; ;ADXL345.c: 33:          MAS_START();
 [e ( _MAS_START ..  ]
 "34
 [; ;ADXL345.c: 34:          MAS_WRITE(0xA7);
-[e ( _MAS_WRITE (1 -> -> 167 `i `ui ]
+[e ( _MAS_WRITE (1 -> 167 `i ]
 "35
 [; ;ADXL345.c: 35:          retval=MAS_READ(0);
-[e = _retval -> ( _MAS_READ (1 -> -> 0 `i `us `i ]
+[e = _retval ( _MAS_READ (1 -> 0 `i ]
 "36
 [; ;ADXL345.c: 36:          MAS_STOP();
 [e ( _MAS_STOP ..  ]
@@ -322,7 +322,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :UE 140 ]
 }
 "40
-[; ;ADXL345.c: 40: void ADXL345_Init(){
+[; ;ADXL345.c: 40: void ADXL345_Init(void){
 [v _ADXL345_Init `(v ~T0 @X0 1 ef ]
 {
 [e :U _ADXL345_Init ]

@@ -15,13 +15,13 @@
 #include <stdint.h>
 #include <stdio.h>
 
-void MAS_INIT(unsigned long c);
+void MAS_INIT(const unsigned long c);
 void MAS_WAIT(void);
 void MAS_START(void);
 void MAS_RST(void);
 void MAS_STOP(void);
-void MAS_WRITE(unsigned d);
-unsigned short MAS_READ(unsigned short a);
+void MAS_WRITE(int d);
+int MAS_READ(int a);
 
 #endif /* I2C_H */
 

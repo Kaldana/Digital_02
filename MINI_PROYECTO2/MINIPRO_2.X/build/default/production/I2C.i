@@ -8,6 +8,8 @@
 # 2 "<built-in>" 2
 # 1 "I2C.c" 2
 # 11 "I2C.c"
+# 1 "./I2C.h" 1
+# 14 "./I2C.h"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2488,10 +2490,8 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 11 "I2C.c" 2
+# 14 "./I2C.h" 2
 
-# 1 "./I2C.h" 1
-# 15 "./I2C.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
 typedef signed char int8_t;
@@ -2727,14 +2727,14 @@ extern int printf(const char *, ...);
 # 16 "./I2C.h" 2
 
 
-void MAS_INIT(unsigned long c);
+void MAS_INIT(const unsigned long c);
 void MAS_WAIT(void);
 void MAS_START(void);
 void MAS_RST(void);
 void MAS_STOP(void);
-void MAS_WRITE(unsigned d);
-unsigned short MAS_READ(unsigned short a);
-# 12 "I2C.c" 2
+void MAS_WRITE(int d);
+int MAS_READ(int a);
+# 11 "I2C.c" 2
 
 
 
@@ -2767,13 +2767,13 @@ void MAS_STOP(){
     PEN = 1;
 }
 
-void MAS_WRITE(unsigned d){
+void MAS_WRITE(int d){
     MAS_WAIT();
     SSPBUF = d;
 }
 
-unsigned short MAS_READ(unsigned short a){
-    unsigned short temp;
+int MAS_READ(int a){
+    int temp;
     MAS_WAIT();
     RCEN = 1;
     MAS_WAIT();

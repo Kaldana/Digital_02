@@ -8,7 +8,6 @@
  *
  */ 
 
-#include <xc.h>
 #include "I2C.h"
 
 #define _XTAL_FREQ 8000000
@@ -41,13 +40,13 @@ void MAS_STOP(){
     PEN = 1;
 }
 
-void MAS_WRITE(unsigned d){
+void MAS_WRITE(int d){
     MAS_WAIT();
     SSPBUF = d; 
 }
 
-unsigned short MAS_READ(unsigned short a){
-    unsigned short temp;
+int MAS_READ(int a){
+    int temp;
     MAS_WAIT();
     RCEN = 1;
     MAS_WAIT();

@@ -9,7 +9,7 @@
 
 #include <xc.h>
 #include <stdint.h>
-#include "stdio.h"
+#include <stdio.h>
 #include "I2C.h"
 #include "USART.h"
 #include "ADXL345.h"
@@ -41,7 +41,7 @@
 // Variables
 // *********************************************************************************************
 
-#define _XTAL_FREQ 4000000
+#define _XTAL_FREQ 8000000
 
 //**********************************************************************************************
 //Definir funciones
@@ -54,8 +54,9 @@ void main(void);
 //**********************************************************************************************
 
 char accelerometer_val[6];
-char Read_val;
-
+char Read_val = 0;
+int controlvar = 0;
+int dato = 0;
 //**********************************************************************************************
 //Configuracion de puertos
 //**********************************************************************************************
@@ -65,53 +66,76 @@ void Setup(void){
     ANSEL = 0;
     TRISA = 0;
     PORTA = 0;
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-    PIE1bits.RCIE = 1;
+    ANSELH = 0;
+    TRISB = 0;
+    PORTB = 0;
+    
+    TRISD = 0;
+    PORTD = 0;
+    
+    TRISE = 0;
+    PORTE = 0;
+    //Inicializo el USART a un BaudRate de 9600
     USART_Initialize(9600);
+    //Inicializo el I2C en el maestro
     MAS_INIT(100000);
-    return;
+    //Inicializo el acelerometro
+    ADXL345_Init();
 }
 
 //*********************************************************************************
 //Interrupciones
 //*********************************************************************************
+
 void __interrupt() ISR(void){
-    if (PIR1bits.RCIF){
+
+    if (PIR1bits.RCIF == 1) {
+        //Obtengo el valor del RCREG para que baje la bandera
         Read_val = RCREG;
+
+        //Instrucciones para las luces piloto
+        if (Read_val == 2) {
+            PORTAbits.RA0 = 1;
+            PORTB = 1;
+        }
+        if (Read_val == 3) {
+            PORTAbits.RA0 = 0;
+        }
+        if (Read_val == 4) {
+            PORTAbits.RA1 = 1;
+        }
+        if (Read_val == 5) {
+            PORTAbits.RA1 = 0;
+        }
     }
-//    if (PIR1bits.RCIF) {
-//        entrada = RCREG;
-//        if (entrada == '0x01') {
-//            PORTAbits.RA0 = 1;
-//        }
-//        if (entrada == '0x02') {
-//            PORTAbits.RA0 = 0;
-//        }
-//        if (entrada == '0x03') {
-//            PORTAbits.RA1 = 1;
-//        }
-//        if (entrada == '0x04') {
-//            PORTAbits.RA1 = 0;
-//        }
+    //Interrupcion para que envie los 5 datos.
+    if(PIR1bits.TXIF == 1){
+        TXREG = accelerometer_val[dato];
+        if (dato == 5){
+            dato = 0;
+        }
+        else {
+            dato++;
+        }
+    }
 }
 
 //*********************************************************************************
 //Principal
 //*********************************************************************************
 void main(void) {
-    __delay_ms(500);
     //Llamo a las configuraciones de los puertos
-    Setup();
-    ADXL345_Init(); 
+    Setup(); 
     OSCCONbits.IRCF = 0b111;
     while (1) {
+        //obtengo los datos de los ejes del acelerometro
         accelerometer_val[0]=ADXL345_Read(0x32);
         accelerometer_val[1]=ADXL345_Read(0x33);
         accelerometer_val[2]=ADXL345_Read(0x34);
         accelerometer_val[3]=ADXL345_Read(0x35);
         accelerometer_val[4]=ADXL345_Read(0x36);
         accelerometer_val[5]=ADXL345_Read(0x37);
+        PORTB = accelerometer_val[2];
     }
 }
 //*********************************************************************************

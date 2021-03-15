@@ -2728,13 +2728,13 @@ extern int printf(const char *, ...);
 # 16 "./I2C.h" 2
 
 
-void MAS_INIT(unsigned long c);
+void MAS_INIT(const unsigned long c);
 void MAS_WAIT(void);
 void MAS_START(void);
 void MAS_RST(void);
 void MAS_STOP(void);
-void MAS_WRITE(unsigned d);
-unsigned short MAS_READ(unsigned short a);
+void MAS_WRITE(int d);
+int MAS_READ(int a);
 # 11 "./ADXL345.h" 2
 
 
@@ -2765,7 +2765,7 @@ int ADXL345_Read(int add){
          return retval;
 }
 
-void ADXL345_Init(){
+void ADXL345_Init(void){
          ADXL345_Write(0x31,0x0B);
          _delay((unsigned long)((2)*(8000000/4000.0)));
          ADXL345_Write(0x2D,0x08);
