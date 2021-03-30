@@ -25,9 +25,9 @@ int led16 = PF_1;
 int led17 = PC_4;
 int led18 = PC_5;
 
-//***************************************************
+//*******************************************************************************
 //DECLARACION DE VARIABLES
-//***************************************************
+//*******************************************************************************
 //Variables de control para el push de la TIVA
 int J = PUSH2;
 int J2 = PUSH1;
@@ -38,13 +38,13 @@ int antib2 = 0;
 int contador1=0;
 int contador2=0;
 
-
-//Subrutinas para llevar la programación de cada jugador, semaforo y el de victoria
+//*********************************************************************************
+//PROTOTIPOS DE FUNCIONES
+//*********************************************************************************
 void jugador1(void);
 void jugador2(void);
 void semaforo(void);
 void win(void);
-
 
 void setup() {
 //Configuracion general de los pines
@@ -99,6 +99,119 @@ if (digitalRead(J) == HIGH && antib1 == 1){
   contador1++; //aumenta el puntaje del jugador 1
 }
 
+//Por la forma en que tome los pines, se tomara un switch case para encender segun la necesidad
+switch (contador1)
+  {
+    
+      case 0:
+      //Encendidos para 0 punto
+      digitalWrite(led1, LOW); 
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, LOW);
+      digitalWrite(led4, LOW);
+      digitalWrite(led5, LOW);
+      digitalWrite(led6, LOW);
+      digitalWrite(led7, LOW);
+      digitalWrite(led8, LOW);
+      break;
+    
+    case 1:
+      //Encendidos para 1 punto
+      digitalWrite(led1, HIGH); 
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, LOW);
+      digitalWrite(led4, LOW);
+      digitalWrite(led5, LOW);
+      digitalWrite(led6, LOW);
+      digitalWrite(led7, LOW);
+      digitalWrite(led8, LOW);
+      break;
+
+    case 2:
+      //Encendidos para 2 puntos
+      digitalWrite(led1, LOW);
+      digitalWrite(led2, HIGH);
+      digitalWrite(led3, LOW);
+      digitalWrite(led4, LOW);
+      digitalWrite(led5, LOW);
+      digitalWrite(led6, LOW);
+      digitalWrite(led7, LOW);
+      digitalWrite(led8, LOW);
+      break;
+
+    case 3:
+      //Encendidos para 3 puntos
+      digitalWrite(led1, LOW); 
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, HIGH);
+      digitalWrite(led4, LOW);
+      digitalWrite(led5, LOW);
+      digitalWrite(led6, LOW);
+      digitalWrite(led7, LOW);
+      digitalWrite(led8, LOW);
+      break;
+
+    case 4:
+      //Encendidos para 4 puntos
+      digitalWrite(led1, LOW); 
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, LOW);
+      digitalWrite(led4, HIGH);
+      digitalWrite(led5, LOW);
+      digitalWrite(led6, LOW);
+      digitalWrite(led7, LOW);
+      digitalWrite(led8, LOW);
+      break;
+
+    case 5:
+      //Encendidos para 5 puntos
+      digitalWrite(led1, LOW); 
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, LOW);
+      digitalWrite(led4, LOW);
+      digitalWrite(led5, HIGH);
+      digitalWrite(led6, LOW);
+      digitalWrite(led7, LOW);
+      digitalWrite(led8, LOW);
+      break;
+      
+     case 6:
+      //Encendidos para 6 puntos
+      digitalWrite(led1, LOW); 
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, LOW);
+      digitalWrite(led4, LOW);
+      digitalWrite(led5, LOW);
+      digitalWrite(led6, HIGH);
+      digitalWrite(led7, LOW);
+      digitalWrite(led8, LOW);
+      break; 
+       
+      case 7:
+      //Encendidos para 7 puntos
+      digitalWrite(led1, LOW); 
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, LOW);
+      digitalWrite(led4, LOW);
+      digitalWrite(led5, LOW);
+      digitalWrite(led6, LOW);
+      digitalWrite(led7, HIGH);
+      digitalWrite(led8, LOW);
+      break; 
+      
+      case 8:
+      //Encendidos para 8 puntos
+      digitalWrite(led1, LOW); 
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, LOW);
+      digitalWrite(led4, LOW);
+      digitalWrite(led5, LOW);
+      digitalWrite(led6, LOW);
+      digitalWrite(led7, LOW);
+      digitalWrite(led8, HIGH);
+      break;
+  }
+}
 
 //Para el jugador 2 se aplico la misma logica que para el jugador 1
 void jugador2(void){
@@ -109,4 +222,9 @@ if (digitalRead(J2) == HIGH && antib2 == 1){
   antib2 = 0;
   delay(100);
   contador2++;
+}
+
+  
+
+
 }
