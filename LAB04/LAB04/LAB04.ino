@@ -85,6 +85,37 @@ jugador2();
 win();
 }
 
+void semaforo(void){
+  //Enciendo el LED rojo
+  digitalWrite(LRED, HIGH);
+  digitalWrite(LGREEN, LOW);
+  delay(1000);
+  //Enciendo el LED amarillo
+  digitalWrite(LRED, HIGH);
+  digitalWrite(LGREEN, HIGH);
+  delay(1000);
+  //Enciendo el LED verde
+  digitalWrite(LRED, LOW);
+  digitalWrite(LGREEN, HIGH);
+  delay(1000);
+  return;
+}
+
+void win(void){
+if (contador1>8){
+  digitalWrite(led17, HIGH);
+  digitalWrite(led8, LOW);  
+  loop();
+}
+
+if (contador2>8){
+  digitalWrite(led18, HIGH);
+  digitalWrite(led16, LOW);
+  loop();
+}
+
+}
+
 void jugador1(void){
 if (digitalRead(J) == LOW){ //Comprobar si el pulsador se presiono
   antib1 = 1;//actualizar el estado para evitar el antirrebote
@@ -330,35 +361,4 @@ if (digitalRead(J2) == HIGH && antib2 == 1){
       digitalWrite(led16, HIGH);
       break; 
   }
-}
-
-
-void semaforo(void){
-  //Enciendo el LED rojo
-  digitalWrite(LRED, HIGH);
-  digitalWrite(LGREEN, LOW);
-  delay(1000);
-  //Enciendo el LED amarillo
-  digitalWrite(LRED, HIGH);
-  digitalWrite(LGREEN, HIGH);
-  delay(1000);
-  //Enciendo el LED verde
-  digitalWrite(LRED, LOW);
-  digitalWrite(LGREEN, HIGH);
-  delay(1000);
-  return;
-}
-void win(void){
-if (contador1>8){
-  digitalWrite(led17, HIGH);
-  digitalWrite(led8, LOW);  
-  loop();
-}
-
-if (contador2>8){
-  digitalWrite(led18, HIGH);
-  digitalWrite(led16, LOW);
-  loop();
-}
-
 }
