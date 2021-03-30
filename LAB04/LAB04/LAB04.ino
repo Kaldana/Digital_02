@@ -224,7 +224,113 @@ if (digitalRead(J2) == HIGH && antib2 == 1){
   contador2++;
 }
 
-  
+  switch (contador2){
+    case 0:
+      //Encendidos para 0 puntos
+      digitalWrite(led9, LOW); 
+      digitalWrite(led10, LOW);
+      digitalWrite(led11, LOW);
+      digitalWrite(led12, LOW);
+      digitalWrite(led13, LOW);
+      digitalWrite(led14, LOW);
+      digitalWrite(led15, LOW);
+      digitalWrite(led16, LOW);
+      break;
+      
+    case 1:
+      //Encendidos para 1 punto
+      digitalWrite(led9, HIGH); 
+      digitalWrite(led10, LOW);
+      digitalWrite(led11, LOW);
+      digitalWrite(led12, LOW);
+      digitalWrite(led13, LOW);
+      digitalWrite(led14, LOW);
+      digitalWrite(led15, LOW);
+      digitalWrite(led16, LOW);
+      break;
 
+    case 2:
+      //Encendidos para 2 puntos
+      digitalWrite(led9, LOW); 
+      digitalWrite(led10, HIGH);
+      digitalWrite(led11, LOW);
+      digitalWrite(led12, LOW);
+      digitalWrite(led13, LOW);
+      digitalWrite(led14, LOW);
+      digitalWrite(led15, LOW);
+      digitalWrite(led16, LOW);
+      break;
 
+    case 3:
+      //Encendidos para 3 puntos
+      digitalWrite(led9, LOW); 
+      digitalWrite(led10, LOW);
+      digitalWrite(led11, HIGH);
+      digitalWrite(led12, LOW);
+      digitalWrite(led13, LOW);
+      digitalWrite(led14, LOW);
+      digitalWrite(led15, LOW);
+      digitalWrite(led16, LOW);
+      break;
+
+    case 4:
+      //Encendidos para 4 puntos
+      digitalWrite(led9, LOW); 
+      digitalWrite(led10, LOW);
+      digitalWrite(led11, LOW);
+      digitalWrite(led12, HIGH);
+      digitalWrite(led13, LOW);
+      digitalWrite(led14, LOW);
+      digitalWrite(led15, LOW);
+      digitalWrite(led16, LOW);
+      break;
+
+    case 5:
+      //Encendidos para 5 puntos
+      digitalWrite(led9, LOW); 
+      digitalWrite(led10, LOW);
+      digitalWrite(led11, LOW);
+      digitalWrite(led12, LOW);
+      digitalWrite(led13, HIGH);
+      digitalWrite(led14, LOW);
+      digitalWrite(led15, LOW);
+      digitalWrite(led16, LOW);
+      break;
+      
+     case 6:
+      //Encendidos para 6 puntos
+      digitalWrite(led9, LOW); 
+      digitalWrite(led10, LOW);
+      digitalWrite(led11, LOW);
+      digitalWrite(led12, LOW);
+      digitalWrite(led13, LOW);
+      digitalWrite(led14, HIGH);
+      digitalWrite(led15, LOW);
+      digitalWrite(led16, LOW);
+      break; 
+       
+      case 7:
+      //Encendidos para 7 puntos
+      digitalWrite(led9, LOW); 
+      digitalWrite(led10, LOW);
+      digitalWrite(led11, LOW);
+      digitalWrite(led12, LOW);
+      digitalWrite(led13, LOW);
+      digitalWrite(led14, LOW);
+      digitalWrite(led15, HIGH);
+      digitalWrite(led16, LOW);
+      break; 
+      
+      case 8:
+      //Encendidos para 8 puntos
+      digitalWrite(led9, LOW); 
+      digitalWrite(led10, LOW);
+      digitalWrite(led11, LOW);
+      digitalWrite(led12, LOW);
+      digitalWrite(led13, LOW);
+      digitalWrite(led14, LOW);
+      digitalWrite(led15, LOW);
+      digitalWrite(led16, HIGH);
+      break; 
+  }
 }
