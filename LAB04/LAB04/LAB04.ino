@@ -19,7 +19,7 @@ int led12 = PD_3;
 int led13 = PE_1;
 int led14 = PE_2;
 int led15 = PE_3;
-int led16 = PF_1;
+int led16 = PD_7;
 
 //LED PARA GANADORES
 int led17 = PC_4;
@@ -76,16 +76,13 @@ pinMode(LBLUE, OUTPUT);
 pinMode(J, INPUT_PULLUP);
 pinMode(J2, INPUT_PULLUP);  
 
-
+semaforo();
 }
 
 void loop(){
-
-semaforo();
 jugador1();
 jugador2();
 win();
-
 }
 
 void jugador1(void){
@@ -333,4 +330,35 @@ if (digitalRead(J2) == HIGH && antib2 == 1){
       digitalWrite(led16, HIGH);
       break; 
   }
+}
+
+
+void semaforo(void){
+  //Enciendo el LED rojo
+  digitalWrite(LRED, HIGH);
+  digitalWrite(LGREEN, LOW);
+  delay(1000);
+  //Enciendo el LED amarillo
+  digitalWrite(LRED, HIGH);
+  digitalWrite(LGREEN, HIGH);
+  delay(1000);
+  //Enciendo el LED verde
+  digitalWrite(LRED, LOW);
+  digitalWrite(LGREEN, HIGH);
+  delay(1000);
+  return;
+}
+void win(void){
+if (contador1>8){
+  digitalWrite(led17, HIGH);
+  digitalWrite(led8, LOW);  
+  loop();
+}
+
+if (contador2>8){
+  digitalWrite(led18, HIGH);
+  digitalWrite(led16, LOW);
+  loop();
+}
+
 }
