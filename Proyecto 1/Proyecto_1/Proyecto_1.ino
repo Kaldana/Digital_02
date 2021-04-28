@@ -30,13 +30,18 @@
 #define LCD_WR PD_3
 #define LCD_RD PE_1
 int DPINS[] = {PB_0, PB_1, PB_2, PB_3, PB_4, PB_5, PB_6, PB_7};
-#define UP    PC_6
+//#define UP    PC_6
 #define DOWN  PC_7
 #define LEFT  PD_6
 #define RIGHT PD_7
 const int START = PUSH1;
+const int UP = PUSH2;
 int jugar;
 int buttonState = 0;
+int UPState = 0;
+int DOWNState = 0;
+int RIGHTState = 0;
+int LEFTState = 0;
 const int Gled = GREEN_LED;
 //***************************************************************************************************************************************
 // Functions Prototypes
@@ -72,6 +77,7 @@ void setup() {
   pinMode(LEFT,INPUT_PULLUP);
   pinMode(RIGHT,INPUT_PULLUP);
   pinMode(START,INPUT_PULLUP);
+  pinMode(UP,INPUT_PULLUP);
   pinMode(Gled,OUTPUT);
 //LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[],int columns, int index, char flip, char offset);
     
@@ -107,6 +113,7 @@ void Menu(void){
       
       LCD_Sprite(x,100,32,24,snakeinicio,4,anim2,0,0);
       V_line( x , 100, 24, 0xACD1);
+      
       buttonState = digitalRead(START);
       if (buttonState == 0){
       delay (5);
@@ -124,9 +131,23 @@ void Menu(void){
 void Juegue(void){
   if (jugar == 1){
     FillRect(0, 0, 320, 240, 0x0000);  
-    FillRect(4,4,8,8,0x97C0);
-  };  
-}
+    for(int x = 1; x <320-9; x++){
+      delay(15);
+      FillRect(x,4,8,8,0x97C0);
+      V_line( x,4,8,0x0000);
+      UPState = digitalRead(UP);
+      if (UPState == 0){
+        delay(5);
+        for(int y = 4; y<240-9; y++){
+          delay(15);
+          FillRect(x,y,8,8,0x97C0);
+          H_line( x,y,8,0x0000);                                  
+        }
+      break;  
+      }
+    }
+  } 
+};  
 
 //***************************************************************************************************************************************
 // Loop Infinito
