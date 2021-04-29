@@ -46,7 +46,11 @@ int lastx = 0;
 int lasty = 0;
 int actx = 0;
 int acty = 0;
+uint8_t xfood = 0;
+uint8_t yfood = 0;
 int movimiento = 0;
+int comida = 0;
+int puntaje = 0;
 const int Gled = GREEN_LED;
 //***************************************************************************************************************************************
 // Functions Prototypes
@@ -126,20 +130,41 @@ void Menu(void) {
 void Entorno(void) {
   if (jugar == 1) {
     FillRect(0, 0, 320, 240, 0x0000);
-    FillRect(7, 7, 8, 8, 0x97C0);
+    FillRect(7, 23, 8, 8, 0x97C0);
     for (int x = 0; x < 319; x++) {
-      LCD_Bitmap(x, 0, 7, 7, muro);
+      LCD_Bitmap(x, 16, 7, 7, muro);
       LCD_Bitmap(x, 233, 7, 7, muro);
       x += 7;
     }
-    for (int y = 0; y < 319; y++) {
+    for (int y = 16; y < 319; y++) {
       LCD_Bitmap(0, y, 7, 7, muro);
       LCD_Bitmap(313, y, 7, 7, muro);
       y += 7;
     }    
   }
+  
   lastx = 7;
-  lasty = 7;
+  lasty = 23;
+  xfood =(random(8,312)); 
+  yfood =(random(8,232));
+  FillRect(xfood,yfood, 8, 8, 0x81EE);
+};
+
+//***************************************************************************************************************************************
+// Función para la comida
+//***************************************************************************************************************************************
+
+void food(void) {
+
+  if (xfood > lastx-3 && xfood < lastx+3){
+    xfood = (random(16,300));
+  }
+  if (yfood > lasty-3 && yfood < lasty+3){
+    yfood = (random(16,220));
+  }
+  FillRect(xfood,yfood,8,8,0x81EE);
+  puntaje += 1;
+  
 };
 
 
@@ -152,7 +177,9 @@ void loop() {
   Entorno();
 
   while(1){
-
+    
+    food();                
+    
     DOWNState = digitalRead(UP);
     delay(25);
     if (DOWNState == 0) {
@@ -163,20 +190,21 @@ void loop() {
     }
     
     if (movimiento == 0) {
-      for (int x = lastx; x < lastx +7 ; x++) {
-//        delay(15);
-        FillRect(x, 7, 8, 8, 0x97C0);
-        V_line( x, 7, 8, 0x0000);
+      for (int x = lastx; x < lastx + 7 ; x++) {
+        delay(15);
+        FillRect(x, 23, 8, 8, 0x97C0);
+        V_line( x, 23, 8, 0x0000);
         actx = x;
-        lasty = 7; 
+        lasty = 23; 
       }
       lastx = actx;
+      
     }
   
     if (movimiento == 1) {
       
       for (int y = lasty; y < lasty +7; y++) {
-//        delay(15);
+        delay(15);
         FillRect(lastx, y, 8, 8, 0x97C0);
         H_line(lastx,y, 8, 0x0000);
         acty = y;
@@ -187,9 +215,7 @@ void loop() {
     if (movimiento == 2) {
       
       for (int x = lastx; x > lastx -7; x--) {
-        digitalWrite(Gled,HIGH);
-//        delay(15);
-        digitalWrite(Gled,LOW);
+        delay(15);
         FillRect(x, lasty, 8, 8, 0x97C0);
         V_line(x+9,lasty, 8, 0x0000);
         actx = x;
@@ -199,9 +225,8 @@ void loop() {
     if (movimiento == 3) {
       
       for (int y = lasty; y > lasty -7; y--) {
-        digitalWrite(Gled,HIGH);
-//        delay(15);
-        digitalWrite(Gled,LOW);        FillRect(lastx, y, 8, 8, 0x97C0);
+        delay(15);
+        FillRect(lastx, y, 8, 8, 0x97C0);
         H_line(lastx,y+9, 8, 0x0000);
         acty = y;
       }
@@ -209,7 +234,7 @@ void loop() {
     }
     if (movimiento == 4) {
       for (int x = lastx; x < lastx +7 ; x++) {
-//        delay(15);
+        delay(15);
         FillRect(x, lasty, 8, 8, 0x97C0);
         V_line(x, lasty, 8, 0x0000);
         actx = x;
