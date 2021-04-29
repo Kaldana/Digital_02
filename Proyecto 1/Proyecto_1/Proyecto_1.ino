@@ -179,7 +179,7 @@ void Entorno(void) {
   FillRect(xfood,yfood, 8, 8, 0x81EE);
   lastx2 = 164;
   lasty2 = 23;
-  xfood2 =(random(165,300)); 
+  xfood2 =(random(200,300)); 
   yfood2 =(random(16,220));
   FillRect(xfood2,yfood2, 8, 8, 0x001F);
 };
@@ -207,7 +207,7 @@ void food(void) {
 
 
   if (xfood2 > lastx2-4 && xfood2 < lastx2+4){
-    xfood2 = (random(200,300));
+    xfood2 = (random(160,300));
     newfoodx2 = 1;
   }
   if (yfood2 > lasty2-4 && yfood2 < lasty2+4){
