@@ -43,22 +43,33 @@ const int START = PUSH1;
 const int UP = PUSH2;
 int jugar;
 int buttonState = 0;
-int UPState = 0;
-int DOWNState = 0;
+int J2State = 0;
+int J1State = 0;
 int RIGHTState = 0;
 int LEFTState = 0;
 int lastx = 0;
+int lastx2 = 0;
 int lasty = 0;
+int lasty2 = 0;
 int actx = 0;
+int actx2 = 0;
 int acty = 0;
+int acty2 = 0;
 uint8_t xfood = 0;
+uint8_t xfood2 = 0;
 uint8_t yfood = 0;
+uint8_t yfood2 = 0;
 int movimiento = 0;
+int movimiento2 = 0;
 int comida = 0;
 int puntaje = 0;
+int puntaje2 = 0;
 int newfoodx =0;
+int newfoodx2 =0;
 int newfoody =0;
+int newfoody2 =0;
 int Num = 0;
+int Num2 = 0;
 File file;
 unsigned char *Blok;
 const int Gled = GREEN_LED;
@@ -147,6 +158,7 @@ void Entorno(void) {
   if (jugar == 1) {
     FillRect(0, 0, 320, 240, 0x0000);
     FillRect(7, 23, 8, 8, 0x97C0);
+    FillRect(164, 23, 8, 8, 0x97C0);
     for (int x = 0; x < 319; x++) {
       LCD_Bitmap(x, 16, 7, 7, muro);
       LCD_Bitmap(x, 233, 7, 7, muro);
@@ -162,9 +174,14 @@ void Entorno(void) {
   
   lastx = 7;
   lasty = 23;
-  xfood =(random(8,312)); 
-  yfood =(random(8,232));
+  xfood =(random(8,150)); 
+  yfood =(random(16,220));
   FillRect(xfood,yfood, 8, 8, 0x81EE);
+  lastx2 = 164;
+  lasty2 = 23;
+  xfood2 =(random(165,300)); 
+  yfood2 =(random(16,220));
+  FillRect(xfood2,yfood2, 8, 8, 0x001F);
 };
 
 //***************************************************************************************************************************************
@@ -174,8 +191,8 @@ void Entorno(void) {
 void food(void) {
 
   if (xfood > lastx-4 && xfood < lastx+4){
-    xfood = (random(16,300));
-    newfoodx=1;
+    xfood = (random(8,150));
+    newfoodx = 1;
   }
   if (yfood > lasty-4 && yfood < lasty+4){
     yfood = (random(16,220));
@@ -187,6 +204,23 @@ void food(void) {
     newfoodx = 0;
     newfoody = 0;
   }
+
+
+  if (xfood2 > lastx2-4 && xfood2 < lastx2+4){
+    xfood2 = (random(200,300));
+    newfoodx2 = 1;
+  }
+  if (yfood2 > lasty2-4 && yfood2 < lasty2+4){
+    yfood2 = (random(16,220));
+    newfoody2 = 1;
+  }
+  if (newfoodx2 == 1 && newfoody2 == 1){
+    FillRect(xfood2,yfood2,8,8,0x001F);  
+    puntaje2 += 1;
+    newfoodx2 = 0;
+    newfoody2 = 0;
+  }
+  
 };
 
 //***************************************************************************************************************************************
@@ -203,9 +237,12 @@ void start_screen(void){
 //***************************************************************************************************************************************
 
 void punteo(void) {
-  String textopunteo = "Tu punteo es:";
-  LCD_Print(textopunteo, 25, 0, 2, 0x0000, 0xACD1);    
-  LCD_Print(String(puntaje), 250, 0, 2, 0x0000, 0xACD1);
+  String textopunteo = "J1:";
+  LCD_Print(textopunteo, 38, 0, 2, 0x0000, 0xACD1);    
+  LCD_Print(String(puntaje), 98, 0, 2, 0x0000, 0xACD1);
+  String textopunteo2 = "J2:";
+  LCD_Print(textopunteo2, 200, 0, 2, 0x0000, 0xACD1);    
+  LCD_Print(String(puntaje2), 250, 0, 2, 0x0000, 0xACD1);  
 };
 
 //******************************************************************************************************************************************
@@ -261,12 +298,19 @@ void loop() {
     
     food();                
     punteo();
-    DOWNState = digitalRead(UP);
-    delay(25);
-    if (DOWNState == 0) {
+    J1State = digitalRead(UP);
+    J2State = digitalRead(START);
+    
+    if (J1State == 0) {
       movimiento += 1;
       if (movimiento == 5) {
         movimiento = 1;
+      }
+    }
+    if (J2State == 0) {
+      movimiento2 += 1;
+      if (movimiento2 == 5) {
+        movimiento2 = 1;
       }
     }
     
@@ -322,7 +366,62 @@ void loop() {
       }
       lastx = actx;
     }
+
+
+  if (movimiento2 == 0) {
+      for (int x = lastx2; x < lastx2 + 7 ; x++) {
+        delay(15);
+        FillRect(x, 23, 8, 8, 0x97C0);
+        V_line( x, 23, 8, 0x0000);
+        actx2 = x;
+        lasty2 = 23; 
+      }
+      lastx2 = actx2;
+      
+    }
+  
+    if (movimiento2 == 1) {
+      
+      for (int y = lasty2; y < lasty2 +7; y++) {
+        delay(15);
+        FillRect(lastx2, y, 8, 8, 0x97C0);
+        H_line(lastx2,y, 8, 0x0000);
+        acty2 = y;
+      }
+      lasty2 = acty2;
+    }
+    
+    if (movimiento2 == 2) {
+      
+      for (int x = lastx2; x > lastx2 -7; x--) {
+        delay(15);
+        FillRect(x, lasty2, 8, 8, 0x97C0);
+        V_line(x+9,lasty2, 8, 0x0000);
+        actx2 = x;
+      }
+      lastx2 = actx2;
+    }
+    if (movimiento2 == 3) {
+      
+      for (int y = lasty2; y > lasty2 -7; y--) {
+        delay(15);
+        FillRect(lastx2, y, 8, 8, 0x97C0);
+        H_line(lastx2,y+9, 8, 0x0000);
+        acty2 = y;
+      }
+      lasty2 = acty2;
+    }
+    if (movimiento2 == 4) {
+      for (int x = lastx2; x < lastx2 +7 ; x++) {
+        delay(15);
+        FillRect(x, lasty2, 8, 8, 0x97C0);
+        V_line(x, lasty2, 8, 0x0000);
+        actx2 = x;
+      }
+      lastx2 = actx2;
+    }
   }
+    
 }
 
 //***************************************************************************************************************************************
