@@ -9,6 +9,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <TM4C123GH6PM.h>
+#include <SPI.h>
+#include <SD.h>
+#include <stdlib.h>
+#include <string.h>
 #include "inc/hw_ints.h"
 #include "inc/hw_memmap.h"
 #include "inc/hw_types.h"
@@ -54,6 +58,9 @@ int comida = 0;
 int puntaje = 0;
 int newfoodx =0;
 int newfoody =0;
+int Num = 0;
+File file;
+unsigned char *Blok;
 const int Gled = GREEN_LED;
 //***************************************************************************************************************************************
 // Functions Prototypes
@@ -76,7 +83,7 @@ void Entorno(void);
 void food(void);
 void punteo(void);
 void start_screen(void);
-
+void setupsd(void);
 //***************************************************************************************************************************************
 // Inicialización
 //***************************************************************************************************************************************
@@ -88,7 +95,8 @@ void setup() {
 
   LCD_Init();
   LCD_Clear(0x00);
-
+  setupsd();
+  Blok = opensd();
   pinMode(UP, INPUT_PULLUP);
   pinMode(DOWN, INPUT_PULLUP);
   pinMode(LEFT, INPUT_PULLUP);
@@ -147,6 +155,7 @@ void Entorno(void) {
     for (int y = 16; y < 319; y++) {
       LCD_Bitmap(0, y, 7, 7, muro);
       LCD_Bitmap(313, y, 7, 7, muro);
+      LCD_Bitmap(157, y, 7, 7, muro);
       y += 7;
     }    
   }
@@ -198,6 +207,47 @@ void punteo(void) {
   LCD_Print(textopunteo, 25, 0, 2, 0x0000, 0xACD1);    
   LCD_Print(String(puntaje), 250, 0, 2, 0x0000, 0xACD1);
 };
+
+//******************************************************************************************************************************************
+//Funciones SD
+//*******************************************************************************************************************************************
+//Setup SPI SD
+void setupsd(void){
+  SPI.setModule(0);
+
+  Serial.println(" ");
+  Serial.println("Initializing SD card...");
+  pinMode(PA_3, OUTPUT);
+
+  if (!SD.begin(PA_3)) {
+    Serial.println("initialization failed!");
+    return;
+  }
+}
+
+unsigned char* opensd(){
+  file = SD.open("olak.txt"); //abrir archivos
+ 
+  Serial.println("a");
+  Serial.println("a");
+  char data[file.size()];
+  file.read(data, file.size());
+  file.close();
+
+  unsigned char* temp_data = (unsigned char*)malloc(7*7*2*sizeof(unsigned char));
+//cargar a ram
+  const char s1[2] = ",";
+
+  temp_data[0] = strtoul(strtok(data,s1), NULL, 16);
+//rtok separa y toul vuelve string
+  for (int i = 1; i<(7*7*2); i++){
+    temp_data[i] = strtoul(strtok(NULL,s1), NULL,16);
+  }
+  
+  return temp_data;
+
+}
+
 
 //***************************************************************************************************************************************
 // Loop Infinito
