@@ -19,6 +19,7 @@
 #include "driverlib/rom.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/timer.h"
+#include "sonidos.h"
 
 #include "bitmaps.h"
 #include "font.h"
@@ -70,6 +71,7 @@ void LCD_Print(String text, int x, int y, int fontSize, int color, int backgroun
 
 void LCD_Bitmap(unsigned int x, unsigned int y, unsigned int width, unsigned int height, unsigned char bitmap[]);
 void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[], int columns, int index, char flip, char offset);
+void start_screen(void);
 
 //***************************************************************************************************************************************
 // Inicialización
@@ -175,6 +177,15 @@ void food(void) {
 };
 
 //***************************************************************************************************************************************
+// Función para la musica
+//***************************************************************************************************************************************
+
+void start_screen(void){
+  musica(melody1, durations1, songLenght1);
+  delay(100);  
+};
+
+//***************************************************************************************************************************************
 // Función para el puntaje
 //***************************************************************************************************************************************
 
@@ -188,7 +199,7 @@ void punteo(void) {
 // Loop Infinito
 //***************************************************************************************************************************************
 void loop() {
-
+  start_screen();
   Menu();
   Entorno();
 
