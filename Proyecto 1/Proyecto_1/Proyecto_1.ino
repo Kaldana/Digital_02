@@ -71,6 +71,10 @@ void LCD_Print(String text, int x, int y, int fontSize, int color, int backgroun
 
 void LCD_Bitmap(unsigned int x, unsigned int y, unsigned int width, unsigned int height, unsigned char bitmap[]);
 void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[], int columns, int index, char flip, char offset);
+void Menu(void);
+void Entorno(void);
+void food(void);
+void punteo(void);
 void start_screen(void);
 
 //***************************************************************************************************************************************
@@ -181,7 +185,7 @@ void food(void) {
 //***************************************************************************************************************************************
 
 void start_screen(void){
-  musica(melody1, durations1, songLenght1);
+  musica(melody1, durations1, songLength1);
   delay(100);  
 };
 
