@@ -51,6 +51,8 @@ uint8_t yfood = 0;
 int movimiento = 0;
 int comida = 0;
 int puntaje = 0;
+int newfoodx =0;
+int newfoody =0;
 const int Gled = GREEN_LED;
 //***************************************************************************************************************************************
 // Functions Prototypes
@@ -156,17 +158,31 @@ void Entorno(void) {
 
 void food(void) {
 
-  if (xfood > lastx-3 && xfood < lastx+3){
+  if (xfood > lastx-4 && xfood < lastx+4){
     xfood = (random(16,300));
+    newfoodx=1;
   }
-  if (yfood > lasty-3 && yfood < lasty+3){
+  if (yfood > lasty-4 && yfood < lasty+4){
     yfood = (random(16,220));
+    newfoody = 1;
   }
-  FillRect(xfood,yfood,8,8,0x81EE);
-  puntaje += 1;
-  
+  if (newfoodx == 1 && newfoody == 1){
+    FillRect(xfood,yfood,8,8,0x81EE);  
+    puntaje += 1;
+    newfoodx = 0;
+    newfoody = 0;
+  }
 };
 
+//***************************************************************************************************************************************
+// Función para el puntaje
+//***************************************************************************************************************************************
+
+void punteo(void) {
+  String textopunteo = "Tu punteo es:";
+  LCD_Print(textopunteo, 25, 0, 2, 0x0000, 0xACD1);    
+  LCD_Print(String(puntaje), 250, 0, 2, 0x0000, 0xACD1);
+};
 
 //***************************************************************************************************************************************
 // Loop Infinito
@@ -179,7 +195,7 @@ void loop() {
   while(1){
     
     food();                
-    
+    punteo();
     DOWNState = digitalRead(UP);
     delay(25);
     if (DOWNState == 0) {
