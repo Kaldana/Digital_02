@@ -6,6 +6,8 @@
    IE3027: Electrónica Digital 2 - 2019
 */
 //***************************************************************************************************************************************
+// Librerias necesarias para el funcionamiento
+//***************************************************************************************************************************************
 #include <stdint.h>
 #include <stdbool.h>
 #include <TM4C123GH6PM.h>
@@ -29,6 +31,9 @@
 #include "font.h"
 #include "lcd_registers.h"
 
+//***************************************************************************************************************************************
+// Definimos palabras especificas para pines, facilitando la programacion
+//***************************************************************************************************************************************
 #define LCD_RST PD_0
 #define LCD_CS PD_1
 #define LCD_RS PD_2
@@ -39,6 +44,10 @@ int DPINS[] = {PB_0, PB_1, PB_2, PB_3, PB_4, PB_5, PB_6, PB_7};
 #define DOWN  PC_7
 #define LEFT  PD_6
 #define RIGHT PD_7
+
+//***************************************************************************************************************************************
+// Definicion de variables
+//***************************************************************************************************************************************
 const int START = PUSH1;
 const int UP = PUSH2;
 int jugar;
@@ -86,7 +95,6 @@ void V_line(unsigned int x, unsigned int y, unsigned int l, unsigned int c);
 void Rect(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned int c);
 void FillRect(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned int c);
 void LCD_Print(String text, int x, int y, int fontSize, int color, int background);
-
 void LCD_Bitmap(unsigned int x, unsigned int y, unsigned int width, unsigned int height, unsigned char bitmap[]);
 void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[], int columns, int index, char flip, char offset);
 void Menu(void);
@@ -126,20 +134,29 @@ void setup() {
 //***************************************************************************************************************************************
 
 void Menu(void) {
+  //Ciclo principal para que se verifique constantemente cuando se presiona el boton y se mueva el snake
   while (jugar == 0) {
+    //Coloco el fondo a la LCD
     FillRect(0, 0, 320, 240, 0xACD1);
+    //Declaro la primer fila de texto
     String menu1 = "Snake Classic Game";
+    //Imprimo la fila detexto creada arriba
     LCD_Print(menu1, 20, 100, 2, 0x0000, 0xACD1);
+    //Declaro la segunda fila de texto
     String menu2 = "PUSH START TO PLAY";
+    //Imprimo la segunda fila de texto creada arriba
     LCD_Print(menu2, 20, 140, 2, 0x0000, 0xACD1);
 
+    //Ciclo para que el snake recorra de izquierda a derecha la pantalla y borre la primer fila de texto
     for (int x = 0; x < 320 - 32; x++) {
       delay(15);
+      //variable para definir el cambio de frame
       int anim2 = (x / 35) % 2;
-
+      //Funcion para imprimir el snake segun las condiciones de las variables
       LCD_Sprite(x, 100, 32, 24, snakeinicio, 4, anim2, 0, 0);
+      //Se imprime una linea detras del snake para borrar rastro
       V_line( x , 100, 24, 0xACD1);
-
+      //Se verifica si se presiono el boton de START para empezar el juego
       buttonState = digitalRead(START);
       if (buttonState == 0) {
         delay (5);
@@ -155,10 +172,15 @@ void Menu(void) {
 //***************************************************************************************************************************************
 
 void Entorno(void) {
+  //Se verifica si ya se presiono start para comezar el juego
   if (jugar == 1) {
+    //Se crea el fondo para la LCD
     FillRect(0, 0, 320, 240, 0x0000);
+    //Se crea el cuerpo de la primer snake
     FillRect(7, 23, 8, 8, 0x97C0);
+    //Se crea el cuerpo del segundo snake
     FillRect(164, 23, 8, 8, 0x97C0);
+    //Los siguientes dos for se utilizaron para poder crear los muros del juego, tanto los del marco como la linea divisora.
     for (int x = 0; x < 319; x++) {
       LCD_Bitmap(x, 16, 7, 7, muro);
       LCD_Bitmap(x, 233, 7, 7, muro);
@@ -171,16 +193,18 @@ void Entorno(void) {
       y += 7;
     }    
   }
-  
+  //estas variables son importantes porque son las que definen la posicion inicial de los snake
   lastx = 7;
   lasty = 23;
-  xfood =(random(8,150)); 
-  yfood =(random(16,220));
-  FillRect(xfood,yfood, 8, 8, 0x81EE);
   lastx2 = 164;
   lasty2 = 23;
+  //estas variables permiten generar la comida de forma aleatoria en el mapa
+  xfood =(random(8,150)); 
+  yfood =(random(16,220));
   xfood2 =(random(200,300)); 
   yfood2 =(random(16,220));
+  //estas funciones crean la comida de los dos jugadores, una color LILA y otro AZUL
+  FillRect(xfood,yfood, 8, 8, 0x81EE);
   FillRect(xfood2,yfood2, 8, 8, 0x001F);
 };
 
@@ -189,32 +213,40 @@ void Entorno(void) {
 //***************************************************************************************************************************************
 
 void food(void) {
-
-  if (xfood > lastx-4 && xfood < lastx+4){
+  //Comprobaciones si el snake esta dentro de los pixeles de la comida en x para contar que ya se la comio
+  if (xfood > lastx-4 || xfood < lastx+4){
+    //creacion de una nueva coordenada en x para la comida
     xfood = (random(8,150));
+    //bandera que me permite conocer si ya paso por la comida y asi generar una nueva
     newfoodx = 1;
   }
-  if (yfood > lasty-4 && yfood < lasty+4){
+  
+  //Comprobaciones si el snake esta dentro de los pixeles de la comida en y para contar que ya se la comio
+  if (yfood > lasty-4 || yfood < lasty+4){
+  //creacion de una nueva coordenada en y para la comida
     yfood = (random(16,220));
+    //bandera que me permite conocer si ya paso por la comida y asi generar una nueva
     newfoody = 1;
   }
-  if (newfoodx == 1 && newfoody == 1){
+
+  //Revisar las dos banderas si en realidad se comio la comida, y si afirmativo generar una nueva comida.
+  if (newfoodx == 1 || newfoody == 1){
     FillRect(xfood,yfood,8,8,0x81EE);  
     puntaje += 1;
     newfoodx = 0;
     newfoody = 0;
   }
 
-
-  if (xfood2 > lastx2-4 && xfood2 < lastx2+4){
+  //Misma logica que el bloque anterior, este es para el jugador 2
+  if (xfood2 > lastx2-4 || xfood2 < lastx2+4){
     xfood2 = (random(160,300));
     newfoodx2 = 1;
   }
-  if (yfood2 > lasty2-4 && yfood2 < lasty2+4){
+  if (yfood2 > lasty2-4 || yfood2 < lasty2+4){
     yfood2 = (random(16,220));
     newfoody2 = 1;
   }
-  if (newfoodx2 == 1 && newfoody2 == 1){
+  if (newfoodx2 == 1 || newfoody2 == 1){
     FillRect(xfood2,yfood2,8,8,0x001F);  
     puntaje2 += 1;
     newfoodx2 = 0;
@@ -237,11 +269,17 @@ void start_screen(void){
 //***************************************************************************************************************************************
 
 void punteo(void) {
+  //Crear variable de texto para indicar el punteo del jugador 1
   String textopunteo = "J1:";
+  //Impresion de la variable que indica que es el punteo del jugador 1
   LCD_Print(textopunteo, 38, 0, 2, 0x0000, 0xACD1);    
+  //Impresion del puntaje del jugador 1
   LCD_Print(String(puntaje), 98, 0, 2, 0x0000, 0xACD1);
+  //Crear variable de texto para indicar el punteo del jugador 2
   String textopunteo2 = "J2:";
+  //Impresion de la variable que indica que es el punteo del jugador 2
   LCD_Print(textopunteo2, 200, 0, 2, 0x0000, 0xACD1);    
+  //Impresion del puntaje del jugador 2
   LCD_Print(String(puntaje2), 250, 0, 2, 0x0000, 0xACD1);  
 };
 
@@ -290,44 +328,57 @@ unsigned char* opensd(){
 // Loop Infinito
 //***************************************************************************************************************************************
 void loop() {
+  //Llamo a las funcioens de musica, menu y entorno.
   start_screen();
   Menu();
   Entorno();
-
+  //Ciclo principal para que siempre se ejecute
   while(1){
-    
+    //Llamo a la funcion de punteo y comida
     food();                
     punteo();
+    //Verifico si alguno de los botones de los jugadores fue presionado
     J1State = digitalRead(UP);
     J2State = digitalRead(START);
-    
+
+    //Si se presiono, la variable movimiento indica a que lado se movera el snake, esta aumenta cuando se presiona el boton.
+    //En esta seccion no se dejo el antirebote porque si nos conviene que el jugador pueda dejar presionado y este cambie, por la logica, no es necesario
+    //colocar delay.
     if (J1State == 0) {
       movimiento += 1;
       if (movimiento == 5) {
+        //Si ya termino los 4 posibles movimientos posibles (abajo, izquierda, arriba, derecha), empieza con el movimiento principal permitido(abajo).
         movimiento = 1;
       }
     }
+    //Misma logica que el bloque anterior pero para el jugador 2
     if (J2State == 0) {
       movimiento2 += 1;
       if (movimiento2 == 5) {
         movimiento2 = 1;
       }
     }
-    
+
+    //cuando la variable movimiento o movimiento2 estan en cero, es porque el juego esta comenzando, por ello automaticamente la serpiente empieza a moverse a la izquierda
     if (movimiento == 0) {
+      //este ciclo for se hizo solo para que la serpiente recorriera unicamente 7 pixeles, esto porque se necesitaba que revisara constantemente si se presionaba el boton
       for (int x = lastx; x < lastx + 7 ; x++) {
         delay(15);
+        //Funcion para que el snake se mueva
         FillRect(x, 23, 8, 8, 0x97C0);
+        //Funcion para eliminar el rastro del snake
         V_line( x, 23, 8, 0x0000);
+        //Guardo la posicion en x actual del snake, que para el siguiente movimiento sera la posicion pasada.
         actx = x;
+        //Guardo la posicion en y anterior, en esta caso como solo se movio en x, y no vario desde que se creo al inicio el snake.
         lasty = 23; 
       }
+      //Esto se genero para que al momento de utilizar de nuevo lastx, el for no se conviertiese en infinito, aqui entra la logica del actual para este bloque, es el pasado para el siguiente.
       lastx = actx;
       
     }
-  
+    //Misma logica que el bloque de movimiento = 0 pero para moverse a la izquierda  
     if (movimiento == 1) {
-      
       for (int y = lasty; y < lasty +7; y++) {
         delay(15);
         FillRect(lastx, y, 8, 8, 0x97C0);
@@ -336,7 +387,7 @@ void loop() {
       }
       lasty = acty;
     }
-    
+    //Misma logica que el bloque de movimiento = 0  pero para moverse para arriba
     if (movimiento == 2) {
       
       for (int x = lastx; x > lastx -7; x--) {
@@ -347,6 +398,8 @@ void loop() {
       }
       lastx = actx;
     }
+    
+    //Misma logica que el bloque de movimiento = 0  pero para moverse para la derecha
     if (movimiento == 3) {
       
       for (int y = lasty; y > lasty -7; y--) {
@@ -357,6 +410,8 @@ void loop() {
       }
       lasty = acty;
     }
+
+    //Misma logica que el bloque de movimiento == 0 para abajo, la diferencia es que este toma en cuental a posicion anterior, movimiento = 0, no.
     if (movimiento == 4) {
       for (int x = lastx; x < lastx +7 ; x++) {
         delay(15);
@@ -368,6 +423,7 @@ void loop() {
     }
 
 
+  //Misma logica que el bloque completo anterior pero para el jugador 2
   if (movimiento2 == 0) {
       for (int x = lastx2; x < lastx2 + 7 ; x++) {
         delay(15);
