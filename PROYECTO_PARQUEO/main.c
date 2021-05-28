@@ -30,7 +30,6 @@
 
 // Variables para poder cambiar los nombres
 uint32_t i = 0;
-uint32_t j = 0;
 uint32_t S1 = 0; // Variables para los Ses
 uint32_t S2 = 0;
 uint32_t S3 = 0;
@@ -41,7 +40,6 @@ uint8_t Ses = 0;
 // Prototipos para las fnciones
 //----------------------------------------------------------------------------------------------------------------
 void delay(uint32_t msec);
-void delay1ms(void);
 
 //----------------------------------------------------------------------------------------------------------------
 // Programacion general
@@ -59,7 +57,6 @@ int main(void)
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 
     // Se configuran los puertos necesarios como entradas y salidas
-    GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_6|GPIO_PIN_5|GPIO_PIN_4|GPIO_PIN_3|GPIO_PIN_2|GPIO_PIN_1|GPIO_PIN_0);
     GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7);
     GPIOPadConfigSet(GPIO_PORTC_BASE, GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD_WPD);
     GPIOPinTypeGPIOOutput(GPIO_PORTD_BASE, GPIO_PIN_3|GPIO_PIN_2|GPIO_PIN_1|GPIO_PIN_0);
